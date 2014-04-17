@@ -6,6 +6,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import com.hofc.hofc.constant.ServerConstant;
+import com.hofc.hofc.data.download.CalendrierDownloader;
+import com.hofc.hofc.data.download.ClassementDownloader;
 import com.hofc.hofc.vo.CalendrierLineVO;
 import com.hofc.hofc.vo.ClassementLineVO;
 
@@ -30,6 +32,16 @@ public enum DataSingleton {
 
     public static void setClassement(List<ClassementLineVO> pClassement) {
     	INSTANCE.classement = pClassement;
+    }
+    
+    public static void launchSynchroCalendrier() {
+    	ClassementDownloader downloader = new ClassementDownloader();
+    	downloader.execute();
+    }
+    
+    public static void launchSynchroClassement() {
+    	CalendrierDownloader downloader = new CalendrierDownloader();
+    	downloader.execute();
     }
     
     public static boolean isSynchroCalendrierNeeded() {

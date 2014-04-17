@@ -13,6 +13,9 @@ public class CalendrierFragment extends Fragment {
 
 	public static CalendrierFragment newInstance() {
 		CalendrierFragment fragment = new CalendrierFragment();
+		if(DataSingleton.isSynchroCalendrierNeeded()) {
+			
+		}
 		return fragment;
 	}
 	
