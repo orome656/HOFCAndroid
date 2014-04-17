@@ -16,13 +16,12 @@ import org.json.JSONObject;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.utils.HOFCUtils;
-import com.hofc.hofc.vo.ClassementLineVO;
+import com.hofc.hofc.vo.CalendrierLineVO;
 
 import android.os.AsyncTask;
 
-public class ClassementDownloader extends AsyncTask<Void, Void, Void> {
+public class CalendrierDownloader extends AsyncTask<Void, Void, Void> {
 
-	
 	@Override
 	protected void onPreExecute() {
 		// TODO Auto-generated method stub
@@ -54,22 +53,17 @@ public class ClassementDownloader extends AsyncTask<Void, Void, Void> {
 			if(inputStream != null) {
 				result = HOFCUtils.convertInputStreamToString(inputStream);
 				JSONArray jsonArray = new JSONArray(result);
-				ArrayList<ClassementLineVO> classementList = new ArrayList<ClassementLineVO>();
+				ArrayList<CalendrierLineVO> calendrierList = new ArrayList<CalendrierLineVO>();
 				for (int i = 0; i < jsonArray.length(); i++) {
 					JSONObject object = jsonArray.getJSONObject(i);
-					ClassementLineVO classement = new ClassementLineVO();
-					classement.setNom(object.getString("nom"));
-					classement.setPoints(object.getInt("points"));
-					classement.setJoue(object.getInt("joue"));
-					classement.setGagne(object.getInt("gagne"));
-					classement.setNul(object.getInt("nul"));
-					classement.setPerdu(object.getInt("perdu"));
-					classement.setBc(object.getInt("bc"));
-					classement.setBp(object.getInt("bp"));
-					classement.setDiff(object.getInt("diff"));
-					classementList.add(classement);
+					CalendrierLineVO calendrier = new CalendrierLineVO();
+					calendrier.setEquipe1(object.getString("equipe1"));
+					calendrier.setEquipe2(object.getString("equipe2"));
+					calendrier.setScore1(object.getInt("score1"));
+					calendrier.setScore2(object.getInt("score2"));
+					calendrierList.add(calendrier);
 				}
-				DataSingleton.setClassement(classementList);
+				DataSingleton.setCalendrier(calendrierList);
 			} else {
 				// TODO Erreur
 			}

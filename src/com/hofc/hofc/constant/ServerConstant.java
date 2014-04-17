@@ -7,4 +7,5 @@ public class ServerConstant {
 	public static final String CALENDRIER_CONTEXT = "calendrier";
 	public static final String CLASSEMENT_CONTEXT = "classement";
 	
+	public static final int NOMBRE_JOUR_SYNCHRO = 7;
 }
