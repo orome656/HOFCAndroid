@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.hofc.hofc.FragmentCallback;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.utils.HOFCUtils;
@@ -22,6 +23,12 @@ import android.os.AsyncTask;
 
 public class CalendrierDownloader extends AsyncTask<Void, Void, Void> {
 
+	private FragmentCallback callback;
+	
+	public CalendrierDownloader(FragmentCallback pCallback) {
+		callback = pCallback;
+	}
+	
 	@Override
 	protected void onPreExecute() {
 		// TODO Auto-generated method stub
@@ -41,7 +48,7 @@ public class CalendrierDownloader extends AsyncTask<Void, Void, Void> {
 			stringBuffer.append(ServerConstant.SERVER_PORT);
 		}
 		stringBuffer.append("/");
-		stringBuffer.append(ServerConstant.CLASSEMENT_CONTEXT);
+		stringBuffer.append(ServerConstant.CALENDRIER_CONTEXT);
 		
 		HttpClient httpClient = new DefaultHttpClient();
 		
@@ -68,12 +75,10 @@ public class CalendrierDownloader extends AsyncTask<Void, Void, Void> {
 				// TODO Erreur
 			}
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -83,6 +88,7 @@ public class CalendrierDownloader extends AsyncTask<Void, Void, Void> {
 	
 	@Override
 	protected void onPostExecute(Void result) {
+		callback.onTaskDone();
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
 	}

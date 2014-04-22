@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.hofc.hofc.FragmentCallback;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.utils.HOFCUtils;
@@ -22,6 +23,11 @@ import android.os.AsyncTask;
 
 public class ClassementDownloader extends AsyncTask<Void, Void, Void> {
 
+	private FragmentCallback callback;
+	
+	public ClassementDownloader(FragmentCallback pCallback) {
+		callback = pCallback;
+	}
 	
 	@Override
 	protected void onPreExecute() {
@@ -89,6 +95,7 @@ public class ClassementDownloader extends AsyncTask<Void, Void, Void> {
 	
 	@Override
 	protected void onPostExecute(Void result) {
+		callback.onTaskDone();
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
 	}

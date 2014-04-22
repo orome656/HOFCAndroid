@@ -3,7 +3,7 @@
     tools:context="com.hofc.hofc.Accueil" >
 
     <item
-        android:id="@+id/action_example"
+        android:id="@+id/action_update"
         android:showAsAction="withText|ifRoom"
         android:title="@string/action_example"/>
     <item

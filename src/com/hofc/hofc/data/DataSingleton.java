@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import com.hofc.hofc.FragmentCallback;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.download.CalendrierDownloader;
 import com.hofc.hofc.data.download.ClassementDownloader;
@@ -34,13 +35,13 @@ public enum DataSingleton {
     	INSTANCE.classement = pClassement;
     }
     
-    public static void launchSynchroCalendrier() {
-    	ClassementDownloader downloader = new ClassementDownloader();
+    public static void launchSynchroCalendrier(FragmentCallback callback) {
+    	CalendrierDownloader downloader = new CalendrierDownloader(callback);
     	downloader.execute();
     }
     
-    public static void launchSynchroClassement() {
-    	CalendrierDownloader downloader = new CalendrierDownloader();
+    public static void launchSynchroClassement(FragmentCallback callback) {
+    	ClassementDownloader downloader = new ClassementDownloader(callback);
     	downloader.execute();
     }
     

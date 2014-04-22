@@ -1,6 +1,8 @@
 package com.hofc.hofc;
 
 
+import com.hofc.hofc.data.DataSingleton;
+
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -247,8 +249,7 @@ public class NavigationDrawerFragment extends Fragment {
             return true;
         }
 
-        if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
+        if (item.getItemId() == R.id.action_update) {
             return true;
         }
 
