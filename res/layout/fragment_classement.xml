@@ -5,9 +5,9 @@
     android:id="@+id/classement_layout" >
     <TableRow
         android:id="@+id/classement_header">
-        <TextView android:text="Equipe 1"/>
-        <TextView android:text="Equipe 2 "/>
+        
+        <TextView android:text="#"/>
+        <TextView android:text="Nom"/>
+        <TextView android:text="Points"/>
     </TableRow>
-    
-
 </TableLayout>

@@ -12,20 +12,12 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ClassementFragment extends Fragment {
 
 	public static ClassementFragment newInstance() {
 		ClassementFragment fragment = new ClassementFragment();
-		if(DataSingleton.isSynchroClassementNeeded()) {
-			DataSingleton.launchSynchroClassement(new FragmentCallback() {
-				
-				@Override
-				public void onTaskDone() {
-					
-				}
-			});
-		}
 		return fragment;
 	}
 	
@@ -33,6 +25,21 @@ public class ClassementFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_classement, container, false);
+		if(DataSingleton.isSynchroClassementNeeded()) {
+			DataSingleton.launchSynchroClassement(new FragmentCallback() {
+				
+				@Override
+				public void onTaskDone() {
+					refreshView();
+				}
+
+				@Override
+				public void onError() {
+					Toast.makeText(getActivity(), "Merci de vérifier votre connexion",  Toast.LENGTH_SHORT).show();
+					
+				}
+			});
+		}
         return rootView;
     }
 	
@@ -51,15 +58,18 @@ public class ClassementFragment extends Fragment {
 				TableRow row = new TableRow(getActivity());
 				
 				TextView place = new TextView(getActivity());
-				place.setText(i);
+				place.setText(i + "");
 				
 				TextView nom = new TextView(getActivity());
 				nom.setText(line.getNom());
 				
+				TextView points = new TextView(getActivity());
+				points.setText(line.getPoints() + "");
 				// TODO
 				
 				row.addView(place);
 				row.addView(nom);
+				row.addView(points);
 				
 				table.addView(row);
 				i++;

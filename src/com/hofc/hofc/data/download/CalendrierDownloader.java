@@ -21,7 +21,7 @@ import com.hofc.hofc.vo.CalendrierLineVO;
 
 import android.os.AsyncTask;
 
-public class CalendrierDownloader extends AsyncTask<Void, Void, Void> {
+public class CalendrierDownloader extends AsyncTask<Void, Void, Integer> {
 
 	private FragmentCallback callback;
 	
@@ -36,7 +36,7 @@ public class CalendrierDownloader extends AsyncTask<Void, Void, Void> {
 	}
 	
 	@Override
-	protected Void doInBackground(Void... params) {
+	protected Integer doInBackground(Void... params) {
 		
 		InputStream inputStream = null;
 		String result = "";
@@ -75,21 +75,27 @@ public class CalendrierDownloader extends AsyncTask<Void, Void, Void> {
 				// TODO Erreur
 			}
 		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JSONException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return -1;
 		}
 		
-		return null;
+		return 0;
 	}
 	
 	@Override
-	protected void onPostExecute(Void result) {
-		callback.onTaskDone();
-		// TODO Auto-generated method stub
+	protected void onPostExecute(Integer result) {
+		if(result.intValue() == -1) {
+			callback.onError();
+		} else {
+			callback.onTaskDone();
+		}
 		super.onPostExecute(result);
 	}
 

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CalendrierFragment extends Fragment {
 
@@ -31,6 +32,12 @@ public class CalendrierFragment extends Fragment {
 				@Override
 				public void onTaskDone() {
 					refreshView();
+				}
+
+				@Override
+				public void onError() {
+					Toast.makeText(getActivity(), "Merci de vérifier votre connexion",  Toast.LENGTH_SHORT).show();
+					
 				}
 			});
 		} else {

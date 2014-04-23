@@ -249,9 +249,9 @@ public class NavigationDrawerFragment extends Fragment {
             return true;
         }
 
-        if (item.getItemId() == R.id.action_update) {
+        /*if (item.getItemId() == R.id.action_update) {
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
