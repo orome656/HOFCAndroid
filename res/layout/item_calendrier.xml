@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+    <ImageView 
+        android:id="@+id/calendrier_image_1"/>
+    <TextView 
+        android:id="@+id/calendrier_equipe_1"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/list_item_height"
+        android:textSize="@dimen/text_size_list"/>
+    <TextView 
+        android:id="@+id/calendrier_score_1"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/list_item_height"
+        android:textSize="@dimen/text_size_list"/>
+    <TextView 
+        android:text="@string/score_separator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_list"/>
+    <TextView 
+        android:id="@+id/calendrier_score_2"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/list_item_height"
+        android:textSize="@dimen/text_size_list"/>
+    <TextView 
+        android:id="@+id/calendrier_equipe_2"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/list_item_height"
+        android:textSize="@dimen/text_size_list"
+        android:layout_gravity="right"/>
+    <ImageView 
+        android:id="@+id/calendrier_image_2"/>
+</LinearLayout>

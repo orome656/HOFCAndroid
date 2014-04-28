@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/calendrier_layout">
-    <TableRow
-        android:id="@+id/calendrier_header">
-        <TextView android:text="Equipe 1"/>
-        <TextView android:text=""/>
-        <TextView android:text="Equipe 2 "/>
-    </TableRow>
+    <ListView
+        android:id="@+id/calendrier_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
 
-</TableLayout>
+</LinearLayout>

@@ -1,7 +1,7 @@
 package com.hofc.hofc;
 
+import com.hofc.hofc.adapter.CalendrierAdapter;
 import com.hofc.hofc.data.DataSingleton;
-import com.hofc.hofc.vo.CalendrierLineVO;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -9,16 +9,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class CalendrierFragment extends Fragment {
 
 	public static CalendrierFragment newInstance() {
 		CalendrierFragment fragment = new CalendrierFragment();
-		
 		return fragment;
 	}
 	
@@ -53,27 +50,9 @@ public class CalendrierFragment extends Fragment {
 	}
 	
 	public void refreshView(){
-		if(DataSingleton.getCalendrier() != null) {
-			TableLayout table = (TableLayout) getActivity().findViewById(R.id.calendrier_layout);
-			for(CalendrierLineVO line : DataSingleton.getCalendrier()) {
-				TableRow row = new TableRow(getActivity());
-				
-				TextView equipe1 = new TextView(getActivity());
-				equipe1.setText(line.getEquipe1());
-				
-				TextView score = new TextView(getActivity());
-				score.setText(line.getScore1() + "-" + line.getScore2());
-				
-				TextView equipe2 = new TextView(getActivity());
-				equipe2.setText(line.getEquipe2());
-				
-				row.addView(equipe1);
-				row.addView(score);
-				row.addView(equipe2);
-				
-				table.addView(row);
-			}
-		}
+		ListView lv = (ListView) getActivity().findViewById(R.id.calendrier_listView);
+		CalendrierAdapter adapter = new CalendrierAdapter(getActivity());
+		lv.setAdapter(adapter);
 	}
 	
 	
