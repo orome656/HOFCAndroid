@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    
     <string name="app_name">HOFC</string>
+    
     <string name="title_accueil">Accueil</string>
     <string name="title_classement">Classement</string>
     <string name="title_calendrier">Calendrier</string>
+    
+    
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
+    
+    
+    <!-- String calendrier -->
+    <string name="desc_image_equipe">Image Equipe</string>
     <string name="score_separator">-</string>
 
 </resources>
