@@ -20,7 +20,7 @@ public enum DataSingleton {
     private Date lastSynchroClassement;
 
     public static List<CalendrierLineVO> getCalendrier() {
-        return INSTANCE.calendrier;
+    	return INSTANCE.calendrier;
     }
     
     public static void setCalendrier(List<CalendrierLineVO> pCalendrier) {

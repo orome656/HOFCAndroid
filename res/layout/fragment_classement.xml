@@ -3,11 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/classement_layout" >
-    <TableRow
-        android:id="@+id/classement_header">
-        
-        <TextView android:text="#"/>
-        <TextView android:text="Nom"/>
-        <TextView android:text="Points"/>
-    </TableRow>
+    <ListView
+        android:id="@+id/classement_listView"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent">
+    </ListView>
 </TableLayout>

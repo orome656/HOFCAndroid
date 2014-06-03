@@ -2,6 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.hofc.hofc.Accueil" >
 
+    <item android:id="@+id/action_refresh"
+          android:title="refresh"
+          android:icon="@drawable/ic_action_refresh"></item>
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

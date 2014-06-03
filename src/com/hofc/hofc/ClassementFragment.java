@@ -1,7 +1,7 @@
 package com.hofc.hofc;
 
+import com.hofc.hofc.adapter.ClassementAdapter;
 import com.hofc.hofc.data.DataSingleton;
-import com.hofc.hofc.vo.ClassementLineVO;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -9,9 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class ClassementFragment extends Fragment {
@@ -39,6 +37,8 @@ public class ClassementFragment extends Fragment {
 					
 				}
 			});
+		} else {
+			this.refreshView();
 		}
         return rootView;
     }
@@ -51,30 +51,9 @@ public class ClassementFragment extends Fragment {
 	
 
 	public void refreshView(){
-		if(DataSingleton.getClassement() != null) {
-			TableLayout table = (TableLayout) getActivity().findViewById(R.id.classement_layout);
-			int i = 1;
-			for(ClassementLineVO line : DataSingleton.getClassement()) {
-				TableRow row = new TableRow(getActivity());
-				
-				TextView place = new TextView(getActivity());
-				place.setText(i + "");
-				
-				TextView nom = new TextView(getActivity());
-				nom.setText(line.getNom());
-				
-				TextView points = new TextView(getActivity());
-				points.setText(line.getPoints() + "");
-				// TODO
-				
-				row.addView(place);
-				row.addView(nom);
-				row.addView(points);
-				
-				table.addView(row);
-				i++;
-			}
-		}
+		ListView lv = (ListView) getActivity().findViewById(R.id.classement_listView);
+		ClassementAdapter adapter = new ClassementAdapter(getActivity());
+		lv.setAdapter(adapter);
 	}
 	
 }
