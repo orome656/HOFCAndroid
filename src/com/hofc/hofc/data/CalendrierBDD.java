@@ -77,7 +77,6 @@ public class CalendrierBDD {
     public Cursor getAllInCursor(){
     	return hofcDatabase.query(CalendrierEntry.CALENDRIER_TABLE_NAME, null, null, null, null, null, CalendrierEntry.COLUMN_DATE);
     }
-    
     public void insertList(List<CalendrierLineVO> list) {
     	for(CalendrierLineVO line : list) {
     		Cursor cursor = hofcDatabase.query(CalendrierEntry.CALENDRIER_TABLE_NAME, null, CalendrierEntry.COLUMN_EQUIPE_1 + " ='"+ line.getEquipe1() +"' and " + CalendrierEntry.COLUMN_EQUIPE_2 + " ='"+line.getEquipe2()+"'", null, null, null, null);
