@@ -18,7 +18,7 @@ public enum DataSingleton {
     private Date lastSynchroCalendrier;
     private List<ClassementLineVO> classement;
     private Date lastSynchroClassement;
-
+    
     public static List<CalendrierLineVO> getCalendrier() {
     	return INSTANCE.calendrier;
     }
