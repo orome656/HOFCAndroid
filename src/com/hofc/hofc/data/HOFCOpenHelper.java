@@ -15,6 +15,7 @@ public class HOFCOpenHelper extends SQLiteOpenHelper {
     // Nom de la table
     public static final String CLASSEMENT_TABLE_NAME = "classement";
     public static final String CALENDRIER_TABLE_NAME = "calendrier";
+    public static final String DATE_SYNCHRO_TABLE_NAME= "date_synchro";
 
     // Description des colonnes commun
     public static final String COLUMN_ID = "ID";
@@ -41,25 +42,37 @@ public class HOFCOpenHelper extends SQLiteOpenHelper {
     public static final String COLUMN_EQUIPE_2 = "EQUIPE_2";
     public static final int NUM_COLUMN_EQUIPE_2 = 4;
  
+    //
+    public static final String COLUMN_NOM_SYNCHRO = "NOM";
+    public static final int NUM_COLUMN_NOM_SYNCHRO = 1;
+    public static final String COLUMN_DATE = "date";
+    public static final int NUM_DATE = 2;
+    
     
     // Requête SQL pour la création da la base Calendrier
-    private static final String REQUETE_CREATION_BDD_CALENDRIER = "CREATE TABLE "
-            + CALENDRIER_TABLE_NAME + " (" + COLUMN_ID
+    private static final String REQUETE_CREATION_BDD_CLASSEMENT = "CREATE TABLE IF NOT EXISTS "
+            + CLASSEMENT_TABLE_NAME + " (" + COLUMN_ID
             + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_NOM
-            + " TEXT NOT NULL, " + COLUMN_POINTS + "INTEGER, "
-            + COLUMN_JOUE + " INTEGER, " + COLUMN_POINTS + "INTEGER, "
+            + " TEXT NOT NULL, " + COLUMN_POINTS + " INTEGER, "
+            + COLUMN_JOUE + " INTEGER, "
             + COLUMN_GAGNE + " INTEGER, " + COLUMN_NUL + "INTEGER, "
             + COLUMN_PERDU + " INTEGER, " + COLUMN_BP + "INTEGER, "
             + COLUMN_BC + " INTEGER, " + COLUMN_DIFF + "INTEGER);";
     
 
     // Requête SQL pour la création da la base CLASSEMENT
-    private static final String REQUETE_CREATION_BDD_CLASSEMENT = "CREATE TABLE "
-            + CLASSEMENT_TABLE_NAME + " (" + COLUMN_ID
+    private static final String REQUETE_CREATION_BDD_CALENDRIER = "CREATE TABLE IF NOT EXISTS "
+            + CALENDRIER_TABLE_NAME + " (" + COLUMN_ID
             + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_EQUIPE_1
             + " TEXT NOT NULL, " + COLUMN_SCORE_1 + " INTEGER, "
             + COLUMN_SCORE_2 + " INTEGER, "
-            + COLUMN_EQUIPE_2 + " TEXT NOT NULL);";
+            + COLUMN_EQUIPE_2 + " TEXT NOT NULL, "
+            + COLUMN_DATE + " DATE );";
+    
+    private static final String REQUETE_CREATION_BDD_DATE = "CREATE TABLE IF NOT EXISTS "
+    		+ DATE_SYNCHRO_TABLE_NAME + "(" + COLUMN_ID
+    		+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_NOM_SYNCHRO
+    		+ " TEXT NOT NULL, " + COLUMN_DATE + " DATE)";
     
 	public HOFCOpenHelper(Context context, CursorFactory factory) {
 		super(context, HOFC_BASE_NAME, factory, DATABASE_VERSION);
@@ -69,13 +82,15 @@ public class HOFCOpenHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(REQUETE_CREATION_BDD_CALENDRIER);
 		db.execSQL(REQUETE_CREATION_BDD_CLASSEMENT);
-		onCreate(db);
+		db.execSQL(REQUETE_CREATION_BDD_DATE);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("DROP TABLE IF EXISTS " + CALENDRIER_TABLE_NAME);
 		db.execSQL("DROP TABLE IF EXISTS " + CLASSEMENT_TABLE_NAME);
+		db.execSQL("DROP TABLE IF EXISTS " + DATE_SYNCHRO_TABLE_NAME);
+		onCreate(db);
 
 	}
 

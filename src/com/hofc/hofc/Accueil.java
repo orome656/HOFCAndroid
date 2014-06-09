@@ -1,7 +1,8 @@
 package com.hofc.hofc;
 
-import android.app.Activity;
+import com.hofc.hofc.data.DataSingleton;
 
+import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -31,7 +32,7 @@ public class Accueil extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accueil);
-
+        DataSingleton.initialize(this);
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();

@@ -19,15 +19,18 @@ import android.widget.TextView;
 public class CalendrierAdapter extends BaseAdapter {
 
 	LayoutInflater inflater;
-	CalendrierBDD bdd;
 	
 	public CalendrierAdapter(Context context) {
 		inflater = LayoutInflater.from(context);
-		bdd = new CalendrierBDD(context);
+		CalendrierBDD.initiate(context);
 	}	
 	@Override
 	public int getCount() {
-		return DataSingleton.getCalendrier().size();
+		if(DataSingleton.getCalendrier() != null) {
+			return DataSingleton.getCalendrier().size();
+		} else {
+			return 0;
+		}
 	}
 
 	@Override

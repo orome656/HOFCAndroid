@@ -2,7 +2,11 @@ package com.hofc.hofc.data.download;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -15,6 +19,7 @@ import org.json.JSONObject;
 
 import com.hofc.hofc.FragmentCallback;
 import com.hofc.hofc.constant.ServerConstant;
+import com.hofc.hofc.data.CalendrierBDD;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.utils.HOFCUtils;
 import com.hofc.hofc.vo.CalendrierLineVO;
@@ -58,6 +63,7 @@ public class CalendrierDownloader extends AsyncTask<Void, Void, Integer> {
 			inputStream = httpResponse.getEntity().getContent();
 			
 			if(inputStream != null) {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
 				result = HOFCUtils.convertInputStreamToString(inputStream);
 				JSONArray jsonArray = new JSONArray(result);
 				ArrayList<CalendrierLineVO> calendrierList = new ArrayList<CalendrierLineVO>();
@@ -68,9 +74,19 @@ public class CalendrierDownloader extends AsyncTask<Void, Void, Integer> {
 					calendrier.setEquipe2(object.getString("equipe2"));
 					calendrier.setScore1(object.getInt("score1"));
 					calendrier.setScore2(object.getInt("score2"));
+					try {
+						calendrier.setDate(sdf.parse(object.getString("date")));
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						calendrier.setDate(null);
+					}
 					calendrierList.add(calendrier);
 				}
 				DataSingleton.setCalendrier(calendrierList);
+				// Sauvegarde en base
+				CalendrierBDD.insertList(calendrierList);
+				CalendrierBDD.updateDateSynchro(new Date());
 			} else {
 				// TODO Erreur
 			}

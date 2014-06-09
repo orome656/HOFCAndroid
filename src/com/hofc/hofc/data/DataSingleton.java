@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import android.content.Context;
+
 import com.hofc.hofc.FragmentCallback;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.download.CalendrierDownloader;
@@ -18,6 +20,14 @@ public enum DataSingleton {
     private Date lastSynchroCalendrier;
     private List<ClassementLineVO> classement;
     private Date lastSynchroClassement;
+    
+    public static void initialize(Context c) {
+    	CalendrierBDD.initiate(c);
+    	INSTANCE.calendrier = CalendrierBDD.getAll();
+    	INSTANCE.lastSynchroCalendrier = CalendrierBDD.getDateSynchro();
+    	
+    }
+    
     
     public static List<CalendrierLineVO> getCalendrier() {
     	return INSTANCE.calendrier;

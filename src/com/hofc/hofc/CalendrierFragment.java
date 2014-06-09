@@ -3,6 +3,7 @@ package com.hofc.hofc;
 import com.hofc.hofc.adapter.CalendrierAdapter;
 import com.hofc.hofc.data.CalendrierBDD;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.data.download.CalendrierDownloader;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -13,9 +14,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class CalendrierFragment extends Fragment {
+public class CalendrierFragment extends Fragment  implements FragmentCallback {
 
-	CalendrierBDD bdd;
+	private ListView calendrierListView;
 	
 	public static CalendrierFragment newInstance() {
 		CalendrierFragment fragment = new CalendrierFragment();
@@ -26,30 +27,36 @@ public class CalendrierFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_calendrier, container, false);
-		if(bdd == null)
-			bdd = new CalendrierBDD(getActivity());
-		
+        calendrierListView = (ListView) rootView.findViewById(R.id.calendrier_listView);
+		CalendrierBDD.initiate(getActivity());
         if(DataSingleton.isSynchroCalendrierNeeded()) {
-			DataSingleton.launchSynchroCalendrier(new FragmentCallback() {
-				@Override
-				public void onTaskDone() {refreshView();}
-				@Override
-				public void onError() {Toast.makeText(getActivity(), "Merci de vérifier votre connexion",  Toast.LENGTH_SHORT).show();}
-			});
+        	CalendrierDownloader downloader = new CalendrierDownloader(this);
+        	downloader.execute();
+		} else {
+			refreshView();
 		}
         return rootView;
     }
 	
 	@Override
 	public void onAttach(Activity activity) {
-		// TODO Auto-generated method stub
 		super.onAttach(activity);
 	}
 	
 	public void refreshView(){
-		ListView lv = (ListView) getActivity().findViewById(R.id.calendrier_listView);
 		CalendrierAdapter adapter = new CalendrierAdapter(getActivity());
-		lv.setAdapter(adapter);
+		calendrierListView.setAdapter(adapter);
+	}
+
+	@Override
+	public void onTaskDone() {
+		refreshView();
+		
+	}
+
+	@Override
+	public void onError() {
+		Toast.makeText(getActivity(), "Merci de vérifier votre connexion",  Toast.LENGTH_SHORT).show();
 	}
 	
 	

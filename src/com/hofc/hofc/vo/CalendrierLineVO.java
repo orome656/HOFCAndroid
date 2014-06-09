@@ -1,10 +1,13 @@
 package com.hofc.hofc.vo;
 
+import java.util.Date;
+
 public class CalendrierLineVO {
 	private String equipe1;
 	private int score1;
 	private int score2;
 	private String equipe2;
+	private Date date;
 	
 	public String getEquipe1() {
 		return equipe1;
@@ -29,5 +32,11 @@ public class CalendrierLineVO {
 	}
 	public void setEquipe2(String equipe2) {
 		this.equipe2 = equipe2;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
 	}
 }
