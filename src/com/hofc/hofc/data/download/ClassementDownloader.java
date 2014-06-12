@@ -3,6 +3,7 @@ package com.hofc.hofc.data.download;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -15,6 +16,7 @@ import org.json.JSONObject;
 
 import com.hofc.hofc.FragmentCallback;
 import com.hofc.hofc.constant.ServerConstant;
+import com.hofc.hofc.data.ClassementBDD;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.utils.HOFCUtils;
 import com.hofc.hofc.vo.ClassementLineVO;
@@ -76,6 +78,9 @@ public class ClassementDownloader extends AsyncTask<Void, Void, Integer> {
 					classementList.add(classement);
 				}
 				DataSingleton.setClassement(classementList);
+				// Sauvegarde en base
+				ClassementBDD.insertList(classementList);
+				ClassementBDD.updateDateSynchro(new Date());
 			} else {
 				// TODO Erreur
 			}

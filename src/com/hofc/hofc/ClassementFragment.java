@@ -1,7 +1,9 @@
 package com.hofc.hofc;
 
 import com.hofc.hofc.adapter.ClassementAdapter;
+import com.hofc.hofc.data.ClassementBDD;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.data.download.ClassementDownloader;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -12,8 +14,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class ClassementFragment extends Fragment {
+public class ClassementFragment extends Fragment implements FragmentCallback {
 
+	private ListView classementListView;
+	
 	public static ClassementFragment newInstance() {
 		ClassementFragment fragment = new ClassementFragment();
 		return fragment;
@@ -23,20 +27,11 @@ public class ClassementFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_classement, container, false);
+        classementListView = (ListView) rootView.findViewById(R.id.classement_listView);
+        ClassementBDD.initiate(getActivity());
 		if(DataSingleton.isSynchroClassementNeeded()) {
-			DataSingleton.launchSynchroClassement(new FragmentCallback() {
-				
-				@Override
-				public void onTaskDone() {
-					refreshView();
-				}
-
-				@Override
-				public void onError() {
-					Toast.makeText(getActivity(), "Merci de vérifier votre connexion",  Toast.LENGTH_SHORT).show();
-					
-				}
-			});
+			ClassementDownloader downloader = new ClassementDownloader(this);
+			downloader.execute();
 		} else {
 			this.refreshView();
 		}
@@ -51,9 +46,19 @@ public class ClassementFragment extends Fragment {
 	
 
 	public void refreshView(){
-		ListView lv = (ListView) getActivity().findViewById(R.id.classement_listView);
 		ClassementAdapter adapter = new ClassementAdapter(getActivity());
-		lv.setAdapter(adapter);
+		classementListView.setAdapter(adapter);
+	}
+
+	@Override
+	public void onTaskDone() {
+		refreshView();
+	}
+
+	@Override
+	public void onError() {
+		Toast.makeText(getActivity(), "Merci de vérifier votre connexion",  Toast.LENGTH_SHORT).show();
+		
 	}
 	
 }

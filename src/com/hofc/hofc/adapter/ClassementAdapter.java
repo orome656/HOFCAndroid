@@ -2,6 +2,7 @@ package com.hofc.hofc.adapter;
 
 import com.hofc.hofc.R;
 import com.hofc.hofc.constant.AppConstant;
+import com.hofc.hofc.data.ClassementBDD;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.vo.ClassementLineVO;
 
@@ -19,11 +20,16 @@ public class ClassementAdapter extends BaseAdapter {
 	
 	public ClassementAdapter(Context context) {
 		inflater = LayoutInflater.from(context);
+		ClassementBDD.initiate(context);
 	}
 	
 	@Override
 	public int getCount() {
-		return DataSingleton.getClassement().size();
+		if(DataSingleton.getClassement() != null) {
+			return DataSingleton.getClassement().size();
+		} else {
+			return 0;
+		}
 	}
 
 	@Override

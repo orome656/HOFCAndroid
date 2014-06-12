@@ -25,6 +25,9 @@ public enum DataSingleton {
     	CalendrierBDD.initiate(c);
     	INSTANCE.calendrier = CalendrierBDD.getAll();
     	INSTANCE.lastSynchroCalendrier = CalendrierBDD.getDateSynchro();
+    	ClassementBDD.initiate(c);
+    	INSTANCE.classement = ClassementBDD.getAll();
+    	INSTANCE.lastSynchroClassement = ClassementBDD.getDateSynchro();
     	
     }
     

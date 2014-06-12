@@ -55,9 +55,9 @@ public class HOFCOpenHelper extends SQLiteOpenHelper {
             + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_NOM
             + " TEXT NOT NULL, " + COLUMN_POINTS + " INTEGER, "
             + COLUMN_JOUE + " INTEGER, "
-            + COLUMN_GAGNE + " INTEGER, " + COLUMN_NUL + "INTEGER, "
-            + COLUMN_PERDU + " INTEGER, " + COLUMN_BP + "INTEGER, "
-            + COLUMN_BC + " INTEGER, " + COLUMN_DIFF + "INTEGER);";
+            + COLUMN_GAGNE + " INTEGER, " + COLUMN_NUL + " INTEGER, "
+            + COLUMN_PERDU + " INTEGER, " + COLUMN_BP + " INTEGER, "
+            + COLUMN_BC + " INTEGER, " + COLUMN_DIFF + " INTEGER);";
     
 
     // Requête SQL pour la création da la base CLASSEMENT
