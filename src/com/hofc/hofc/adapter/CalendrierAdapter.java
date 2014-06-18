@@ -55,7 +55,7 @@ public class CalendrierAdapter extends BaseAdapter {
 			holder.calendrierScore2 = (TextView)convertView.findViewById(R.id.calendrier_score_2);
 			holder.calendrierEquipe2 = (TextView)convertView.findViewById(R.id.calendrier_equipe_2);
 			holder.imageEquipe2 = (ImageView)convertView.findViewById(R.id.calendrier_image_2);
-			
+			holder.dateMatch = (TextView)convertView.findViewById(R.id.date_match);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -98,6 +98,8 @@ public class CalendrierAdapter extends BaseAdapter {
 		holder.calendrierScore1.setText(line.getScore1()+"");
 		holder.calendrierScore2.setText(line.getScore2()+"");
 		holder.calendrierEquipe2.setText(line.getEquipe2());
+		if(line.getDate() != null)
+			holder.dateMatch.setText(line.getDate().toString());
 		
 		return convertView;
 	}
@@ -109,6 +111,7 @@ public class CalendrierAdapter extends BaseAdapter {
 		TextView calendrierScore2;
 		TextView calendrierEquipe2;
 		ImageView imageEquipe2;
+		TextView dateMatch;
 	}
 
 }
