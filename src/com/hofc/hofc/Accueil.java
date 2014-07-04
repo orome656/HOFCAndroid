@@ -47,7 +47,13 @@ public class Accueil extends Activity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getFragmentManager();
-        if(position == 1) {
+        if(position == 0) {
+        	// Classement
+        	fragmentManager.beginTransaction()
+            .replace(R.id.container, ActusFragment.newInstance())
+            .commit();
+        	mTitle = getText(R.string.title_accueil);
+        } else if(position == 1) {
         	// Classement
         	fragmentManager.beginTransaction()
             .replace(R.id.container, ClassementFragment.newInstance())
@@ -144,8 +150,6 @@ public class Accueil extends Activity
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_accueil, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
 
