@@ -2,7 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:id="@+id/linear_element_actu"
+    android:background="@drawable/card_background"
+    android:layout_marginBottom="10dp">
     <ImageView 
         android:id="@+id/actus_view_image"
         android:layout_width="fill_parent"

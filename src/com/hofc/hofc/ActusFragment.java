@@ -4,6 +4,7 @@ import com.hofc.hofc.data.CalendrierBDD;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.data.download.ActusDownloader;
 import com.hofc.hofc.data.download.CalendrierDownloader;
+import com.hofc.hofc.view.ActusView;
 import com.hofc.hofc.vo.ActuVO;
 
 import android.app.Activity;
@@ -33,7 +34,7 @@ public class ActusFragment extends Fragment  implements FragmentCallback {
         View rootView = inflater.inflate(R.layout.fragment_accueil, container, false);
         actusLinear = (LinearLayout) rootView.findViewById(R.id.actus_linear);
 		//CalendrierBDD.initiate(getActivity());
-        if(DataSingleton.isSynchroCalendrierNeeded()) {
+        if(true) {
         	ActusDownloader downloader = new ActusDownloader(this);
         	downloader.execute();
 		} else {
@@ -49,9 +50,11 @@ public class ActusFragment extends Fragment  implements FragmentCallback {
 	
 	public void refreshView(){
 		for (ActuVO actu : DataSingleton.getActus()) {
-			TextView t = new TextView(this.getActivity());
-			t.setText(actu.getTitre());
-			actusLinear.addView(t);
+			ActusView view = new ActusView(getActivity());
+			view.setTitle(actu.getTitre());
+			view.setTexte(actu.getTexte());
+			view.setDate(actu.getDate().toString());
+			actusLinear.addView(view);
 		}
 	}
 
