@@ -1,19 +1,18 @@
 package com.hofc.hofc;
 
-import com.hofc.hofc.data.DataSingleton;
-
-import android.app.Activity;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.TextView;
+
+import com.hofc.hofc.data.DataSingleton;
 
 public class Accueil extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {

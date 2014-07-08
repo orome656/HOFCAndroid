@@ -1,27 +1,20 @@
 package com.hofc.hofc;
 
-import com.hofc.hofc.data.CalendrierBDD;
-import com.hofc.hofc.data.DataSingleton;
-import com.hofc.hofc.data.download.ActusDownloader;
-import com.hofc.hofc.data.download.CalendrierDownloader;
-import com.hofc.hofc.view.ActusView;
-import com.hofc.hofc.vo.ActuVO;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.hofc.hofc.adapter.ActusAdapter;
+import com.hofc.hofc.data.download.ActusDownloader;
 
 public class ActusFragment extends Fragment  implements FragmentCallback {
 
-	private LinearLayout actusLinear;
+	private ListView actusListView;
 	
 	public static ActusFragment newInstance() {
 		ActusFragment fragment = new ActusFragment();
@@ -32,7 +25,7 @@ public class ActusFragment extends Fragment  implements FragmentCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_accueil, container, false);
-        actusLinear = (LinearLayout) rootView.findViewById(R.id.actus_linear);
+        actusListView = (ListView) rootView.findViewById(R.id.actus_listview);
 		//CalendrierBDD.initiate(getActivity());
         if(true) {
         	ActusDownloader downloader = new ActusDownloader(this);
@@ -49,13 +42,8 @@ public class ActusFragment extends Fragment  implements FragmentCallback {
 	}
 	
 	public void refreshView(){
-		for (ActuVO actu : DataSingleton.getActus()) {
-			ActusView view = new ActusView(getActivity());
-			view.setTitle(actu.getTitre());
-			view.setTexte(actu.getTexte());
-			view.setDate(actu.getDate().toString());
-			actusLinear.addView(view);
-		}
+		ActusAdapter adapter = new ActusAdapter(getActivity());
+		actusListView.setAdapter(adapter);
 	}
 
 	@Override
