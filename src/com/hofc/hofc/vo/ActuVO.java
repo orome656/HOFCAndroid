@@ -2,6 +2,8 @@ package com.hofc.hofc.vo;
 
 import java.util.Date;
 
+import android.graphics.Bitmap;
+
 public class ActuVO {
 	/**
 	 * Attributes
@@ -12,6 +14,7 @@ public class ActuVO {
 	String url;
 	String imageUrl;
 	Date date;
+	Bitmap bitmapImage;
 
 	/**
 	 * Methods
@@ -51,6 +54,13 @@ public class ActuVO {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public Bitmap getBitmapImage() {
+		return bitmapImage;
+	}
+	public void setBitmapImage(Bitmap bmp) {
+		this.bitmapImage = bmp;
 	}
 	
 }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.hofc.hofc.R;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.data.download.ImageDownloader;
 import com.hofc.hofc.vo.ActuVO;
 
 public class ActusAdapter extends BaseAdapter {
@@ -55,10 +56,16 @@ public class ActusAdapter extends BaseAdapter {
 		}
 		
 		ActuVO line = DataSingleton.getActus().get(position);
-		//holder.imageActu.setText(line.getEquipe1());
+		if(line.getBitmapImage() == null) {
+			new ImageDownloader(holder.imageActu, DataSingleton.getActus().get(position)).execute(line.getImageUrl());
+		} else {
+			holder.imageActu.setImageBitmap(line.getBitmapImage());
+		}
 		holder.titleText.setText(line.getTitre());
 		holder.texte.setText(line.getTexte());
 		holder.dateView.setText(line.getDate().toString());
+		
+		//Ajouter au clic l'ouverture de l'url 
 		
 		return convertView;
 	}
