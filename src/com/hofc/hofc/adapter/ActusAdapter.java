@@ -57,6 +57,7 @@ public class ActusAdapter extends BaseAdapter {
 		
 		ActuVO line = DataSingleton.getActus().get(position);
 		if(line.getBitmapImage() == null) {
+			holder.imageActu.setImageBitmap(null);
 			new ImageDownloader(holder.imageActu, DataSingleton.getActus().get(position)).execute(line.getImageUrl());
 		} else {
 			holder.imageActu.setImageBitmap(line.getBitmapImage());
