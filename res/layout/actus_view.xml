@@ -25,6 +25,10 @@ android:layout_height="15dp">
 	        android:id="@+id/actus_view_date"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"/>
-	
+		<TextView 
+		    android:id="@+id/actus_url"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:visibility="invisible"/>
 	</LinearLayout>
 </FrameLayout>
