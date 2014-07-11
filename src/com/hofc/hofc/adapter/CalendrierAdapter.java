@@ -1,5 +1,7 @@
 package com.hofc.hofc.adapter;
 
+import java.text.SimpleDateFormat;
+
 import com.hofc.hofc.R;
 import com.hofc.hofc.constant.AppConstant;
 import com.hofc.hofc.data.CalendrierBDD;
@@ -19,10 +21,12 @@ import android.widget.TextView;
 public class CalendrierAdapter extends BaseAdapter {
 
 	LayoutInflater inflater;
+	SimpleDateFormat sdf;
 	
 	public CalendrierAdapter(Context context) {
 		inflater = LayoutInflater.from(context);
 		CalendrierBDD.initiate(context);
+		sdf = new SimpleDateFormat("EEEE dd MMMM yyyy");
 	}	
 	@Override
 	public int getCount() {
@@ -99,7 +103,7 @@ public class CalendrierAdapter extends BaseAdapter {
 		holder.calendrierScore2.setText(line.getScore2()+"");
 		holder.calendrierEquipe2.setText(line.getEquipe2());
 		if(line.getDate() != null)
-			holder.dateMatch.setText(line.getDate().toString());
+			holder.dateMatch.setText(sdf.format(line.getDate()));
 		
 		return convertView;
 	}

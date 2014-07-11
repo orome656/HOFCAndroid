@@ -18,6 +18,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 public class CalendrierBDD {
 	
@@ -99,6 +100,7 @@ public class CalendrierBDD {
     
     public static List<CalendrierLineVO> getAll() {
     	openReadable();
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
     	ArrayList<CalendrierLineVO> list = null;
     	Cursor cursor = hofcDatabase.query(CalendrierEntry.CALENDRIER_TABLE_NAME, null, null, null, null, null, CalendrierEntry.COLUMN_DATE);
     	if(cursor.getCount() > 0){
@@ -109,6 +111,12 @@ public class CalendrierBDD {
     			line.setEquipe2(cursor.getString(CalendrierEntry.NUM_COLUMN_EQUIPE_2));
     			line.setScore1(cursor.getInt(CalendrierEntry.NUM_COLUMN_SCORE_1));
     			line.setScore2(cursor.getInt(CalendrierEntry.NUM_COLUMN_SCORE_2));
+    			try {
+    				if(cursor.getString(CalendrierEntry.NUM_COLUMN_DATE) != null)
+    					line.setDate(sdf.parse(cursor.getString(CalendrierEntry.NUM_COLUMN_DATE)));
+				} catch (ParseException e) {
+					Log.e("HOFC", e.getMessage());
+				}
     			list.add(line);
         	}
     	}
