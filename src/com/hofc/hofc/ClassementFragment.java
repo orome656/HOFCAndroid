@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class ClassementFragment extends Fragment implements FragmentCallback {
+public class ClassementFragment extends Fragment implements FragmentCallback, CustomFragment {
 
 	private ListView classementListView;
 	
@@ -30,8 +30,7 @@ public class ClassementFragment extends Fragment implements FragmentCallback {
         classementListView = (ListView) rootView.findViewById(R.id.classement_listView);
         ClassementBDD.initiate(getActivity());
 		if(DataSingleton.isSynchroClassementNeeded()) {
-			ClassementDownloader downloader = new ClassementDownloader(this);
-			downloader.execute();
+			this.refreshDataAndView();
 		} else {
 			this.refreshView();
 		}
@@ -59,6 +58,12 @@ public class ClassementFragment extends Fragment implements FragmentCallback {
 	public void onError() {
 		Toast.makeText(getActivity(), "Merci de vérifier votre connexion",  Toast.LENGTH_SHORT).show();
 		
+	}
+
+	@Override
+	public void refreshDataAndView() {
+		ClassementDownloader downloader = new ClassementDownloader(this);
+		downloader.execute();
 	}
 	
 }

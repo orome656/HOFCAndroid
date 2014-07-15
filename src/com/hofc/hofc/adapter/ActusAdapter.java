@@ -1,11 +1,6 @@
 package com.hofc.hofc.adapter;
 
-import java.net.URL;
-
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.sax.StartElementListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,17 +68,6 @@ public class ActusAdapter extends BaseAdapter {
 		holder.dateView.setText(line.getDate().toString());
 		holder.urlActus.setText(line.getUrl());
 		
-		//Ajouter au clic l'ouverture de l'url 
-		convertView.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				String url = ((TextView)v.findViewById(R.id.actus_url)).getText().toString();
-				Intent i = new Intent(Intent.ACTION_VIEW);
-				i.setData(Uri.parse(url));
-				v.getContext().startActivity(i);
-			}
-		});
 		
 		return convertView;
 	}

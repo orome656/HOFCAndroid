@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class CalendrierFragment extends Fragment  implements FragmentCallback {
+public class CalendrierFragment extends Fragment  implements FragmentCallback, CustomFragment {
 
 	private ListView calendrierListView;
 	
@@ -30,8 +30,7 @@ public class CalendrierFragment extends Fragment  implements FragmentCallback {
         calendrierListView = (ListView) rootView.findViewById(R.id.calendrier_listView);
 		CalendrierBDD.initiate(getActivity());
         if(DataSingleton.isSynchroCalendrierNeeded()) {
-        	CalendrierDownloader downloader = new CalendrierDownloader(this);
-        	downloader.execute();
+        	this.refreshDataAndView();
 		} else {
 			refreshView();
 		}
@@ -57,6 +56,12 @@ public class CalendrierFragment extends Fragment  implements FragmentCallback {
 	@Override
 	public void onError() {
 		Toast.makeText(getActivity(), "Merci de vérifier votre connexion",  Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public void refreshDataAndView() {
+		CalendrierDownloader downloader = new CalendrierDownloader(this);
+    	downloader.execute();
 	}
 	
 	

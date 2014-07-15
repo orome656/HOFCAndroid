@@ -2,15 +2,12 @@ package com.hofc.hofc;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.hofc.hofc.data.DataSingleton;
 
@@ -22,11 +19,15 @@ public class Accueil extends Activity
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
+    FragmentManager fragmentManager = null;
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
-
+    private ActusFragment actusFragment = null;
+    private CalendrierFragment calendrierFragment = null;
+    private ClassementFragment classementFragment = null;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,31 +46,37 @@ public class Accueil extends Activity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        FragmentManager fragmentManager = getFragmentManager();
+    	if(this.fragmentManager == null)
+    		fragmentManager = getFragmentManager();
         if(position == 0) {
-        	// Classement
+        	if(this.actusFragment == null) {
+        		this.actusFragment = ActusFragment.newInstance();
+        	}
+        	// Actus
         	fragmentManager.beginTransaction()
-            .replace(R.id.container, ActusFragment.newInstance())
+            .replace(R.id.container, this.actusFragment)
             .commit();
         	mTitle = getText(R.string.title_accueil);
         } else if(position == 1) {
+        	if(this.classementFragment == null) {
+        		this.classementFragment = ClassementFragment.newInstance();
+        	}
         	// Classement
         	fragmentManager.beginTransaction()
-            .replace(R.id.container, ClassementFragment.newInstance())
+            .replace(R.id.container, this.classementFragment)
             .commit();
         	mTitle = getText(R.string.title_classement);
         } else if (position == 2) {
+        	if(this.calendrierFragment == null) {
+        		this.calendrierFragment = CalendrierFragment.newInstance();
+        	}
         	// Calendrier
         	fragmentManager.beginTransaction()
-            .replace(R.id.container, CalendrierFragment.newInstance())
+            .replace(R.id.container, this.calendrierFragment)
             .commit();
         	mTitle = getText(R.string.title_calendrier);
         } else {
-        	// Défaut
-        	fragmentManager.beginTransaction()
-            .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-            .commit();
-        	mTitle = getText(R.string.title_accueil);
+        	Log.e("Accueil", "NavigationDrawer number click unknown ");
         }
     }
 
@@ -117,47 +124,10 @@ public class Accueil extends Activity
         if (id == R.id.action_settings) {
             return true;
         }
+        if(id == R.id.action_refresh) {
+        	CustomFragment custom = (CustomFragment) fragmentManager.findFragmentById(R.id.container);
+        	custom.refreshDataAndView();
+        }
         return super.onOptionsItemSelected(item);
     }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_accueil, container, false);
-            return rootView;
-        }
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((Accueil) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
-    }
-
 }
