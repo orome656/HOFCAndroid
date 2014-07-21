@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hofc.hofc.adapter.ActusAdapter;
+import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.data.download.ActusDownloader;
 
 public class ActusFragment extends Fragment  implements FragmentCallback, CustomFragment {
@@ -43,7 +44,7 @@ public class ActusFragment extends Fragment  implements FragmentCallback, Custom
 			}
 		});
 		//CalendrierBDD.initiate(getActivity());
-        if(true) {
+        if(DataSingleton.isSynchroActuNeeded()) {
         	this.refreshDataAndView();
 		} else {
 			refreshView();

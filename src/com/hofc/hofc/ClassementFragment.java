@@ -39,7 +39,6 @@ public class ClassementFragment extends Fragment implements FragmentCallback, Cu
 	
 	@Override
 	public void onAttach(Activity activity) {
-		// TODO Auto-generated method stub
 		super.onAttach(activity);
 	}
 	
