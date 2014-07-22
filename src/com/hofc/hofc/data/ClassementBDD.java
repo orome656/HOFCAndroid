@@ -1,14 +1,9 @@
 package com.hofc.hofc.data;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
-import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.vo.ClassementLineVO;
 
 import android.content.ContentValues;
@@ -157,47 +152,16 @@ public class ClassementBDD {
 
 	public static boolean isSynchroNeeded() {
 		openReadable();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    	GregorianCalendar calendar = (GregorianCalendar) GregorianCalendar.getInstance();
-    	calendar.setTime(new Date());
-    	calendar.add(Calendar.DATE, -ServerConstant.NOMBRE_JOUR_SYNCHRO);
-		Cursor cursor = hofcDatabase.query("date_synchro", null, "nom='classement' and date > "+sdf.format(calendar.getTime()), null, null, null, null);
-		if(cursor.getCount() > 0) {
-			return false;
-		} else {
-			return true;
-		}
+		return CommonBDD.isSynchroNeeded(hofcDatabase, "classement");
 	}
 
 	public static Date getDateSynchro() {
 		openReadable();
-		Date result = null;
-		Cursor cursor = hofcDatabase.query("date_synchro", null, "nom='classement'", null, null, null, null);
-		if(cursor.moveToFirst()){
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-			try {
-				result = sdf.parse(cursor.getString(cursor.getColumnIndex("date")));
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return result;
-		} else {
-			return null;
-		}
+		return CommonBDD.getDateSynchro(hofcDatabase, "classement");
 	}
 	
 	public static void updateDateSynchro(Date date) {
 		openWritable();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		Cursor cursor = hofcDatabase.query("date_synchro", null, "nom='classement'", null, null, null, null);
-		ContentValues values = new ContentValues();
-		values.put("date", sdf.format(date));
-		if(cursor.getCount() > 0) {
-			hofcDatabase.update("date_synchro", values, "nom='classement'", null);
-		} else {
-			values.put("nom", "classement");
-			hofcDatabase.insert("date_synchro", null, values);
-		}
+		CommonBDD.updateDateSynchro(hofcDatabase, "classement", date);
 	}
 }

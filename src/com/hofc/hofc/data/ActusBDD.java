@@ -1,19 +1,21 @@
 package com.hofc.hofc.data;
 
+import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import com.hofc.hofc.data.CalendrierBDD.CalendrierEntry;
 import com.hofc.hofc.vo.ActuVO;
-import com.hofc.hofc.vo.CalendrierLineVO;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.BaseColumns;
 import android.util.Log;
@@ -128,4 +130,43 @@ public class ActusBDD {
     public static Cursor getAllInCursor(){
     	return hofcDatabase.query(ActusEntry.ACTUS_TABLE_NAME, null, null, null, null, null, ActusEntry.COLUMN_DATE);
     }
+    
+    public static void insertList(List<ActuVO> list) {
+    	openWritable();
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+    	for(ActuVO line : list) {
+    		Cursor cursor = hofcDatabase.query(ActusEntry.ACTUS_TABLE_NAME, null, ActusEntry.COLUMN_POST_ID + " ="+ line.getPostId(), null, null, null, null);
+			ContentValues values = new ContentValues();
+			values.put(ActusEntry.COLUMN_DATE, sdf.format(line.getDate()));
+			values.put(ActusEntry.COLUMN_DESCRIPTION, line.getTexte());
+			values.put(ActusEntry.COLUMN_TITLE, line.getTitre());
+			values.put(ActusEntry.COLUMN_URL, line.getUrl());
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			line.getBitmapImage().compress(Bitmap.CompressFormat.PNG, 100, stream);
+			values.put(ActusEntry.COLUMN_IMG, stream.toByteArray());
+    		if(cursor.getCount() > 0) {
+    			// UPDATE
+    			hofcDatabase.update(ActusEntry.ACTUS_TABLE_NAME, values, ActusEntry.COLUMN_POST_ID + " ='"+ line.getPostId() + "'", null);
+    		} else {
+    			// INSERT
+    			values.put(ActusEntry.COLUMN_POST_ID, line.getPostId());
+    			hofcDatabase.insert(ActusEntry.ACTUS_TABLE_NAME, null, values);
+    		}
+    	}
+    }
+
+	public static boolean isSynchroNeeded() {
+		openReadable();
+		return CommonBDD.isSynchroNeeded(hofcDatabase, "actus");
+	}
+
+	public static Date getDateSynchro() {
+		openReadable();
+		return CommonBDD.getDateSynchro(hofcDatabase, "actus");
+	}
+	
+	public static void updateDateSynchro(Date date) {
+		openWritable();
+		CommonBDD.updateDateSynchro(hofcDatabase, "actus", date);
+	}
 }

@@ -32,6 +32,9 @@ public enum DataSingleton {
     	ClassementBDD.initiate(c);
     	INSTANCE.classement = ClassementBDD.getAll();
     	INSTANCE.lastSynchroClassement = ClassementBDD.getDateSynchro();
+    	ActusBDD.initiate(c);
+    	INSTANCE.actus = ActusBDD.getAll();
+    	INSTANCE.lastSynchroActus = ActusBDD.getDateSynchro();
     	
     }
     

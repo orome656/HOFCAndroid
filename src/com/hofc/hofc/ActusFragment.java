@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hofc.hofc.adapter.ActusAdapter;
+import com.hofc.hofc.data.ActusBDD;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.data.download.ActusDownloader;
 
@@ -43,7 +44,7 @@ public class ActusFragment extends Fragment  implements FragmentCallback, Custom
 				v.getContext().startActivity(i);
 			}
 		});
-		//CalendrierBDD.initiate(getActivity());
+		ActusBDD.initiate(getActivity());
         if(DataSingleton.isSynchroActuNeeded()) {
         	this.refreshDataAndView();
 		} else {

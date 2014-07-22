@@ -151,47 +151,16 @@ public class CalendrierBDD {
 
 	public static boolean isSynchroNeeded() {
 		openReadable();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    	GregorianCalendar calendar = (GregorianCalendar) GregorianCalendar.getInstance();
-    	calendar.setTime(new Date());
-    	calendar.add(Calendar.DATE, -ServerConstant.NOMBRE_JOUR_SYNCHRO);
-		Cursor cursor = hofcDatabase.query("date_synchro", null, "nom='calendrier' and date > "+sdf.format(calendar.getTime()), null, null, null, null);
-		if(cursor.getCount() > 0) {
-			return false;
-		} else {
-			return true;
-		}
+		return CommonBDD.isSynchroNeeded(hofcDatabase, "calendrier");
 	}
 
 	public static Date getDateSynchro() {
 		openReadable();
-		Date result = null;
-		Cursor cursor = hofcDatabase.query("date_synchro", null, "nom='calendrier'", null, null, null, null);
-		if(cursor.moveToFirst()){
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-			try {
-				result = sdf.parse(cursor.getString(cursor.getColumnIndex("date")));
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return result;
-		} else {
-			return null;
-		}
+		return CommonBDD.getDateSynchro(hofcDatabase, "calendrier");
 	}
 	
 	public static void updateDateSynchro(Date date) {
 		openWritable();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		Cursor cursor = hofcDatabase.query("date_synchro", null, "nom='calendrier'", null, null, null, null);
-		ContentValues values = new ContentValues();
-		values.put("date", sdf.format(date));
-		if(cursor.getCount() > 0) {
-			hofcDatabase.update("date_synchro", values, "nom='calendrier'", null);
-		} else {
-			values.put("nom", "calendrier");
-			hofcDatabase.insert("date_synchro", null, values);
-		}
+		CommonBDD.updateDateSynchro(hofcDatabase, "calendrier", date);
 	}
 }
