@@ -31,18 +31,20 @@ public class ActusBDD {
 	    public static final String COLUMN_ID = "ID";
 	    public static final int NUM_COLUMN_ID = 0;
 	    public static final String ACTUS_TABLE_NAME = "actus";
-	    public static final String COLUMN_TITLE = "titre";
+	    public static final String COLUMN_TITLE = "TITRE";
 	    public static final int NUM_COLUMN_TITLE = 1;
-	    public static final String COLUMN_DESCRIPTION = "description";
-	    public static final int NUM_COLUMN_DESCRIPTION = 2;
-	    public static final String COLUMN_DATE = "date";
-	    public static final int NUM_COLUMN_DATE = 3;
-	    public static final String COLUMN_IMG = "image";
-	    public static final int NUM_COLUMN_IMG = 4;
-	    public static final String COLUMN_POST_ID = "postId";
-	    public static final int NUM_COLUMN_POST_ID = 5;
-	    public static final String COLUMN_URL = "url";
-	    public static final int NUM_COLUMN_URL = 6;
+	    public static final String COLUMN_POST_ID = "POST_ID";
+	    public static final int NUM_COLUMN_POST_ID = 2;
+	    public static final String COLUMN_DESCRIPTION = "DESCRIPTION";
+	    public static final int NUM_COLUMN_DESCRIPTION = 3;
+	    public static final String COLUMN_URL = "URL";
+	    public static final int NUM_COLUMN_URL = 4;
+	    public static final String COLUMN_DATE = "DATE";
+	    public static final int NUM_COLUMN_DATE = 5;
+	    public static final String COLUMN_IMG = "IMAGE";
+	    public static final int NUM_COLUMN_IMG = 6;
+	    public static final String COLUMN_IMAGE_URL = "IMAGE_URL";
+	    public static final int NUM_COLUMN_IMAGE_URL = 7;
     	
     }
 	/**
@@ -113,6 +115,7 @@ public class ActusBDD {
     			line.setTexte(cursor.getString(ActusEntry.NUM_COLUMN_DESCRIPTION));
     			line.setUrl(cursor.getString(ActusEntry.NUM_COLUMN_URL));
     			line.setPostId(cursor.getInt(ActusEntry.NUM_COLUMN_POST_ID));
+    			line.setImageUrl(cursor.getString(ActusEntry.NUM_COLUMN_IMAGE_URL));
     			try {
     				if(cursor.getString(ActusEntry.NUM_COLUMN_DATE) != null)
     					line.setDate(sdf.parse(cursor.getString(ActusEntry.NUM_COLUMN_DATE)));
@@ -141,9 +144,12 @@ public class ActusBDD {
 			values.put(ActusEntry.COLUMN_DESCRIPTION, line.getTexte());
 			values.put(ActusEntry.COLUMN_TITLE, line.getTitre());
 			values.put(ActusEntry.COLUMN_URL, line.getUrl());
-			ByteArrayOutputStream stream = new ByteArrayOutputStream();
-			line.getBitmapImage().compress(Bitmap.CompressFormat.PNG, 100, stream);
-			values.put(ActusEntry.COLUMN_IMG, stream.toByteArray());
+			values.put(ActusEntry.COLUMN_IMAGE_URL, line.getImageUrl());
+			if(line.getBitmapImage() != null) {
+				ByteArrayOutputStream stream = new ByteArrayOutputStream();
+				line.getBitmapImage().compress(Bitmap.CompressFormat.PNG, 100, stream);
+				values.put(ActusEntry.COLUMN_IMG, stream.toByteArray());
+			}
     		if(cursor.getCount() > 0) {
     			// UPDATE
     			hofcDatabase.update(ActusEntry.ACTUS_TABLE_NAME, values, ActusEntry.COLUMN_POST_ID + " ='"+ line.getPostId() + "'", null);
@@ -153,6 +159,19 @@ public class ActusBDD {
     			hofcDatabase.insert(ActusEntry.ACTUS_TABLE_NAME, null, values);
     		}
     	}
+    }
+    
+    public static void updateImageBitmap(int postId, Bitmap img) {
+    	openWritable();
+    	Cursor cursor = hofcDatabase.query(ActusEntry.ACTUS_TABLE_NAME, null, ActusEntry.COLUMN_POST_ID + " = "+ postId, null, null, null, null);
+    	if(cursor.getCount() > 0) {
+    		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+    		img.compress(Bitmap.CompressFormat.PNG, 100, stream);
+    		ContentValues values = new ContentValues();
+			values.put(ActusEntry.COLUMN_IMG, stream.toByteArray());
+			// UPDATE
+			hofcDatabase.update(ActusEntry.ACTUS_TABLE_NAME, values, ActusEntry.COLUMN_POST_ID + " ="+ postId, null);
+		}
     }
 
 	public static boolean isSynchroNeeded() {

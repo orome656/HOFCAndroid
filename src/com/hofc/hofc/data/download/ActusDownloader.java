@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 import org.apache.http.HttpResponse;
@@ -20,6 +21,7 @@ import android.os.AsyncTask;
 
 import com.hofc.hofc.FragmentCallback;
 import com.hofc.hofc.constant.ServerConstant;
+import com.hofc.hofc.data.ActusBDD;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.utils.HOFCUtils;
 import com.hofc.hofc.vo.ActuVO;
@@ -84,8 +86,8 @@ public class ActusDownloader extends AsyncTask<Void, Void, Integer> {
 				}
 				DataSingleton.setActus(actusList);
 				// Sauvegarde en base
-				//ActusBDD.insertList(actusList);
-				//ActusBDD.updateDateSynchro(new Date());
+				ActusBDD.insertList(actusList);
+				ActusBDD.updateDateSynchro(new Date());
 			} else {
 				// TODO Erreur
 			}

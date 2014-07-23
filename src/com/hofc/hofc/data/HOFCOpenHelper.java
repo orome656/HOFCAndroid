@@ -44,12 +44,13 @@ public class HOFCOpenHelper extends SQLiteOpenHelper {
     public static final int NUM_COLUMN_EQUIPE_2 = 4;
  
     // Description des colonnes actus
-    public static final String COLUMN_TITLE = "titre";
-    public static final String COLUMN_DESCRIPTION = "description";
-    public static final String COLUMN_DATE_ACTUS = "date";
-    public static final String COLUMN_IMG = "image";
-    public static final String COLUMN_POST_ID = "postId";
-    public static final String COLUMN_URL = "url";
+    public static final String COLUMN_TITLE = "TITRE";
+    public static final String COLUMN_DESCRIPTION = "DESCRIPTION";
+    public static final String COLUMN_DATE_ACTUS = "DATE";
+    public static final String COLUMN_IMG = "IMAGE";
+    public static final String COLUMN_POST_ID = "POST_ID";
+    public static final String COLUMN_URL = "URL";
+    public static final String COLUMN_IMAGE_URL = "IMAGE_URL";
     
     // Synchro
     public static final String COLUMN_NOM_SYNCHRO = "NOM";
@@ -89,8 +90,9 @@ public class HOFCOpenHelper extends SQLiteOpenHelper {
             + " TEXT NOT NULL, " + COLUMN_POST_ID + " INTEGER, "
             + COLUMN_DESCRIPTION + " TEXT, "
             + COLUMN_URL + " TEXT, "
-            + COLUMN_DATE_ACTUS + " DATE "
-            + COLUMN_IMG + " BLOB " + ");";
+            + COLUMN_DATE_ACTUS + " DATE, "
+            + COLUMN_IMG + " BLOB, "
+            + COLUMN_IMAGE_URL + " TEXT);";
     
 	public HOFCOpenHelper(Context context, CursorFactory factory) {
 		super(context, HOFC_BASE_NAME, factory, DATABASE_VERSION);

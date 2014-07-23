@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import com.hofc.hofc.data.ActusBDD;
 import com.hofc.hofc.vo.ActuVO;
 
 import android.graphics.Bitmap;
@@ -36,6 +37,7 @@ public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
 			e.printStackTrace();
 		}
 		this.actuVo.setBitmapImage(bmp);
+		ActusBDD.updateImageBitmap(this.actuVo.getPostId(), bmp);
 		return bmp;
 	}
 	
