@@ -63,7 +63,7 @@ public class ActusDownloader extends AsyncTask<Void, Void, Integer> {
 			inputStream = httpResponse.getEntity().getContent();
 			
 			if(inputStream != null) {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 				result = HOFCUtils.convertInputStreamToString(inputStream);
 				JSONArray jsonArray = new JSONArray(result);
 				ArrayList<ActuVO> actusList = new ArrayList<ActuVO>();
