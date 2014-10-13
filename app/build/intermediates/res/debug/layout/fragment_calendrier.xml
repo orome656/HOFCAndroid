@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/calendrier_layout">
+    <ListView
+        android:id="@+id/calendrier_listView"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent">
+    </ListView>
+
+</LinearLayout>
+<!-- From: file:/C:/Users/Fixe/AndroidStudioProjects/HOFCAndroid/app/src/main/res/layout/fragment_calendrier.xml -->

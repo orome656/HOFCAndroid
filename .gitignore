@@ -1,7 +1,0 @@
-/bin
-
-/gen
-
-bin/AndroidManifest.xml
-*.class
-gen/com/hofc/hofc/R.java
