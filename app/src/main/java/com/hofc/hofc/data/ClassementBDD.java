@@ -47,7 +47,7 @@ public class ClassementBDD {
 	/**
 	 * Constructeur
 	 */
-	private ClassementBDD(){};
+	private ClassementBDD(){}
 	
     /**
      * Constructeur par défaut
@@ -66,7 +66,7 @@ public class ClassementBDD {
     }
  
     public static void openWritable() throws SQLException{
-        if ((hofcDatabase == null)? true : hofcDatabase.isReadOnly()) {
+        if ((hofcDatabase == null) || hofcDatabase.isReadOnly()) {
             openWritable(true);
         }
     }

@@ -40,22 +40,22 @@ public class ClassementDownloader extends AsyncTask<Void, Void, Integer> {
 	@Override
 	protected Integer doInBackground(Void... params) {
 		
-		InputStream inputStream = null;
-		String result = "";
+		InputStream inputStream;
+		String result;
 		
-		StringBuffer stringBuffer = new StringBuffer("http://");
-		stringBuffer.append(ServerConstant.SERVER_URL);
+		StringBuilder stringBuilder = new StringBuilder("http://");
+		stringBuilder.append(ServerConstant.SERVER_URL);
 		if(ServerConstant.SERVER_PORT != 0) {
-			stringBuffer.append(":");
-			stringBuffer.append(ServerConstant.SERVER_PORT);
+			stringBuilder.append(":");
+			stringBuilder.append(ServerConstant.SERVER_PORT);
 		}
-		stringBuffer.append("/");
-		stringBuffer.append(ServerConstant.CLASSEMENT_CONTEXT);
+		stringBuilder.append("/");
+		stringBuilder.append(ServerConstant.CLASSEMENT_CONTEXT);
 		
 		HttpClient httpClient = new DefaultHttpClient();
 		
 		try {
-			HttpResponse httpResponse = httpClient.execute(new HttpGet(stringBuffer.toString()));
+			HttpResponse httpResponse = httpClient.execute(new HttpGet(stringBuilder.toString()));
 			
 			inputStream = httpResponse.getEntity().getContent();
 			
@@ -98,7 +98,7 @@ public class ClassementDownloader extends AsyncTask<Void, Void, Integer> {
 	
 	@Override
 	protected void onPostExecute(Integer result) {
-		if(result.intValue() == -1) {
+		if(result == -1) {
 			callback.onError();
 		} else {
 			callback.onTaskDone();

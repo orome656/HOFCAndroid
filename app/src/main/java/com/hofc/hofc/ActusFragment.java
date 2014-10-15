@@ -24,8 +24,7 @@ public class ActusFragment extends Fragment  implements FragmentCallback, Custom
 	private ListView actusListView;
 	
 	public static ActusFragment newInstance() {
-		ActusFragment fragment = new ActusFragment();
-		return fragment;
+		return new ActusFragment();
 	}
 	
 	@Override

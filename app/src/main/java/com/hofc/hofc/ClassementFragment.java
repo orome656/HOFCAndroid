@@ -19,8 +19,7 @@ public class ClassementFragment extends Fragment implements FragmentCallback, Cu
 	private ListView classementListView;
 	
 	public static ClassementFragment newInstance() {
-		ClassementFragment fragment = new ClassementFragment();
-		return fragment;
+		return new ClassementFragment();
 	}
 	
 	@Override

@@ -19,8 +19,7 @@ public class CalendrierFragment extends Fragment  implements FragmentCallback, C
 	private ListView calendrierListView;
 	
 	public static CalendrierFragment newInstance() {
-		CalendrierFragment fragment = new CalendrierFragment();
-		return fragment;
+		return new CalendrierFragment();
 	}
 	
 	@Override

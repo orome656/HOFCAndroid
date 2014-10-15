@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class ActusView extends LinearLayout {
-	private LinearLayout linear;
 	private ImageView imageView;
 	private TextView titleView;
 	private TextView texteView;
@@ -22,11 +21,11 @@ public class ActusView extends LinearLayout {
 		LayoutInflater inflater = (LayoutInflater) context
 		        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(R.layout.actus_view, this, true);
-		this.linear = (LinearLayout) findViewById(R.id.linear_element_actu);
-		this.imageView = (ImageView)this.linear.getChildAt(0);
-		this.titleView = (TextView)this.linear.getChildAt(1);
-		this.texteView = (TextView)this.linear.getChildAt(2);
-		this.dateView = (TextView)this.linear.getChildAt(3);
+        LinearLayout linear = (LinearLayout) findViewById(R.id.linear_element_actu);
+		this.imageView = (ImageView)linear.getChildAt(0);
+		this.titleView = (TextView)linear.getChildAt(1);
+		this.texteView = (TextView)linear.getChildAt(2);
+		this.dateView = (TextView)linear.getChildAt(3);
 	}
 
 	public ActusView(Context context, AttributeSet attrs) {

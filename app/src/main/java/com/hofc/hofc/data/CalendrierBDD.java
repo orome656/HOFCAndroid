@@ -3,13 +3,10 @@ package com.hofc.hofc.data;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
-import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.vo.CalendrierLineVO;
 
 import android.content.ContentValues;
@@ -46,7 +43,7 @@ public class CalendrierBDD {
 	/**
 	 * Constructeur
 	 */
-	private CalendrierBDD(){};
+	private CalendrierBDD(){}
 	
     /**
      * Constructeur par défaut
@@ -65,7 +62,7 @@ public class CalendrierBDD {
     }
  
     public static void openWritable() throws SQLException{
-        if ((hofcDatabase == null)? true : hofcDatabase.isReadOnly()) {
+        if ((hofcDatabase == null) || hofcDatabase.isReadOnly()) {
             openWritable(true);
         }
     }

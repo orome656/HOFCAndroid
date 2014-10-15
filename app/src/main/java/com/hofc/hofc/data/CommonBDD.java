@@ -21,11 +21,7 @@ public class CommonBDD {
     	calendar.setTime(new Date());
     	calendar.add(Calendar.DATE, -ServerConstant.NOMBRE_JOUR_SYNCHRO);
 		Cursor cursor = hofcDatabase.query("date_synchro", null, "nom='"+bddName+"' and date > "+sdf.format(calendar.getTime()), null, null, null, null);
-		if(cursor.getCount() > 0) {
-			return false;
-		} else {
-			return true;
-		}
+		return cursor.getCount() <= 0;
 	}
 
 	public static Date getDateSynchro(SQLiteDatabase hofcDatabase, String bddName) {

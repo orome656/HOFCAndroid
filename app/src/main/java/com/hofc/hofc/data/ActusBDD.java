@@ -22,7 +22,7 @@ import android.util.Log;
 
 public class ActusBDD {
 
-	// Base de donn�es
+	// Base de données
     protected static SQLiteDatabase hofcDatabase;
     protected static HOFCOpenHelper hofcOpenHelper;
     private static Context context = null;
@@ -50,10 +50,10 @@ public class ActusBDD {
 	/**
 	 * Constructeur
 	 */
-	private ActusBDD(){};
+	private ActusBDD(){}
 
     /**
-     * Constructeur par d�faut
+     * Constructeur par défaut
      */
     public static void initiate(Context context) {
     	if(hofcOpenHelper == null)
@@ -69,7 +69,7 @@ public class ActusBDD {
     }
  
     public static void openWritable() throws SQLException{
-        if ((hofcDatabase == null)? true : hofcDatabase.isReadOnly()) {
+        if ((hofcDatabase == null)|| hofcDatabase.isReadOnly()) {
             openWritable(true);
         }
     }

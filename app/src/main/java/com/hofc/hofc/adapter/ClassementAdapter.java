@@ -85,8 +85,8 @@ public class ClassementAdapter extends BaseAdapter {
 		TextView classementDiff;
 	}
 	/**
-	 * 
-	 * @param color
+	 * Permet d'application une couleur sur la ligne du classement
+	 * @param color Couleur a insérer sur la ligne
 	 */
 	private void setLineColor(ViewHolder holder, int color) {
 		holder.classementPosition.setTextColor(color);

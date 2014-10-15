@@ -18,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.hofc.hofc.FragmentCallback;
 import com.hofc.hofc.constant.ServerConstant;
@@ -43,22 +44,22 @@ public class ActusDownloader extends AsyncTask<Void, Void, Integer> {
 	@Override
 	protected Integer doInBackground(Void... params) {
 		
-		InputStream inputStream = null;
-		String result = "";
+		InputStream inputStream;
+		String result;
 		
-		StringBuffer stringBuffer = new StringBuffer("http://");
-		stringBuffer.append(ServerConstant.SERVER_URL);
+		StringBuilder stringBuilder = new StringBuilder("http://");
+		stringBuilder.append(ServerConstant.SERVER_URL);
 		if(ServerConstant.SERVER_PORT != 0) {
-			stringBuffer.append(":");
-			stringBuffer.append(ServerConstant.SERVER_PORT);
+			stringBuilder.append(":");
+			stringBuilder.append(ServerConstant.SERVER_PORT);
 		}
-		stringBuffer.append("/");
-		stringBuffer.append(ServerConstant.ACTUS_CONTEXT);
+		stringBuilder.append("/");
+		stringBuilder.append(ServerConstant.ACTUS_CONTEXT);
 		
 		HttpClient httpClient = new DefaultHttpClient();
 		
 		try {
-			HttpResponse httpResponse = httpClient.execute(new HttpGet(stringBuffer.toString()));
+			HttpResponse httpResponse = httpClient.execute(new HttpGet(stringBuilder.toString()));
 			
 			inputStream = httpResponse.getEntity().getContent();
 			
@@ -78,8 +79,7 @@ public class ActusDownloader extends AsyncTask<Void, Void, Integer> {
 					try {
 						actu.setDate(sdf.parse(object.getString("date")));
 					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+                        Log.e(ActusDownloader.class.getName(), "Problem when parsing date", e);
 						actu.setDate(null);
 					}
 					actusList.add(actu);
@@ -89,17 +89,14 @@ public class ActusDownloader extends AsyncTask<Void, Void, Integer> {
 				ActusBDD.insertList(actusList);
 				ActusBDD.updateDateSynchro(new Date());
 			} else {
-				// TODO Erreur
-			}
+                Log.e(ActusDownloader.class.getName(), "Problem when contacting server, inputStream is null");
+            }
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+            Log.e(ActusDownloader.class.getName(), "Problem when contacting server", e);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+            Log.e(ActusDownloader.class.getName(), "Problem when parsing server response", e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+            Log.e(ActusDownloader.class.getName(), "Problem when contacting server", e);
 			return -1;
 		}
 		
@@ -108,7 +105,7 @@ public class ActusDownloader extends AsyncTask<Void, Void, Integer> {
 	
 	@Override
 	protected void onPostExecute(Integer result) {
-		if(result.intValue() == -1) {
+		if(result == -1) {
 			callback.onError();
 		} else {
 			callback.onTaskDone();
