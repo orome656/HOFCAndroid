@@ -22,7 +22,7 @@ import android.util.Log;
 
 public class CalendrierBDD {
 	
-	// Base de données
+	// Base de donnÃ©es
     protected static SQLiteDatabase hofcDatabase;
     protected static HOFCOpenHelper hofcOpenHelper;
     private static Context context = null;
@@ -49,7 +49,7 @@ public class CalendrierBDD {
 	private CalendrierBDD(){};
 	
     /**
-     * Constructeur par défaut
+     * Constructeur par dÃ©faut
      */
     public static void initiate(Context context) {
     	if(hofcOpenHelper == null)

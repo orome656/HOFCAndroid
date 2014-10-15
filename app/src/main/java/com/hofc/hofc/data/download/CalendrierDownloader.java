@@ -25,6 +25,7 @@ import com.hofc.hofc.utils.HOFCUtils;
 import com.hofc.hofc.vo.CalendrierLineVO;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class CalendrierDownloader extends AsyncTask<Void, Void, Integer> {
 
@@ -36,7 +37,6 @@ public class CalendrierDownloader extends AsyncTask<Void, Void, Integer> {
 	
 	@Override
 	protected void onPreExecute() {
-		// TODO Auto-generated method stub
 		super.onPreExecute();
 	}
 	
@@ -77,9 +77,8 @@ public class CalendrierDownloader extends AsyncTask<Void, Void, Integer> {
 					try {
 						calendrier.setDate(sdf.parse(object.getString("date")));
 					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						calendrier.setDate(null);
+                        Log.e(CalendrierDownloader.class.getName(), "Problem when parsing date", e);
+                        calendrier.setDate(null);
 					}
 					calendrierList.add(calendrier);
 				}
@@ -88,17 +87,14 @@ public class CalendrierDownloader extends AsyncTask<Void, Void, Integer> {
 				CalendrierBDD.insertList(calendrierList);
 				CalendrierBDD.updateDateSynchro(new Date());
 			} else {
-				// TODO Erreur
+                Log.e(CalendrierDownloader.class.getName(), "Problem while contacting server");
 			}
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+            Log.e(CalendrierDownloader.class.getName(), "Problem while contacting server", e);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+            Log.e(CalendrierDownloader.class.getName(), "Problem while parsing server response", e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+            Log.e(CalendrierDownloader.class.getName(), "Problem while contacting server", e);
 			return -1;
 		}
 		

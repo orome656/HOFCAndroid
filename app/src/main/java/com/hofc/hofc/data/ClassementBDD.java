@@ -15,7 +15,7 @@ import android.provider.BaseColumns;
 
 public class ClassementBDD {
 	
-	// Base de données
+	// Base de donnÃ©es
     protected static SQLiteDatabase hofcDatabase;
     protected static HOFCOpenHelper hofcOpenHelper;
     private static Context context = null;
@@ -50,7 +50,7 @@ public class ClassementBDD {
 	private ClassementBDD(){};
 	
     /**
-     * Constructeur par défaut
+     * Constructeur par dÃ©faut
      */
     public static void initiate(Context context) {
     	if(hofcOpenHelper == null)

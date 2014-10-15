@@ -22,6 +22,7 @@ import com.hofc.hofc.utils.HOFCUtils;
 import com.hofc.hofc.vo.ClassementLineVO;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class ClassementDownloader extends AsyncTask<Void, Void, Integer> {
 
@@ -33,7 +34,6 @@ public class ClassementDownloader extends AsyncTask<Void, Void, Integer> {
 	
 	@Override
 	protected void onPreExecute() {
-		// TODO Auto-generated method stub
 		super.onPreExecute();
 	}
 	
@@ -82,18 +82,16 @@ public class ClassementDownloader extends AsyncTask<Void, Void, Integer> {
 				ClassementBDD.insertList(classementList);
 				ClassementBDD.updateDateSynchro(new Date());
 			} else {
-				// TODO Erreur
+                Log.e(ClassementDownloader.class.getName(), "Problem when contacting server, inputStream is null");
 			}
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+            Log.e(ClassementDownloader.class.getName(), "Problem when contacting server", e);
 		} catch (IOException e) {
-			e.printStackTrace();
+            Log.e(ClassementDownloader.class.getName(), "Problem when contacting server", e);
 			return -1;
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            Log.e(ClassementDownloader.class.getName(), "Problem when getting json response", e);
+        }
 		
 		return 0;
 	}

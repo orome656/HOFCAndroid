@@ -10,6 +10,7 @@ import com.hofc.hofc.vo.ActuVO;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ImageView;
 
 public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
@@ -24,21 +25,21 @@ public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
 	@Override
 	protected Bitmap doInBackground(String... params) {
 		String imageUrl = params[0];
-		URL url;
+		URL url = null;
 		Bitmap bmp = null;
 		try {
 			url = new URL(imageUrl);
 			bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+            Log.e("ImageDownloader", "Problem with URL format", e);
+        } catch (IOException e) {
+            Log.e("ImageDownloader", "Problem when downloading image at url " + url, e);
 		}
-		this.actuVo.setBitmapImage(bmp);
-		ActusBDD.updateImageBitmap(this.actuVo.getPostId(), bmp);
-		return bmp;
+        if(bmp != null) {
+            this.actuVo.setBitmapImage(bmp);
+            ActusBDD.updateImageBitmap(this.actuVo.getPostId(), bmp);
+        }
+        return bmp;
 	}
 	
 	@Override

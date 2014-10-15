@@ -71,7 +71,7 @@ public class ActusFragment extends Fragment  implements FragmentCallback, Custom
 
 	@Override
 	public void onError() {
-		Toast.makeText(getActivity(), "Merci de vérifier votre connexion",  Toast.LENGTH_SHORT).show();
+		Toast.makeText(getActivity(), "Merci de vÃ©rifier votre connexion",  Toast.LENGTH_SHORT).show();
 	}
 
 	@Override

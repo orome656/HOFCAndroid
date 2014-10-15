@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class HOFCOpenHelper extends SQLiteOpenHelper {
-	   // Version de la base de données
+	   // Version de la base de donnÃ©es
     private static final int DATABASE_VERSION = 1;
  
     // Nom de la base
@@ -59,7 +59,7 @@ public class HOFCOpenHelper extends SQLiteOpenHelper {
     public static final int NUM_DATE = 2;
     
     
-    // Requête SQL pour la création da la base Calendrier
+    // RequÃ©te SQL pour la crÃ©ation da la base Calendrier
     private static final String REQUETE_CREATION_BDD_CLASSEMENT = "CREATE TABLE IF NOT EXISTS "
             + CLASSEMENT_TABLE_NAME + " (" + COLUMN_ID
             + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_NOM
@@ -70,7 +70,7 @@ public class HOFCOpenHelper extends SQLiteOpenHelper {
             + COLUMN_BC + " INTEGER, " + COLUMN_DIFF + " INTEGER);";
     
 
-    // Requête SQL pour la création da la base CLASSEMENT
+    // RequÃ©te SQL pour la crÃ©ation da la base CLASSEMENT
     private static final String REQUETE_CREATION_BDD_CALENDRIER = "CREATE TABLE IF NOT EXISTS "
             + CALENDRIER_TABLE_NAME + " (" + COLUMN_ID
             + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_EQUIPE_1

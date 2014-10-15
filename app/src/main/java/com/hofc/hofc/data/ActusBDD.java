@@ -22,7 +22,7 @@ import android.util.Log;
 
 public class ActusBDD {
 
-	// Base de données
+	// Base de donnï¿½es
     protected static SQLiteDatabase hofcDatabase;
     protected static HOFCOpenHelper hofcOpenHelper;
     private static Context context = null;
@@ -53,7 +53,7 @@ public class ActusBDD {
 	private ActusBDD(){};
 
     /**
-     * Constructeur par défaut
+     * Constructeur par dï¿½faut
      */
     public static void initiate(Context context) {
     	if(hofcOpenHelper == null)
@@ -120,10 +120,11 @@ public class ActusBDD {
     				if(cursor.getString(ActusEntry.NUM_COLUMN_DATE) != null)
     					line.setDate(sdf.parse(cursor.getString(ActusEntry.NUM_COLUMN_DATE)));
 				} catch (ParseException e) {
-					Log.e("HOFC", e.getMessage());
+					Log.e("HOFC", "Problem when parsing date", e);
 				}
     			byte[] bb = cursor.getBlob(ActusEntry.NUM_COLUMN_IMG);
-    			line.setBitmapImage(BitmapFactory.decodeByteArray(bb, 0, bb.length));
+                if(bb != null)
+    			    line.setBitmapImage(BitmapFactory.decodeByteArray(bb, 0, bb.length));
     			list.add(line);
         	}
     	}
@@ -162,16 +163,18 @@ public class ActusBDD {
     }
     
     public static void updateImageBitmap(int postId, Bitmap img) {
-    	openWritable();
-    	Cursor cursor = hofcDatabase.query(ActusEntry.ACTUS_TABLE_NAME, null, ActusEntry.COLUMN_POST_ID + " = "+ postId, null, null, null, null);
-    	if(cursor.getCount() > 0) {
-    		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-    		img.compress(Bitmap.CompressFormat.PNG, 100, stream);
-    		ContentValues values = new ContentValues();
-			values.put(ActusEntry.COLUMN_IMG, stream.toByteArray());
-			// UPDATE
-			hofcDatabase.update(ActusEntry.ACTUS_TABLE_NAME, values, ActusEntry.COLUMN_POST_ID + " ="+ postId, null);
-		}
+    	if(img != null) {
+            openWritable();
+            Cursor cursor = hofcDatabase.query(ActusEntry.ACTUS_TABLE_NAME, null, ActusEntry.COLUMN_POST_ID + " = " + postId, null, null, null, null);
+            if (cursor.getCount() > 0) {
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                img.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                ContentValues values = new ContentValues();
+                values.put(ActusEntry.COLUMN_IMG, stream.toByteArray());
+                // UPDATE
+                hofcDatabase.update(ActusEntry.ACTUS_TABLE_NAME, values, ActusEntry.COLUMN_POST_ID + " =" + postId, null);
+            }
+        }
     }
 
 	public static boolean isSynchroNeeded() {
