@@ -7,6 +7,7 @@ import com.hofc.hofc.data.download.ClassementDownloader;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +62,8 @@ public class ClassementFragment extends Fragment implements FragmentCallback, Cu
 	@Override
 	public void refreshDataAndView() {
 		ClassementDownloader downloader = new ClassementDownloader(this);
-		downloader.execute();
+		downloader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        //downloader.execute();
 	}
 	
 }

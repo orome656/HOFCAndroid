@@ -12,7 +12,8 @@ android:layout_height="15dp">
 	    <ImageView 
 	        android:id="@+id/actus_view_image"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"/>
+	        android:layout_height="wrap_content"
+            android:contentDescription="Actuality Image"/>
 	    <TextView 
 	        android:id="@+id/actus_view_title"
 	        android:layout_width="fill_parent"

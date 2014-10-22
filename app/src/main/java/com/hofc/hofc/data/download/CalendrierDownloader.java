@@ -42,7 +42,7 @@ public class CalendrierDownloader extends AsyncTask<Void, Void, Integer> {
 	
 	@Override
 	protected Integer doInBackground(Void... params) {
-		
+		Log.i(CalendrierDownloader.class.getName(), "Start downloading Calendrier informations");
 		InputStream inputStream;
 		String result;
 		
@@ -63,7 +63,7 @@ public class CalendrierDownloader extends AsyncTask<Void, Void, Integer> {
 			inputStream = httpResponse.getEntity().getContent();
 			
 			if(inputStream != null) {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss", Locale.getDefault());
 				result = HOFCUtils.convertInputStreamToString(inputStream);
 				JSONArray jsonArray = new JSONArray(result);
 				ArrayList<CalendrierLineVO> calendrierList = new ArrayList<CalendrierLineVO>();
@@ -72,8 +72,10 @@ public class CalendrierDownloader extends AsyncTask<Void, Void, Integer> {
 					CalendrierLineVO calendrier = new CalendrierLineVO();
 					calendrier.setEquipe1(object.getString("equipe1"));
 					calendrier.setEquipe2(object.getString("equipe2"));
-					calendrier.setScore1(object.getInt("score1"));
-					calendrier.setScore2(object.getInt("score2"));
+                    if(!"null".equalsIgnoreCase(object.getString("score1")) && !"null".equalsIgnoreCase(object.getString("score2"))) {
+                        calendrier.setScore1(object.getInt("score1"));
+                        calendrier.setScore2(object.getInt("score2"));
+                    }
 					try {
 						calendrier.setDate(sdf.parse(object.getString("date")));
 					} catch (ParseException e) {
@@ -97,7 +99,8 @@ public class CalendrierDownloader extends AsyncTask<Void, Void, Integer> {
             Log.e(CalendrierDownloader.class.getName(), "Problem while contacting server", e);
 			return -1;
 		}
-		
+
+        Log.i(CalendrierDownloader.class.getName(), "Finish downloading Calendrier informations");
 		return 0;
 	}
 	

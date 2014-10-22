@@ -34,12 +34,13 @@ public class ClassementDownloader extends AsyncTask<Void, Void, Integer> {
 	
 	@Override
 	protected void onPreExecute() {
-		super.onPreExecute();
+
+        super.onPreExecute();
 	}
 	
 	@Override
 	protected Integer doInBackground(Void... params) {
-		
+		Log.i(ClassementDownloader.class.getName(), "Start downloading Classement informations");
 		InputStream inputStream;
 		String result;
 		
@@ -92,7 +93,8 @@ public class ClassementDownloader extends AsyncTask<Void, Void, Integer> {
 		} catch (JSONException e) {
             Log.e(ClassementDownloader.class.getName(), "Problem when getting json response", e);
         }
-		
+
+        Log.i(ClassementDownloader.class.getName(), "Finish downloading Classement informations");
 		return 0;
 	}
 	

@@ -5,3 +5,6 @@
 bin/AndroidManifest.xml
 *.class
 gen/com/hofc/hofc/R.java
+
+/build
+/app/build
