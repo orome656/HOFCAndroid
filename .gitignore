@@ -8,3 +8,6 @@ gen/com/hofc/hofc/R.java
 
 /build
 /app/build
+
+/.gradle
+/.idea
