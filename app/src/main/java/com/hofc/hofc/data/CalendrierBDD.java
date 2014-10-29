@@ -159,5 +159,6 @@ public class CalendrierBDD {
 	public static void updateDateSynchro(Date date) {
 		openWritable();
 		CommonBDD.updateDateSynchro(hofcDatabase, "calendrier", date);
+        DataSingleton.updateDateSynchroCalendrier(date);
 	}
 }

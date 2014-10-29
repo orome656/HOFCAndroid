@@ -43,7 +43,7 @@ public class ActusFragment extends Fragment  implements FragmentCallback, Custom
 				v.getContext().startActivity(i);
 			}
 		});
-		ActusBDD.initiate(getActivity());
+		//ActusBDD.initiate(getActivity());
         if(DataSingleton.isSynchroActuNeeded()) {
         	this.refreshDataAndView();
 		} else {

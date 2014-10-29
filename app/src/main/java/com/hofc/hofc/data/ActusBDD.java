@@ -190,5 +190,6 @@ public class ActusBDD {
 	public static void updateDateSynchro(Date date) {
 		openWritable();
 		CommonBDD.updateDateSynchro(hofcDatabase, "actus", date);
+        DataSingleton.updateDateSynchroActus(date);
 	}
 }

@@ -27,7 +27,7 @@ public class CalendrierFragment extends Fragment  implements FragmentCallback, C
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_calendrier, container, false);
         calendrierListView = (ListView) rootView.findViewById(R.id.calendrier_listView);
-		CalendrierBDD.initiate(getActivity());
+		//CalendrierBDD.initiate(getActivity());
         if(DataSingleton.isSynchroCalendrierNeeded()) {
         	this.refreshDataAndView();
 		} else {

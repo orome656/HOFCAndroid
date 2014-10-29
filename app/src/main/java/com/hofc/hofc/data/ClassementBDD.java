@@ -163,5 +163,6 @@ public class ClassementBDD {
 	public static void updateDateSynchro(Date date) {
 		openWritable();
 		CommonBDD.updateDateSynchro(hofcDatabase, "classement", date);
+        DataSingleton.updateDateSynchroClassement(date);
 	}
 }

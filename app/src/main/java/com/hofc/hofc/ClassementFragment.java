@@ -28,7 +28,7 @@ public class ClassementFragment extends Fragment implements FragmentCallback, Cu
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_classement, container, false);
         classementListView = (ListView) rootView.findViewById(R.id.classement_listView);
-        ClassementBDD.initiate(getActivity());
+        //ClassementBDD.initiate(getActivity());
 		if(DataSingleton.isSynchroClassementNeeded()) {
 			this.refreshDataAndView();
 		} else {

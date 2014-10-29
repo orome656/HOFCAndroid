@@ -98,4 +98,16 @@ public enum DataSingleton {
     	calendar.add(Calendar.DATE, -ServerConstant.NOMBRE_JOUR_SYNCHRO);
     	return (INSTANCE.actus == null || INSTANCE.lastSynchroActus == null || INSTANCE.lastSynchroActus.before(calendar.getTime()));
     }
+
+    public static void updateDateSynchroClassement(Date date) {
+        INSTANCE.lastSynchroClassement = date;
+    }
+
+    public static void updateDateSynchroCalendrier(Date date) {
+        INSTANCE.lastSynchroCalendrier = date;
+    }
+
+    public static void updateDateSynchroActus(Date date) {
+        INSTANCE.lastSynchroActus = date;
+    }
 }
