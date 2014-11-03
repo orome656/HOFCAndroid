@@ -54,7 +54,8 @@ public class CalendrierFragment extends Fragment  implements FragmentCallback, C
 
 	@Override
 	public void onError() {
-		Toast.makeText(getActivity(), "Merci de vérifier votre connexion",  Toast.LENGTH_SHORT).show();
+        if(getActivity() != null)
+		    Toast.makeText(getActivity(), "Merci de vérifier votre connexion",  Toast.LENGTH_SHORT).show();
 	}
 
 	@Override

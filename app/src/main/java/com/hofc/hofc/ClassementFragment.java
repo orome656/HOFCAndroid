@@ -55,7 +55,8 @@ public class ClassementFragment extends Fragment implements FragmentCallback, Cu
 
 	@Override
 	public void onError() {
-		Toast.makeText(getActivity(), "Merci de vérifier votre connexion",  Toast.LENGTH_SHORT).show();
+        if(getActivity() != null)
+		    Toast.makeText(getActivity(), "Merci de vérifier votre connexion",  Toast.LENGTH_SHORT).show();
 		
 	}
 

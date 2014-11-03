@@ -43,6 +43,7 @@ public class ActusDownloader extends AsyncTask<Void, Void, Integer> {
 	
 	@Override
 	protected Integer doInBackground(Void... params) {
+        Log.i(ActusDownloader.class.getName(), "Start downloading Actus informations");
 		
 		InputStream inputStream;
 		String result;
@@ -99,7 +100,8 @@ public class ActusDownloader extends AsyncTask<Void, Void, Integer> {
             Log.e(ActusDownloader.class.getName(), "Problem when contacting server", e);
 			return -1;
 		}
-		
+
+        Log.i(ActusDownloader.class.getName(), "Finish downloading Actus informations");
 		return 0;
 	}
 	
