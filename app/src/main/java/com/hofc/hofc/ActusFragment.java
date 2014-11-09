@@ -1,7 +1,5 @@
 package com.hofc.hofc;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,14 +10,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hofc.hofc.adapter.ActusAdapter;
-import com.hofc.hofc.data.ActusBDD;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.data.download.ActusDownloader;
 
-public class ActusFragment extends Fragment  implements FragmentCallback, CustomFragment {
+public class ActusFragment extends CommonFragment  implements FragmentCallback, CustomFragment {
 
 	private ListView actusListView;
 	
@@ -33,7 +29,6 @@ public class ActusFragment extends Fragment  implements FragmentCallback, Custom
         View rootView = inflater.inflate(R.layout.fragment_accueil, container, false);
         actusListView = (ListView) rootView.findViewById(R.id.actus_listview);
         actusListView.setOnItemClickListener(new OnItemClickListener() {
-
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
@@ -43,7 +38,6 @@ public class ActusFragment extends Fragment  implements FragmentCallback, Custom
 				v.getContext().startActivity(i);
 			}
 		});
-		//ActusBDD.initiate(getActivity());
         if(DataSingleton.isSynchroActuNeeded()) {
         	this.refreshDataAndView();
 		} else {
@@ -51,27 +45,10 @@ public class ActusFragment extends Fragment  implements FragmentCallback, Custom
 		}
         return rootView;
     }
-	
-	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-	}
-	
+
 	public void refreshView(){
 		ActusAdapter adapter = new ActusAdapter(getActivity());
 		actusListView.setAdapter(adapter);
-	}
-
-	@Override
-	public void onTaskDone() {
-		refreshView();
-		
-	}
-
-	@Override
-	public void onError() {
-        if(getActivity() != null)
-		    Toast.makeText(getActivity(), "Merci de vérifier votre connexion",  Toast.LENGTH_SHORT).show();
 	}
 
 	@Override

@@ -3,11 +3,16 @@ package com.hofc.hofc;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.hofc.hofc.data.DataSingleton;
 
@@ -27,7 +32,7 @@ public class Accueil extends Activity
     private ActusFragment actusFragment = null;
     private CalendrierFragment calendrierFragment = null;
     private ClassementFragment classementFragment = null;
-    
+    private MenuItem refreshButton = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,13 +128,26 @@ public class Accueil extends Activity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
         if(id == R.id.action_refresh) {
+            findViewById(R.id.action_refresh);
         	CustomFragment custom = (CustomFragment) fragmentManager.findFragmentById(R.id.container);
+            LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            ImageView iv = (ImageView)inflater.inflate(R.layout.iv_refresh, null);
+            Animation rotation = AnimationUtils.loadAnimation(this, R.anim.refresh);
+            rotation.setRepeatCount(Animation.INFINITE);
+            iv.startAnimation(rotation);
+            item.setActionView(iv);
+            // TODO add callback to remove rotation
+            this.refreshButton = item;
         	custom.refreshDataAndView();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void endRefresh() {
+        if(this.refreshButton != null && this.refreshButton.getActionView() != null) {
+            this.refreshButton.getActionView().clearAnimation();
+            this.refreshButton.setActionView(null);
+        }
     }
 }

@@ -82,12 +82,12 @@ public class CalendrierAdapter extends BaseAdapter {
 			holder.calendrierScore1.setTextColor(Color.BLACK);
 		}
 		
-		if(line.getScore1() > line.getScore2()) {
+		if(line.getScore1() != null && line.getScore1() > line.getScore2()) {
 			holder.calendrierScore1.setTypeface(null, Typeface.BOLD);
 			holder.calendrierEquipe1.setTypeface(null, Typeface.BOLD);
 			holder.calendrierScore2.setTypeface(null, Typeface.NORMAL);
 			holder.calendrierEquipe2.setTypeface(null, Typeface.NORMAL);
-		} else if (line.getScore1() < line.getScore2()) {
+		} else if (line.getScore1() != null && line.getScore1() < line.getScore2()) {
 			holder.calendrierScore2.setTypeface(null, Typeface.BOLD);
 			holder.calendrierEquipe2.setTypeface(null, Typeface.BOLD);
 			holder.calendrierScore1.setTypeface(null, Typeface.NORMAL);
@@ -99,8 +99,8 @@ public class CalendrierAdapter extends BaseAdapter {
 			holder.calendrierEquipe2.setTypeface(null, Typeface.NORMAL);
 		}
 		holder.calendrierEquipe1.setText(line.getEquipe1());
-		holder.calendrierScore1.setText(line.getScore1()+"");
-		holder.calendrierScore2.setText(line.getScore2()+"");
+		holder.calendrierScore1.setText((line.getScore1() == null)?"":line.getScore1()+"");
+		holder.calendrierScore2.setText((line.getScore2() == null)?"":line.getScore2()+"");
 		holder.calendrierEquipe2.setText(line.getEquipe2());
 		if(line.getDate() != null)
 			holder.dateMatch.setText(sdf.format(line.getDate()));

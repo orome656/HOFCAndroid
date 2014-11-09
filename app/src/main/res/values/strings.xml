@@ -13,10 +13,13 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
+    <string name="action_refresh">Settings</string>
     
     
     <!-- String calendrier -->
     <string name="desc_image_equipe">Image Equipe</string>
     <string name="score_separator">-</string>
+
+    <string name="connexion_error">Merci de vérifier votre connexion</string>
 
 </resources>

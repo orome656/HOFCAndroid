@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class CalendrierLineVO {
 	private String equipe1;
-	private int score1;
-	private int score2;
+	private Integer score1;
+	private Integer score2;
 	private String equipe2;
 	private Date date;
 	
@@ -15,16 +15,16 @@ public class CalendrierLineVO {
 	public void setEquipe1(String equipe1) {
 		this.equipe1 = equipe1;
 	}
-	public int getScore1() {
+	public Integer getScore1() {
 		return score1;
 	}
-	public void setScore1(int score1) {
+	public void setScore1(Integer score1) {
 		this.score1 = score1;
 	}
-	public int getScore2() {
+	public Integer getScore2() {
 		return score2;
 	}
-	public void setScore2(int score2) {
+	public void setScore2(Integer score2) {
 		this.score2 = score2;
 	}
 	public String getEquipe2() {
