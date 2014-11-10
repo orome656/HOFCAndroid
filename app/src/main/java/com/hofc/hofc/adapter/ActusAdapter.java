@@ -45,7 +45,7 @@ public class ActusAdapter extends BaseAdapter {
 		ViewHolder holder;
 		if(convertView == null) {
 			holder = new ViewHolder();
-			convertView = inflater.inflate(R.layout.actus_view, null);
+			convertView = inflater.inflate(R.layout.actus_view, parent, false);
 			holder.imageActu = (ImageView)convertView.findViewById(R.id.actus_view_image);
 			holder.titleText = (TextView)convertView.findViewById(R.id.actus_view_title);
 			holder.texte = (TextView)convertView.findViewById(R.id.actus_view_texte);

@@ -47,7 +47,7 @@ public class ClassementAdapter extends BaseAdapter {
 		ViewHolder holder;
 		if(convertView == null) {
 			holder = new ViewHolder();
-			convertView = inflater.inflate(R.layout.item_classement, null);
+			convertView = inflater.inflate(R.layout.item_classement, parent, false);
 			holder.classementPosition = (TextView) convertView.findViewById(R.id.classement_position);
 			holder.classementNom = (TextView) convertView.findViewById(R.id.classement_nom);
 			holder.classementPoints = (TextView) convertView.findViewById(R.id.classement_points);

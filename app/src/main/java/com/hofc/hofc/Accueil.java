@@ -137,7 +137,6 @@ public class Accueil extends Activity
             rotation.setRepeatCount(Animation.INFINITE);
             iv.startAnimation(rotation);
             item.setActionView(iv);
-            // TODO add callback to remove rotation
             this.refreshButton = item;
         	custom.refreshDataAndView();
         }

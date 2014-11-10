@@ -52,7 +52,7 @@ public class CalendrierAdapter extends BaseAdapter {
 		ViewHolder holder;
 		if(convertView == null) {
 			holder = new ViewHolder();
-			convertView = inflater.inflate(R.layout.item_calendrier, null);
+			convertView = inflater.inflate(R.layout.item_calendrier, parent, false);
 			holder.imageEquipe1 = (ImageView)convertView.findViewById(R.id.calendrier_image_1);
 			holder.calendrierEquipe1 = (TextView)convertView.findViewById(R.id.calendrier_equipe_1);
 			holder.calendrierScore1 = (TextView)convertView.findViewById(R.id.calendrier_score_1);
@@ -69,34 +69,19 @@ public class CalendrierAdapter extends BaseAdapter {
 		if(AppConstant.hofcName.equalsIgnoreCase(line.getEquipe1())) {
 			holder.imageEquipe1.setImageResource(R.drawable.ic_launcher);
 			holder.imageEquipe2.setImageResource(android.R.color.transparent);
-			holder.calendrierEquipe1.setTextColor(Color.BLUE);
-			holder.calendrierEquipe2.setTextColor(Color.BLACK);
-			holder.calendrierScore1.setTextColor(Color.BLUE);
-			holder.calendrierScore2.setTextColor(Color.BLACK);
+            this.applyColor(holder, Color.BLUE, Color.BLACK);
 		} else if(AppConstant.hofcName.equalsIgnoreCase(line.getEquipe2())) {
 			holder.imageEquipe2.setImageResource(R.drawable.ic_launcher);
 			holder.imageEquipe1.setImageResource(android.R.color.transparent);
-			holder.calendrierEquipe2.setTextColor(Color.BLUE);
-			holder.calendrierEquipe1.setTextColor(Color.BLACK);
-			holder.calendrierScore2.setTextColor(Color.BLUE);
-			holder.calendrierScore1.setTextColor(Color.BLACK);
+            this.applyColor(holder, Color.BLACK, Color.BLUE);
 		}
 		
 		if(line.getScore1() != null && line.getScore1() > line.getScore2()) {
-			holder.calendrierScore1.setTypeface(null, Typeface.BOLD);
-			holder.calendrierEquipe1.setTypeface(null, Typeface.BOLD);
-			holder.calendrierScore2.setTypeface(null, Typeface.NORMAL);
-			holder.calendrierEquipe2.setTypeface(null, Typeface.NORMAL);
+            this.applyStyle(holder, Typeface.BOLD, Typeface.NORMAL);
 		} else if (line.getScore1() != null && line.getScore1() < line.getScore2()) {
-			holder.calendrierScore2.setTypeface(null, Typeface.BOLD);
-			holder.calendrierEquipe2.setTypeface(null, Typeface.BOLD);
-			holder.calendrierScore1.setTypeface(null, Typeface.NORMAL);
-			holder.calendrierEquipe1.setTypeface(null, Typeface.NORMAL);
+            this.applyStyle(holder, Typeface.NORMAL, Typeface.BOLD);
 		} else {
-			holder.calendrierScore1.setTypeface(null, Typeface.NORMAL);
-			holder.calendrierEquipe1.setTypeface(null, Typeface.NORMAL);
-			holder.calendrierScore2.setTypeface(null, Typeface.NORMAL);
-			holder.calendrierEquipe2.setTypeface(null, Typeface.NORMAL);
+            this.applyStyle(holder,Typeface.NORMAL, Typeface.NORMAL);
 		}
 		holder.calendrierEquipe1.setText(line.getEquipe1());
 		holder.calendrierScore1.setText((line.getScore1() == null)?"":line.getScore1()+"");
@@ -107,7 +92,21 @@ public class CalendrierAdapter extends BaseAdapter {
 		
 		return convertView;
 	}
-	
+
+    private void applyStyle(ViewHolder holder, int style1, int style2) {
+        holder.calendrierScore1.setTypeface(null, style1);
+        holder.calendrierEquipe1.setTypeface(null, style1);
+        holder.calendrierScore2.setTypeface(null, style2);
+        holder.calendrierEquipe2.setTypeface(null, style2);
+    }
+
+    private void applyColor(ViewHolder holder, int color1, int color2) {
+        holder.calendrierEquipe1.setTextColor(color1);
+        holder.calendrierEquipe2.setTextColor(color2);
+        holder.calendrierScore1.setTextColor(color1);
+        holder.calendrierScore2.setTextColor(color2);
+    }
+
 	private class ViewHolder {
 		ImageView imageEquipe1;
 		TextView calendrierEquipe1;
