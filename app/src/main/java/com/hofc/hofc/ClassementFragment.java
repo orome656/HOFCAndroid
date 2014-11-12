@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.concurrent.Callable;
 
@@ -26,6 +27,29 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_classement, container, false);
         classementListView = (ListView) rootView.findViewById(R.id.classement_listView);
+        View header = inflater.inflate(R.layout.item_classement, null);
+
+        TextView classementPosition = (TextView) header.findViewById(R.id.classement_position);
+        classementPosition.setText("#");
+        TextView classementNom = (TextView) header.findViewById(R.id.classement_nom);
+        classementNom.setText("Equipe");
+        TextView classementPoints = (TextView) header.findViewById(R.id.classement_points);
+        classementPoints.setText("Pts");
+        TextView classementJoue = (TextView) header.findViewById(R.id.classement_joue);
+        classementJoue.setText("J");
+        TextView classementDiff = (TextView) header.findViewById(R.id.classement_diff);
+        classementDiff.setText("Diff");
+        TextView classementVictoire = (TextView) header.findViewById(R.id.classement_victoire);
+        classementVictoire.setText("V");
+        TextView classementNul = (TextView) header.findViewById(R.id.classement_nul);
+        classementNul.setText("N");
+        TextView classementDefaite = (TextView) header.findViewById(R.id.classement_defaite);
+        classementDefaite.setText("D");
+        TextView classementBp = (TextView) header.findViewById(R.id.classement_bp);
+        classementBp.setText("BP");
+        TextView classementBc = (TextView) header.findViewById(R.id.classement_bc);
+        classementBc.setText("BC");
+        classementListView.addHeaderView(header);
 		if(DataSingleton.isSynchroClassementNeeded()) {
 			this.refreshDataAndView();
 		} else {

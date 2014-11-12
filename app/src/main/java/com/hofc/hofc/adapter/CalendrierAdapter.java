@@ -24,8 +24,9 @@ public class CalendrierAdapter extends BaseAdapter {
 	SimpleDateFormat sdf;
 	
 	public CalendrierAdapter(Context context) {
-		inflater = LayoutInflater.from(context);
-		CalendrierBDD.initiate(context);
+        if (context != null)
+		    inflater = LayoutInflater.from(context);
+		//CalendrierBDD.initiate(context);
 		sdf = new SimpleDateFormat("EEEE dd MMMM yyyy");
 	}	
 	@Override

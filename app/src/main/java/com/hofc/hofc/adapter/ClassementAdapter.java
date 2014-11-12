@@ -19,8 +19,9 @@ public class ClassementAdapter extends BaseAdapter {
 	LayoutInflater inflater;
 	
 	public ClassementAdapter(Context context) {
-		inflater = LayoutInflater.from(context);
-		ClassementBDD.initiate(context);
+        if(context != null)
+		    inflater = LayoutInflater.from(context);
+		//ClassementBDD.initiate(context);
 	}
 	
 	@Override
@@ -50,9 +51,14 @@ public class ClassementAdapter extends BaseAdapter {
 			convertView = inflater.inflate(R.layout.item_classement, parent, false);
 			holder.classementPosition = (TextView) convertView.findViewById(R.id.classement_position);
 			holder.classementNom = (TextView) convertView.findViewById(R.id.classement_nom);
-			holder.classementPoints = (TextView) convertView.findViewById(R.id.classement_points);
-			holder.classementJoue = (TextView) convertView.findViewById(R.id.classement_joue);
-			holder.classementDiff = (TextView) convertView.findViewById(R.id.classement_diff);
+            holder.classementPoints = (TextView) convertView.findViewById(R.id.classement_points);
+            holder.classementJoue = (TextView) convertView.findViewById(R.id.classement_joue);
+            holder.classementDiff = (TextView) convertView.findViewById(R.id.classement_diff);
+            holder.classementVictoire = (TextView) convertView.findViewById(R.id.classement_victoire);
+            holder.classementNul = (TextView) convertView.findViewById(R.id.classement_nul);
+            holder.classementDefaite = (TextView) convertView.findViewById(R.id.classement_defaite);
+            holder.classementBp = (TextView) convertView.findViewById(R.id.classement_bp);
+            holder.classementBc = (TextView) convertView.findViewById(R.id.classement_bc);
 			
 			convertView.setTag(holder);
 		} else {
@@ -73,6 +79,11 @@ public class ClassementAdapter extends BaseAdapter {
 		holder.classementPoints.setText(line.getPoints() +"");
 		holder.classementJoue.setText(line.getJoue() +"");
 		holder.classementDiff.setText(line.getDiff() +"");
+        holder.classementVictoire.setText(line.getGagne() +"");
+        holder.classementNul.setText(line.getNul() +"");
+        holder.classementDefaite.setText(line.getPerdu() +"");
+        holder.classementBp.setText(line.getBp() +"");
+        holder.classementBc.setText(line.getBc() +"");
 		
 		return convertView;
 	}
@@ -83,6 +94,11 @@ public class ClassementAdapter extends BaseAdapter {
 		TextView classementPoints;
 		TextView classementJoue;
 		TextView classementDiff;
+        TextView classementVictoire;
+        TextView classementNul;
+        TextView classementDefaite;
+        TextView classementBp;
+        TextView classementBc;
 	}
 	/**
 	 * Permet d'application une couleur sur la ligne du classement

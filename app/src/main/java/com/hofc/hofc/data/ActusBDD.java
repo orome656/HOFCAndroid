@@ -106,7 +106,7 @@ public class ActusBDD {
     	openReadable();
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
     	ArrayList<ActuVO> list = null;
-    	Cursor cursor = hofcDatabase.query(ActusEntry.ACTUS_TABLE_NAME, null, null, null, null, null, ActusEntry.COLUMN_DATE);
+    	Cursor cursor = hofcDatabase.query(ActusEntry.ACTUS_TABLE_NAME, null, null, null, null, null, ActusEntry.COLUMN_DATE + " DESC");
     	if(cursor.getCount() > 0){
     		list = new ArrayList<ActuVO>();
     		while(cursor.moveToNext()) {
@@ -132,7 +132,7 @@ public class ActusBDD {
     }
     
     public static Cursor getAllInCursor(){
-    	return hofcDatabase.query(ActusEntry.ACTUS_TABLE_NAME, null, null, null, null, null, ActusEntry.COLUMN_DATE);
+    	return hofcDatabase.query(ActusEntry.ACTUS_TABLE_NAME, null, null, null, null, null, ActusEntry.COLUMN_DATE + " DESC");
     }
     
     public static void insertList(List<ActuVO> list) {

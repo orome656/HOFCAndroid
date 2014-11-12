@@ -10,25 +10,55 @@
         android:layout_height="fill_parent"
         android:layout_weight="10"
         android:gravity="center_vertical"/>
-    <TextView 
+    <TextView
         android:id="@+id/classement_nom"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="5"
         android:gravity="center_vertical"/>
-    <TextView 
+    <TextView
         android:id="@+id/classement_points"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="10"
         android:gravity="center_vertical"/>
-    <TextView 
+    <TextView
         android:id="@+id/classement_joue"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="10"
         android:gravity="center_vertical"/>
-    <TextView 
+    <TextView
+        android:id="@+id/classement_victoire"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="10"
+        android:gravity="center_vertical"/>
+    <TextView
+        android:id="@+id/classement_nul"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="10"
+        android:gravity="center_vertical"/>
+    <TextView
+        android:id="@+id/classement_defaite"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="10"
+        android:gravity="center_vertical"/>
+    <TextView
+        android:id="@+id/classement_bp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="10"
+        android:gravity="center_vertical"/>
+    <TextView
+        android:id="@+id/classement_bc"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="10"
+        android:gravity="center_vertical"/>
+    <TextView
         android:id="@+id/classement_diff"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
