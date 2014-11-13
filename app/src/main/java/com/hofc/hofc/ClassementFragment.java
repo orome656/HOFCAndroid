@@ -27,10 +27,11 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_classement, container, false);
         classementListView = (ListView) rootView.findViewById(R.id.classement_listView);
+        /*
         View header = inflater.inflate(R.layout.item_classement, null);
 
         TextView classementPosition = (TextView) header.findViewById(R.id.classement_position);
-        classementPosition.setText("#");
+        classementPosition.setText(" ");
         TextView classementNom = (TextView) header.findViewById(R.id.classement_nom);
         classementNom.setText("Equipe");
         TextView classementPoints = (TextView) header.findViewById(R.id.classement_points);
@@ -50,6 +51,7 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
         TextView classementBc = (TextView) header.findViewById(R.id.classement_bc);
         classementBc.setText("BC");
         classementListView.addHeaderView(header);
+        */
 		if(DataSingleton.isSynchroClassementNeeded()) {
 			this.refreshDataAndView();
 		} else {

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ClassementAdapter extends BaseAdapter {
@@ -48,18 +49,18 @@ public class ClassementAdapter extends BaseAdapter {
 		ViewHolder holder;
 		if(convertView == null) {
 			holder = new ViewHolder();
-			convertView = inflater.inflate(R.layout.item_classement, parent, false);
-			holder.classementPosition = (TextView) convertView.findViewById(R.id.classement_position);
-			holder.classementNom = (TextView) convertView.findViewById(R.id.classement_nom);
-            holder.classementPoints = (TextView) convertView.findViewById(R.id.classement_points);
-            holder.classementJoue = (TextView) convertView.findViewById(R.id.classement_joue);
-            holder.classementDiff = (TextView) convertView.findViewById(R.id.classement_diff);
-            holder.classementVictoire = (TextView) convertView.findViewById(R.id.classement_victoire);
-            holder.classementNul = (TextView) convertView.findViewById(R.id.classement_nul);
-            holder.classementDefaite = (TextView) convertView.findViewById(R.id.classement_defaite);
-            holder.classementBp = (TextView) convertView.findViewById(R.id.classement_bp);
-            holder.classementBc = (TextView) convertView.findViewById(R.id.classement_bc);
-			
+			convertView = inflater.inflate(R.layout.classement_element, null);
+			holder.classementPosition = (TextView) convertView.findViewById(R.id.classement_view_rank);
+			holder.classementNom = (TextView) convertView.findViewById(R.id.classement_view_name);
+            holder.classementPoints = (TextView) convertView.findViewById(R.id.classement_view_points_value);
+            holder.classementJoue = (TextView) convertView.findViewById(R.id.classement_view_joue_value);
+            holder.classementDiff = (TextView) convertView.findViewById(R.id.classement_view_diff_value);
+            holder.classementVictoire = (TextView) convertView.findViewById(R.id.classement_view_victoire_value);
+            holder.classementNul = (TextView) convertView.findViewById(R.id.classement_view_nul_value);
+            holder.classementDefaite = (TextView) convertView.findViewById(R.id.classement_view_defaite_value);
+            holder.classementBp = (TextView) convertView.findViewById(R.id.classement_view_bp_value);
+            holder.classementBc = (TextView) convertView.findViewById(R.id.classement_view_bc_value);
+			holder.imageEquipe = (ImageView) convertView.findViewById(R.id.classement_view_image);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -69,9 +70,11 @@ public class ClassementAdapter extends BaseAdapter {
 		ClassementLineVO line = DataSingleton.getClassement().get(position);
 		
 		if(AppConstant.hofcName.equalsIgnoreCase(line.getNom())) {
-			this.setLineColor(holder, Color.BLUE);
+            holder.imageEquipe.setImageResource(R.drawable.ic_launcher);
+			//this.setLineColor(holder, Color.BLUE);
 		} else {
-			this.setLineColor(holder, Color.BLACK);
+            holder.imageEquipe.setImageBitmap(null);
+			//this.setLineColor(holder, Color.BLACK);
 		}
 		
 		holder.classementPosition.setText(position + 1 +"");
@@ -99,6 +102,7 @@ public class ClassementAdapter extends BaseAdapter {
         TextView classementDefaite;
         TextView classementBp;
         TextView classementBc;
+        ImageView imageEquipe;
 	}
 	/**
 	 * Permet d'application une couleur sur la ligne du classement
