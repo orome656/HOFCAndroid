@@ -49,7 +49,7 @@ public class CommonBDD {
 		if(cursor.getCount() > 0) {
 			hofcDatabase.update("date_synchro", values, "nom='"+bddName+"'", null);
 		} else {
-			values.put("nom", "actus");
+			values.put("nom", bddName);
 			hofcDatabase.insert("date_synchro", null, values);
 		}
 	}
