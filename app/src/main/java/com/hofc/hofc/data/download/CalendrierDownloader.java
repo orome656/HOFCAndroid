@@ -18,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.hofc.hofc.FragmentCallback;
+import com.hofc.hofc.R;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.CalendrierBDD;
 import com.hofc.hofc.data.DataSingleton;
@@ -90,11 +91,14 @@ public class CalendrierDownloader extends AsyncTask<Void, Void, Integer> {
 				CalendrierBDD.updateDateSynchro(new Date());
 			} else {
                 Log.e(CalendrierDownloader.class.getName(), "Problem while contacting server");
+                return -1;
 			}
 		} catch (ClientProtocolException e) {
             Log.e(CalendrierDownloader.class.getName(), "Problem while contacting server", e);
+            return -1;
 		} catch (JSONException e) {
             Log.e(CalendrierDownloader.class.getName(), "Problem while parsing server response", e);
+            return -1;
 		} catch (IOException e) {
             Log.e(CalendrierDownloader.class.getName(), "Problem while contacting server", e);
 			return -1;
@@ -108,7 +112,9 @@ public class CalendrierDownloader extends AsyncTask<Void, Void, Integer> {
 	protected void onPostExecute(Integer result) {
 		if(result == -1) {
 			callback.onError();
-		} else {
+		} else if(result == -2) {
+            callback.onError(R.string.internal_error);
+        } else {
 			callback.onTaskDone();
 		}
 		super.onPostExecute(result);

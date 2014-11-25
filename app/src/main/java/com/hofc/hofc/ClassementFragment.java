@@ -52,21 +52,28 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
         classementBc.setText("BC");
         classementListView.addHeaderView(header);
         */
-		if(DataSingleton.isSynchroClassementNeeded()) {
-			this.refreshDataAndView();
-		} else {
-			this.refreshView();
-		}
         return rootView;
     }
 
-	public void refreshView(){
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if(DataSingleton.isSynchroClassementNeeded()) {
+            this.refreshDataAndView();
+        } else {
+            this.refreshView();
+        }
+    }
+
+    public void refreshView(){
+        super.refreshView();
 		ClassementAdapter adapter = new ClassementAdapter(getActivity());
 		classementListView.setAdapter(adapter);
 	}
 
 	@Override
 	public void refreshDataAndView() {
+        super.refreshDataAndView();
 		ClassementDownloader downloader = new ClassementDownloader(this);
 		downloader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}

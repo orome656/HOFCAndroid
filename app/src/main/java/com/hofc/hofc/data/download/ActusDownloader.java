@@ -21,6 +21,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.hofc.hofc.FragmentCallback;
+import com.hofc.hofc.R;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.ActusBDD;
 import com.hofc.hofc.data.DataSingleton;
@@ -91,11 +92,14 @@ public class ActusDownloader extends AsyncTask<Void, Void, Integer> {
 				ActusBDD.updateDateSynchro(new Date());
 			} else {
                 Log.e(ActusDownloader.class.getName(), "Problem when contacting server, inputStream is null");
+                return -1;
             }
 		} catch (ClientProtocolException e) {
             Log.e(ActusDownloader.class.getName(), "Problem when contacting server", e);
+            return -1;
 		} catch (JSONException e) {
             Log.e(ActusDownloader.class.getName(), "Problem when parsing server response", e);
+            return -2;
 		} catch (IOException e) {
             Log.e(ActusDownloader.class.getName(), "Problem when contacting server", e);
 			return -1;
@@ -109,7 +113,9 @@ public class ActusDownloader extends AsyncTask<Void, Void, Integer> {
 	protected void onPostExecute(Integer result) {
 		if(result == -1) {
 			callback.onError();
-		} else {
+		} else if(result == -2) {
+            callback.onError(R.string.internal_error);
+        } else {
 			callback.onTaskDone();
 		}
 		super.onPostExecute(result);

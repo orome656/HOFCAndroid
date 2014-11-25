@@ -2,6 +2,7 @@ package com.hofc.hofc;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,14 +48,16 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
     }
 
 	public void refreshView(){
+        super.refreshView();
 		ActusAdapter adapter = new ActusAdapter(getActivity());
 		actusListView.setAdapter(adapter);
 	}
 
 	@Override
 	public void refreshDataAndView() {
+        super.refreshDataAndView();
 		ActusDownloader downloader = new ActusDownloader(this);
-    	downloader.execute();
+        downloader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
 	
 	

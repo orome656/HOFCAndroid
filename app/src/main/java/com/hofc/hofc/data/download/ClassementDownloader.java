@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.hofc.hofc.FragmentCallback;
+import com.hofc.hofc.R;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.ClassementBDD;
 import com.hofc.hofc.data.DataSingleton;
@@ -84,14 +85,17 @@ public class ClassementDownloader extends AsyncTask<Void, Void, Integer> {
 				ClassementBDD.updateDateSynchro(new Date());
 			} else {
                 Log.e(ClassementDownloader.class.getName(), "Problem when contacting server, inputStream is null");
+                return -1;
 			}
 		} catch (ClientProtocolException e) {
             Log.e(ClassementDownloader.class.getName(), "Problem when contacting server", e);
+            return -1;
 		} catch (IOException e) {
             Log.e(ClassementDownloader.class.getName(), "Problem when contacting server", e);
 			return -1;
 		} catch (JSONException e) {
             Log.e(ClassementDownloader.class.getName(), "Problem when getting json response", e);
+            return -2;
         }
 
         Log.i(ClassementDownloader.class.getName(), "Finish downloading Classement informations");
@@ -102,7 +106,9 @@ public class ClassementDownloader extends AsyncTask<Void, Void, Integer> {
 	protected void onPostExecute(Integer result) {
 		if(result == -1) {
 			callback.onError();
-		} else {
+		} else if(result == -2) {
+            callback.onError(R.string.internal_error);
+        } else {
 			callback.onTaskDone();
 		}
 		super.onPostExecute(result);

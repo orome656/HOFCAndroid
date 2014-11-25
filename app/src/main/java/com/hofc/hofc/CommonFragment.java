@@ -13,6 +13,7 @@ public class CommonFragment extends Fragment implements CustomFragment, Fragment
     private Accueil mainActivity;
     @Override
     public void refreshDataAndView() {
+        mainActivity.startRefresh();
 
     }
 
@@ -26,10 +27,24 @@ public class CommonFragment extends Fragment implements CustomFragment, Fragment
 
     @Override
     public void onError() {
+        mainActivity.endRefresh();
         if(getActivity() != null)
             Toast.makeText(getActivity(), R.string.connexion_error, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onError(String message) {
+        mainActivity.endRefresh();
+        if(getActivity() != null)
+            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onError(int messageId) {
+        mainActivity.endRefresh();
+        if(getActivity() != null)
+            Toast.makeText(getActivity(), messageId, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public void onAttach(Activity activity) {

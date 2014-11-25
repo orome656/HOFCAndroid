@@ -33,6 +33,9 @@ public class Accueil extends Activity
     private CalendrierFragment calendrierFragment = null;
     private ClassementFragment classementFragment = null;
     private MenuItem refreshButton = null;
+    private Menu menu = null;
+    private boolean runningDownload = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,6 +122,11 @@ public class Accueil extends Activity
             restoreActionBar();
             return true;
         }
+        if(this.runningDownload) {
+            if(menu.findItem(R.id.action_refresh) != null)
+                startRefreshAnimation(menu.findItem(R.id.action_refresh));
+        }
+        this.menu = menu;
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -129,21 +137,35 @@ public class Accueil extends Activity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if(id == R.id.action_refresh) {
-            findViewById(R.id.action_refresh);
         	CustomFragment custom = (CustomFragment) fragmentManager.findFragmentById(R.id.container);
-            LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            ImageView iv = (ImageView)inflater.inflate(R.layout.iv_refresh, null);
-            Animation rotation = AnimationUtils.loadAnimation(this, R.anim.refresh);
-            rotation.setRepeatCount(Animation.INFINITE);
-            iv.startAnimation(rotation);
-            item.setActionView(iv);
-            this.refreshButton = item;
+            this.startRefreshAnimation(item);
         	custom.refreshDataAndView();
         }
         return super.onOptionsItemSelected(item);
     }
 
+    public void startRefresh() {
+        this.runningDownload = true;
+        if (this.menu != null) {
+            MenuItem item = this.menu.findItem(R.id.action_refresh);
+            if (item != null) {
+                this.startRefreshAnimation(item);
+            }
+        }
+    }
+
+    private void startRefreshAnimation(MenuItem refreshItem) {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        ImageView iv = (ImageView) inflater.inflate(R.layout.iv_refresh, null);
+        Animation rotation = AnimationUtils.loadAnimation(this, R.anim.refresh);
+        rotation.setRepeatCount(Animation.INFINITE);
+        iv.startAnimation(rotation);
+        refreshItem.setActionView(iv);
+        this.refreshButton = refreshItem;
+    }
+
     public void endRefresh() {
+        this.runningDownload = false;
         if(this.refreshButton != null && this.refreshButton.getActionView() != null) {
             this.refreshButton.getActionView().clearAnimation();
             this.refreshButton.setActionView(null);
