@@ -8,6 +8,7 @@ import com.hofc.hofc.vo.ClassementLineVO;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +50,19 @@ public class ClassementAdapter extends BaseAdapter {
 		ViewHolder holder;
 		if(convertView == null) {
 			holder = new ViewHolder();
-			convertView = inflater.inflate(R.layout.classement_element, null);
+			convertView = inflater.inflate(R.layout.item_classement, null);
+
+            holder.classementPosition = (TextView) convertView.findViewById(R.id.classement_position);
+            holder.classementNom = (TextView) convertView.findViewById(R.id.classement_nom);
+            holder.classementPoints = (TextView) convertView.findViewById(R.id.classement_points);
+            holder.classementJoue = (TextView) convertView.findViewById(R.id.classement_joue);
+            holder.classementDiff = (TextView) convertView.findViewById(R.id.classement_diff);
+            holder.classementVictoire = (TextView) convertView.findViewById(R.id.classement_victoire);
+            holder.classementNul = (TextView) convertView.findViewById(R.id.classement_nul);
+            holder.classementDefaite = (TextView) convertView.findViewById(R.id.classement_defaite);
+            holder.classementBp = (TextView) convertView.findViewById(R.id.classement_bp);
+            holder.classementBc = (TextView) convertView.findViewById(R.id.classement_bc);
+            /*
 			holder.classementPosition = (TextView) convertView.findViewById(R.id.classement_view_rank);
 			holder.classementNom = (TextView) convertView.findViewById(R.id.classement_view_name);
             holder.classementPoints = (TextView) convertView.findViewById(R.id.classement_view_points_value);
@@ -61,6 +74,7 @@ public class ClassementAdapter extends BaseAdapter {
             holder.classementBp = (TextView) convertView.findViewById(R.id.classement_view_bp_value);
             holder.classementBc = (TextView) convertView.findViewById(R.id.classement_view_bc_value);
 			holder.imageEquipe = (ImageView) convertView.findViewById(R.id.classement_view_image);
+			*/
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -70,11 +84,11 @@ public class ClassementAdapter extends BaseAdapter {
 		ClassementLineVO line = DataSingleton.getClassement().get(position);
 		
 		if(AppConstant.hofcName.equalsIgnoreCase(line.getNom())) {
-            holder.imageEquipe.setImageResource(R.drawable.ic_launcher);
-			//this.setLineColor(holder, Color.BLUE);
+        //    holder.imageEquipe.setImageResource(R.drawable.ic_launcher);
+			this.setLineColor(holder, Color.BLUE);
 		} else {
-            holder.imageEquipe.setImageBitmap(null);
-			//this.setLineColor(holder, Color.BLACK);
+        //    holder.imageEquipe.setImageBitmap(null);
+			this.setLineColor(holder, Color.BLACK);
 		}
 		
 		holder.classementPosition.setText(position + 1 +"");
@@ -87,7 +101,9 @@ public class ClassementAdapter extends BaseAdapter {
         holder.classementDefaite.setText(line.getPerdu() +"");
         holder.classementBp.setText(line.getBp() +"");
         holder.classementBc.setText(line.getBc() +"");
-		
+		this.setBoldStyle(holder);
+
+
 		return convertView;
 	}
 	
@@ -113,8 +129,24 @@ public class ClassementAdapter extends BaseAdapter {
 		holder.classementNom.setTextColor(color);
 		holder.classementPoints.setTextColor(color);
 		holder.classementJoue.setTextColor(color);
-		holder.classementDiff.setTextColor(color);
+        holder.classementVictoire.setTextColor(color);
+		holder.classementNul.setTextColor(color);
+        holder.classementDefaite.setTextColor(color);
+        holder.classementBp.setTextColor(color);
+        holder.classementBc.setTextColor(color);
+        holder.classementDiff.setTextColor(color);
 		
 	}
+
+    private void setBoldStyle(ViewHolder holder) {
+        holder.classementPoints.setTypeface(null, Typeface.BOLD);
+        holder.classementJoue.setTypeface(null, Typeface.BOLD);
+        holder.classementVictoire.setTypeface(null, Typeface.BOLD);
+        holder.classementNul.setTypeface(null, Typeface.BOLD);
+        holder.classementDefaite.setTypeface(null, Typeface.BOLD);
+        holder.classementBp.setTypeface(null, Typeface.BOLD);
+        holder.classementBc.setTypeface(null, Typeface.BOLD);
+        holder.classementDiff.setTypeface(null, Typeface.BOLD);
+    }
 
 }
