@@ -39,7 +39,7 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
         TextView classementJoue = (TextView) header.findViewById(R.id.classement_joue);
         classementJoue.setText("J");
         TextView classementDiff = (TextView) header.findViewById(R.id.classement_diff);
-        classementDiff.setText("Diff");
+        classementDiff.setText("+/-");
         TextView classementVictoire = (TextView) header.findViewById(R.id.classement_victoire);
         classementVictoire.setText("V");
         TextView classementNul = (TextView) header.findViewById(R.id.classement_nul);
