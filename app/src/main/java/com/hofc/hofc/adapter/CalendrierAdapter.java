@@ -53,14 +53,14 @@ public class CalendrierAdapter extends BaseAdapter {
 		ViewHolder holder;
 		if(convertView == null) {
 			holder = new ViewHolder();
-			convertView = inflater.inflate(R.layout.item_calendrier, parent, false);
-			holder.imageEquipe1 = (ImageView)convertView.findViewById(R.id.calendrier_image_1);
-			holder.calendrierEquipe1 = (TextView)convertView.findViewById(R.id.calendrier_equipe_1);
-			holder.calendrierScore1 = (TextView)convertView.findViewById(R.id.calendrier_score_1);
-			holder.calendrierScore2 = (TextView)convertView.findViewById(R.id.calendrier_score_2);
-			holder.calendrierEquipe2 = (TextView)convertView.findViewById(R.id.calendrier_equipe_2);
-			holder.imageEquipe2 = (ImageView)convertView.findViewById(R.id.calendrier_image_2);
-			holder.dateMatch = (TextView)convertView.findViewById(R.id.date_match);
+			convertView = inflater.inflate(R.layout.calendrier_card, parent, false);
+			holder.imageEquipe1 = (ImageView)convertView.findViewById(R.id.calendrier_card_image_1);
+			holder.calendrierEquipe1 = (TextView)convertView.findViewById(R.id.calendrier_card_nom_1);
+			holder.calendrierScore1 = (TextView)convertView.findViewById(R.id.calendrier_card_score_1);
+			holder.calendrierScore2 = (TextView)convertView.findViewById(R.id.calendrier_card_score_2);
+			holder.calendrierEquipe2 = (TextView)convertView.findViewById(R.id.calendrier_card_nom_2);
+			holder.imageEquipe2 = (ImageView)convertView.findViewById(R.id.calendrier_card_image_2);
+			holder.dateMatch = (TextView)convertView.findViewById(R.id.calendrier_card_date);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
