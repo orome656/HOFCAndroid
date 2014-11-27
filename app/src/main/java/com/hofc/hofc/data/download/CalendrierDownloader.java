@@ -76,6 +76,9 @@ public class CalendrierDownloader extends AsyncTask<Void, Void, Integer> {
                     if(!"null".equalsIgnoreCase(object.getString("score1")) && !"null".equalsIgnoreCase(object.getString("score2"))) {
                         calendrier.setScore1(object.getInt("score1"));
                         calendrier.setScore2(object.getInt("score2"));
+                    } else {
+                        calendrier.setScore1(null);
+                        calendrier.setScore2(null);
                     }
 					try {
 						calendrier.setDate(sdf.parse(object.getString("date")));
