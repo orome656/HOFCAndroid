@@ -106,8 +106,13 @@ public class CalendrierBDD {
         		CalendrierLineVO line = new CalendrierLineVO();
     			line.setEquipe1(cursor.getString(CalendrierEntry.NUM_COLUMN_EQUIPE_1));
     			line.setEquipe2(cursor.getString(CalendrierEntry.NUM_COLUMN_EQUIPE_2));
-    			line.setScore1(cursor.getInt(CalendrierEntry.NUM_COLUMN_SCORE_1));
-    			line.setScore2(cursor.getInt(CalendrierEntry.NUM_COLUMN_SCORE_2));
+                if(!cursor.isNull(CalendrierEntry.NUM_COLUMN_SCORE_1)) {
+                    line.setScore1(cursor.getInt(CalendrierEntry.NUM_COLUMN_SCORE_1));
+                    line.setScore2(cursor.getInt(CalendrierEntry.NUM_COLUMN_SCORE_2));
+                } else {
+                    line.setScore1(null);
+                    line.setScore2(null);
+                }
     			try {
     				if(cursor.getString(CalendrierEntry.NUM_COLUMN_DATE) != null)
     					line.setDate(sdf.parse(cursor.getString(CalendrierEntry.NUM_COLUMN_DATE)));

@@ -13,13 +13,17 @@ import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.data.download.ImageDownloader;
 import com.hofc.hofc.vo.ActuVO;
 
+import java.text.SimpleDateFormat;
+
 public class ActusAdapter extends BaseAdapter {
 
 	LayoutInflater inflater;
+    SimpleDateFormat sdf;
 	
 	public ActusAdapter(Context context) {
 		inflater = LayoutInflater.from(context);
 		//CalendrierBDD.initiate(context);
+        sdf = new SimpleDateFormat("EEEE dd MMMM yyyy");
 	}	
 	@Override
 	public int getCount() {
@@ -65,7 +69,8 @@ public class ActusAdapter extends BaseAdapter {
 		}
 		holder.titleText.setText(line.getTitre());
 		holder.texte.setText(line.getTexte());
-		holder.dateView.setText(line.getDate().toString());
+        if(line.getDate() != null)
+		    holder.dateView.setText(sdf.format(line.getDate()));
 		holder.urlActus.setText(line.getUrl());
 		
 		

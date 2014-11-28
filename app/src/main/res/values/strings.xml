@@ -18,7 +18,7 @@
     
     <!-- String calendrier -->
     <string name="desc_image_equipe">Image Equipe</string>
-    <string name="score_separator">-</string>
+    <string name="score_separator"> - </string>
 
     <string name="connexion_error">Merci de vérifier votre connexion</string>
     <string name="internal_error">Erreur lors de la récupération des données</string>
