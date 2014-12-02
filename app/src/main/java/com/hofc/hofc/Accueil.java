@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,9 +17,21 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Accueil extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -236,5 +249,36 @@ public class Accueil extends Activity
 
     private void sendRegistrationIdToBackend() {
         // Your implementation here.
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                InputStream inputStream;
+                StringBuilder stringBuilder = new StringBuilder("http://");
+                stringBuilder.append(ServerConstant.SERVER_URL);
+                if(ServerConstant.SERVER_PORT != 0) {
+                    stringBuilder.append(":");
+                    stringBuilder.append(ServerConstant.SERVER_PORT);
+                }
+                stringBuilder.append("/");
+                stringBuilder.append(ServerConstant.NOTIF_CONTEXT);
+
+                HttpClient httpClient = new DefaultHttpClient();
+
+                try {
+                    HttpPost httpPost = new HttpPost(stringBuilder.toString());
+                    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+                    nameValuePairs.add(new BasicNameValuePair("notification_id", regId));
+                    nameValuePairs.add(new BasicNameValuePair("uuid", Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID)));
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                    HttpResponse httpResponse = httpClient.execute(httpPost);
+
+                    inputStream = httpResponse.getEntity().getContent();
+
+                } catch (IOException ex) {
+                    Log.e(Accueil.class.getName(), "Problem while sending Notification ID", ex);
+                }
+                return null;
+            }
+        }.execute(null, null, null);
     }
 }
