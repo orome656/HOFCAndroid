@@ -34,9 +34,11 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
 				String url = ((TextView)v.findViewById(R.id.actus_url)).getText().toString();
-				Intent i = new Intent(Intent.ACTION_VIEW);
-				i.setData(Uri.parse(url));
-				v.getContext().startActivity(i);
+				//Intent i = new Intent(Intent.ACTION_VIEW);
+				//i.setData(Uri.parse(url));
+				//v.getContext().startActivity(i);
+                Intent i = new Intent(getActivity(), ActusDetail.class);
+                startActivity(i);
 			}
 		});
         if(DataSingleton.isSynchroActuNeeded()) {
