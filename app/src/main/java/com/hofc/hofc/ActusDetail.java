@@ -1,16 +1,44 @@
 package com.hofc.hofc;
 
+import com.hofc.hofc.constant.ServerConstant;
+import com.hofc.hofc.data.download.ActusDownloader;
 import com.hofc.hofc.util.SystemUiHider;
+import com.hofc.hofc.utils.HOFCUtils;
+import com.hofc.hofc.vo.ActusDetailsVO;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -48,11 +76,19 @@ public class ActusDetail extends Activity {
      */
     private SystemUiHider mSystemUiHider;
 
+    private TextView titleTextView = null;
+    private TextView dateTextView = null;
+    private TextView contentTextView = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_actus_detail);
+
+        titleTextView = (TextView)findViewById(R.id.actus_details_title);
+        dateTextView = (TextView)findViewById(R.id.actus_details_date);
+        contentTextView = (TextView)findViewById(R.id.actus_details_content);
 
         getActionBar().setTitle("HOFC");
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -115,6 +151,12 @@ public class ActusDetail extends Activity {
             }
         });
 
+        Intent i = getIntent();
+        String url = (String)i.getExtras().get("URL");
+
+        ActusDetailDownloader downloader = new ActusDetailDownloader();
+        downloader.execute(url);
+
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
@@ -173,5 +215,76 @@ public class ActusDetail extends Activity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void refreshView(ActusDetailsVO actusDetails) {
+        titleTextView.setText(actusDetails.getTitle());
+        dateTextView.setText(actusDetails.getDate().toString());
+        contentTextView.setText(actusDetails.getContent());
+    }
+
+    private class ActusDetailDownloader extends AsyncTask<String, Void, ActusDetailsVO> {
+        @Override
+        protected ActusDetailsVO doInBackground(String... params) {
+            String url = params[0];
+
+            InputStream inputStream;
+            String result;
+            ActusDetailsVO actuDetails = null;
+            HttpClient httpClient = new DefaultHttpClient();
+
+            StringBuilder stringBuilder = new StringBuilder("http://");
+            stringBuilder.append(ServerConstant.SERVER_URL);
+            if(ServerConstant.SERVER_PORT != 0) {
+                stringBuilder.append(":");
+                stringBuilder.append(ServerConstant.SERVER_PORT);
+            }
+            stringBuilder.append("/");
+            stringBuilder.append(ServerConstant.PARSE_PAGE_CONTEXT);
+
+            try {
+                HttpPost httpPost = new HttpPost(stringBuilder.toString());
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+                nameValuePairs.add(new BasicNameValuePair("url", url));
+                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                HttpResponse httpResponse = httpClient.execute(httpPost);
+
+                inputStream = httpResponse.getEntity().getContent();
+
+                if(inputStream != null) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                    result = HOFCUtils.convertInputStreamToString(inputStream);
+                    JSONObject jsonObject = new JSONObject(result);
+                    actuDetails = new ActusDetailsVO();
+                    actuDetails.setTitle(jsonObject.getString("title"));
+                    try {
+                        actuDetails.setDate(sdf.parse(jsonObject.getString("date")));
+                    } catch (ParseException e) {
+                        actuDetails.setDate(null);
+                    }
+                    actuDetails.setContent(jsonObject.getString("content"));
+
+                } else {
+                    Log.e(ActusDetailDownloader.class.getName(), "Problem when contacting server, inputStream is null");
+                }
+            } catch (ClientProtocolException e) {
+                Log.e(ActusDetailDownloader.class.getName(), "Problem when contacting server", e);
+            } catch (JSONException e) {
+                Log.e(ActusDetailDownloader.class.getName(), "Problem when parsing server response", e);
+            } catch (IOException e) {
+                Log.e(ActusDetailDownloader.class.getName(), "Problem when contacting server", e);
+            }
+            return actuDetails;
+        }
+
+        @Override
+        protected void onPostExecute(ActusDetailsVO result) {
+            if(result == null) {
+                // TODO gérer les problèmes
+            } else {
+                refreshView(result);
+            }
+            super.onPostExecute(result);
+        }
     }
 }
