@@ -155,7 +155,7 @@ public class ActusDetail extends Activity {
         String url = (String)i.getExtras().get("URL");
 
         ActusDetailDownloader downloader = new ActusDetailDownloader();
-        downloader.execute(url);
+        downloader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url);
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
@@ -262,7 +262,7 @@ public class ActusDetail extends Activity {
                     } catch (ParseException e) {
                         actuDetails.setDate(null);
                     }
-                    actuDetails.setContent(jsonObject.getString("content"));
+                    actuDetails.setContent(jsonObject.getString("article"));
 
                 } else {
                     Log.e(ActusDetailDownloader.class.getName(), "Problem when contacting server, inputStream is null");
