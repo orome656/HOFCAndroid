@@ -30,14 +30,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
-            android:layout_marginTop="10dp" />
-
-        <TextView
-            android:id="@+id/actus_details_content"
+            android:layout_marginTop="10dp"
+            android:textAlignment="right"/>
+        <WebView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="10dp" />
+            android:id="@+id/actus_details_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@android:color/black">
+
+            </WebView>
     </LinearLayout>
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->

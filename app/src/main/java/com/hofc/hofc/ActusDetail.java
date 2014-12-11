@@ -1,7 +1,6 @@
 package com.hofc.hofc;
 
 import com.hofc.hofc.constant.ServerConstant;
-import com.hofc.hofc.data.download.ActusDownloader;
 import com.hofc.hofc.util.SystemUiHider;
 import com.hofc.hofc.utils.HOFCUtils;
 import com.hofc.hofc.vo.ActusDetailsVO;
@@ -18,6 +17,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import org.apache.http.HttpResponse;
@@ -78,7 +78,12 @@ public class ActusDetail extends Activity {
 
     private TextView titleTextView = null;
     private TextView dateTextView = null;
-    private TextView contentTextView = null;
+    private WebView contentTextView = null;
+
+    SimpleDateFormat sdf = null;
+
+    private String HTML_PREFIX = "<html><body style=\"text-align:justify\">";
+    private String HTML_SUFIX = "</body></Html>";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +93,9 @@ public class ActusDetail extends Activity {
 
         titleTextView = (TextView)findViewById(R.id.actus_details_title);
         dateTextView = (TextView)findViewById(R.id.actus_details_date);
-        contentTextView = (TextView)findViewById(R.id.actus_details_content);
+        contentTextView = (WebView)findViewById(R.id.actus_details_content);
+
+        sdf = new SimpleDateFormat("EEEE dd MMMM yyyy");
 
         getActionBar().setTitle("HOFC");
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -219,8 +226,8 @@ public class ActusDetail extends Activity {
 
     private void refreshView(ActusDetailsVO actusDetails) {
         titleTextView.setText(actusDetails.getTitle());
-        dateTextView.setText(actusDetails.getDate().toString());
-        contentTextView.setText(actusDetails.getContent());
+        dateTextView.setText(sdf.format(actusDetails.getDate()));
+        contentTextView.loadDataWithBaseURL(null, HTML_PREFIX + actusDetails.getContent() + HTML_SUFIX, "text/html", "utf-8", null);
     }
 
     private class ActusDetailDownloader extends AsyncTask<String, Void, ActusDetailsVO> {
