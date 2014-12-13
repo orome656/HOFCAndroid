@@ -3,9 +3,12 @@ package com.hofc.hofc.data;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
 import com.hofc.hofc.FragmentCallback;
 import com.hofc.hofc.constant.ServerConstant;
@@ -24,7 +27,9 @@ public enum DataSingleton {
     private Date lastSynchroClassement;
     private List<ActuVO> actus;
     private Date lastSynchroActus;
-    
+
+    private Map<String, Bitmap> cachedImage;
+
     public static void initialize(Context c) {
     	CalendrierBDD.initiate(c);
     	INSTANCE.calendrier = CalendrierBDD.getAll();
@@ -35,6 +40,7 @@ public enum DataSingleton {
     	ActusBDD.initiate(c);
     	INSTANCE.actus = ActusBDD.getAll();
     	INSTANCE.lastSynchroActus = ActusBDD.getDateSynchro();
+        INSTANCE.cachedImage = new HashMap<String, Bitmap>();
     	
     }
     
@@ -109,5 +115,17 @@ public enum DataSingleton {
 
     public static void updateDateSynchroActus(Date date) {
         INSTANCE.lastSynchroActus = date;
+    }
+
+    public static void insertImageCache(String url, Bitmap image) {
+        INSTANCE.cachedImage.put(url, image);
+    }
+
+    public static Bitmap getCachedImage(String url) {
+        if(INSTANCE.cachedImage.containsKey(url)) {
+            return INSTANCE.cachedImage.get(url);
+        } else {
+            return null;
+        }
     }
 }

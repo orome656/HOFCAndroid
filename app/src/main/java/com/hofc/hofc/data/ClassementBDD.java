@@ -102,7 +102,7 @@ public class ClassementBDD {
     public static List<ClassementLineVO> getAll() {
     	openReadable();
     	ArrayList<ClassementLineVO> list = null;
-    	Cursor cursor = hofcDatabase.query(ClassementEntry.CLASSEMENT_TABLE_NAME, null, null, null, null, null, ClassementEntry.COLUMN_POINTS + " DESC");
+    	Cursor cursor = hofcDatabase.query(ClassementEntry.CLASSEMENT_TABLE_NAME, null, null, null, null, null, ClassementEntry.COLUMN_POINTS + " DESC," + ClassementEntry.COLUMN_DIFF + " DESC");
     	if(cursor.getCount() > 0){
     		list = new ArrayList<ClassementLineVO>();
     		while(cursor.moveToNext()) {
