@@ -35,7 +35,7 @@ public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
         } catch (IOException e) {
             Log.e("ImageDownloader", "Problem when downloading image at url " + url, e);
 		}
-        if(bmp != null) {
+        if(bmp != null && this.actuVo != null) {
             this.actuVo.setBitmapImage(bmp);
             ActusBDD.updateImageBitmap(this.actuVo.getPostId(), bmp);
         }

@@ -18,7 +18,6 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.hofc.hofc.permission.C2D_MESSAGE" />
-
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
@@ -58,10 +57,13 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_actus_detail"
             android:theme="@style/FullscreenTheme" >
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.hofc.hofc.Accueil" />
+        </activity>
+        <activity
+            android:name=".ActusDiaporama"
+            android:label="@string/title_activity_actus_diaporama" >
         </activity>
     </application>
 
