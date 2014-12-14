@@ -12,16 +12,25 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
 
 	private ImageView imageView;
 	private ActuVO actuVo;
+    private ProgressBar progressBar;
 	public ImageDownloader(ImageView image, ActuVO actuVO) {
 		this.imageView = image;
 		this.actuVo = actuVO;
 	}
+
+    public ImageDownloader(ImageView image, ActuVO actuVO, ProgressBar progressBar) {
+        this.imageView = image;
+        this.actuVo = actuVO;
+        this.progressBar = progressBar;
+    }
 	
 	@Override
 	protected Bitmap doInBackground(String... params) {
@@ -50,6 +59,10 @@ public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
 	@Override
 	protected void onPostExecute(Bitmap result) {
 		imageView.setImageBitmap(result);
+        imageView.setVisibility(View.VISIBLE);
+        if(this.progressBar != null) {
+            this.progressBar.setVisibility(View.GONE);
+        }
 	}
 
 }

@@ -7,6 +7,8 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.hofc.hofc.adapter.DiaporamaAdapter;
 import com.hofc.hofc.constant.ServerConstant;
@@ -36,10 +38,12 @@ import java.util.Locale;
 
 public class ActusDiaporama extends Activity {
 
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actus_diaporama);
+        progressBar = (ProgressBar)findViewById(R.id.diaporama_progress);
         new DiaporamaDownloader().execute((String)getIntent().getExtras().get("URL"));
     }
 
@@ -56,6 +60,8 @@ public class ActusDiaporama extends Activity {
         ViewPager pager = (ViewPager)findViewById(R.id.view_pager);
         DiaporamaAdapter adapter = new DiaporamaAdapter(this,result);
         pager.setAdapter(adapter);
+        progressBar.setVisibility(View.GONE);
+        pager.setVisibility(View.VISIBLE);
     }
 
     private class DiaporamaDownloader extends AsyncTask<String, Void, List<String>> {

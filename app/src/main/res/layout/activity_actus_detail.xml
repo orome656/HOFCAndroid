@@ -16,12 +16,22 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@android:color/white">
+        <ProgressBar
+            android:id="@+id/actus_details_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="visible"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="?android:attr/actionBarSize"/>
         <TextView
             android:id="@+id/actus_details_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
-            android:layout_marginTop="?android:attr/actionBarSize"/>
+            android:layout_marginTop="?android:attr/actionBarSize"
+            android:visibility="gone"/>
         <TextView
             android:id="@+id/actus_details_title"
             android:layout_width="match_parent"
@@ -30,16 +40,19 @@
             android:textStyle="bold"
             android:textSize="20sp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"/>
+            android:layout_marginLeft="20dp"
+            android:visibility="gone"/>
 
         <WebView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/actus_details_content"
             android:layout_marginTop="10dp"
-            android:textColor="@android:color/black">
+            android:textColor="@android:color/black"
+            android:visibility="gone">
 
             </WebView>
+
     </LinearLayout>
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->

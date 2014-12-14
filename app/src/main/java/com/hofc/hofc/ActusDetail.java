@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.apache.http.HttpResponse;
@@ -79,6 +80,7 @@ public class ActusDetail extends Activity {
     private TextView titleTextView = null;
     private TextView dateTextView = null;
     private WebView contentTextView = null;
+    private ProgressBar progressBar = null;
 
     SimpleDateFormat sdf = null;
 
@@ -94,6 +96,7 @@ public class ActusDetail extends Activity {
         titleTextView = (TextView)findViewById(R.id.actus_details_title);
         dateTextView = (TextView)findViewById(R.id.actus_details_date);
         contentTextView = (WebView)findViewById(R.id.actus_details_content);
+        progressBar = (ProgressBar)findViewById(R.id.actus_details_progress);
 
         sdf = new SimpleDateFormat("EEEE dd MMMM yyyy");
 
@@ -228,6 +231,10 @@ public class ActusDetail extends Activity {
         titleTextView.setText(actusDetails.getTitle());
         dateTextView.setText(sdf.format(actusDetails.getDate()));
         contentTextView.loadDataWithBaseURL(null, HTML_PREFIX + actusDetails.getContent() + HTML_SUFIX, "text/html", "utf-8", null);
+        progressBar.setVisibility(View.GONE);
+        titleTextView.setVisibility(View.VISIBLE);
+        dateTextView.setVisibility(View.VISIBLE);
+        contentTextView.setVisibility(View.VISIBLE);
     }
 
     private class ActusDetailDownloader extends AsyncTask<String, Void, ActusDetailsVO> {
