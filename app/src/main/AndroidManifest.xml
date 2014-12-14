@@ -55,8 +55,7 @@
         <activity
             android:name=".ActusDetail"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_actus_detail"
-            android:theme="@style/FullscreenTheme" >
+            android:label="@string/title_activity_actus_detail" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.hofc.hofc.Accueil" />
@@ -64,6 +63,9 @@
         <activity
             android:name=".ActusDiaporama"
             android:label="@string/title_activity_actus_diaporama" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.hofc.hofc.Accueil" />
         </activity>
     </application>
 
