@@ -240,7 +240,7 @@ public class ActusDetail extends Activity {
             ActusDetailsVO actuDetails = null;
             HttpClient httpClient = new DefaultHttpClient();
 
-            StringBuilder stringBuilder = new StringBuilder("http://");
+            StringBuilder stringBuilder = new StringBuilder(ServerConstant.SERVER_URL_PREFIX);
             stringBuilder.append(ServerConstant.SERVER_URL);
             if(ServerConstant.SERVER_PORT != 0) {
                 stringBuilder.append(":");

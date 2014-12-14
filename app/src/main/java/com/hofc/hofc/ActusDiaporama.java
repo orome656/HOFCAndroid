@@ -69,7 +69,7 @@ public class ActusDiaporama extends Activity {
             HttpClient httpClient = new DefaultHttpClient();
             List<String> listeImageUrl = new ArrayList<String>();
 
-            StringBuilder stringBuilder = new StringBuilder("http://");
+            StringBuilder stringBuilder = new StringBuilder(ServerConstant.SERVER_URL_PREFIX);
             stringBuilder.append(ServerConstant.SERVER_URL);
             if(ServerConstant.SERVER_PORT != 0) {
                 stringBuilder.append(":");

@@ -1,9 +1,9 @@
 package com.hofc.hofc.constant;
 
 public class ServerConstant {
-	
-	public static final String SERVER_URL = "192.168.1.28";
-    public static final int SERVER_PORT = 3000;
+	public static final String SERVER_URL_PREFIX = "https://";
+	public static final String SERVER_URL = "quiet-wave-7010.herokuapp.com";
+    public static final int SERVER_PORT = 0;
 	public static final String CALENDRIER_CONTEXT = "calendrier";
 	public static final String CLASSEMENT_CONTEXT = "classement";
 	public static final String ACTUS_CONTEXT = "actus";
