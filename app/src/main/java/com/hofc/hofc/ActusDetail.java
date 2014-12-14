@@ -20,6 +20,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -237,6 +238,10 @@ public class ActusDetail extends Activity {
         contentTextView.setVisibility(View.VISIBLE);
     }
 
+    private void downloadError() {
+        Toast.makeText(this, R.string.connexion_error, Toast.LENGTH_SHORT);
+    }
+
     private class ActusDetailDownloader extends AsyncTask<String, Void, ActusDetailsVO> {
         @Override
         protected ActusDetailsVO doInBackground(String... params) {
@@ -294,11 +299,12 @@ public class ActusDetail extends Activity {
         @Override
         protected void onPostExecute(ActusDetailsVO result) {
             if(result == null) {
-                // TODO gérer les problèmes
+                downloadError();
             } else {
                 refreshView(result);
             }
             super.onPostExecute(result);
         }
     }
+
 }

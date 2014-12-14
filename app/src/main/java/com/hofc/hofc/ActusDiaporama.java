@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.hofc.hofc.adapter.DiaporamaAdapter;
 import com.hofc.hofc.constant.ServerConstant;
@@ -64,6 +65,10 @@ public class ActusDiaporama extends Activity {
         pager.setVisibility(View.VISIBLE);
     }
 
+    private void downloadError() {
+        Toast.makeText(this, R.string.connexion_error, Toast.LENGTH_SHORT);
+    }
+
     private class DiaporamaDownloader extends AsyncTask<String, Void, List<String>> {
 
         @Override
@@ -117,7 +122,7 @@ public class ActusDiaporama extends Activity {
         @Override
         protected void onPostExecute(List<String> result) {
             if(result == null) {
-                // TODO gérer les problèmes
+                downloadError();
             } else {
                 initAdapter(result);
             }

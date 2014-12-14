@@ -16,7 +16,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
  */
 public class GcmIntentService extends IntentService {
 
-    public static final int NOTIFICATION_ID = 1;
+    public static int NOTIFICATION_ID = 1;
     private NotificationManager mNotificationManager;
     NotificationCompat.Builder builder;
 
@@ -44,6 +44,7 @@ public class GcmIntentService extends IntentService {
         if(!extras.isEmpty()) {
             if(GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
                 sendNotification(extras);
+                NOTIFICATION_ID++;
             }
         }
         GcmBroadcastReceiver.completeWakefulIntent(intent);
