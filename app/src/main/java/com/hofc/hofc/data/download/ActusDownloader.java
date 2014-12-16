@@ -66,14 +66,14 @@ public class ActusDownloader extends AsyncTask<Void, Void, Integer> {
 			inputStream = httpResponse.getEntity().getContent();
 			
 			if(inputStream != null) {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
 				result = HOFCUtils.convertInputStreamToString(inputStream);
 				JSONArray jsonArray = new JSONArray(result);
 				ArrayList<ActuVO> actusList = new ArrayList<ActuVO>();
 				for (int i = 0; i < jsonArray.length(); i++) {
 					JSONObject object = jsonArray.getJSONObject(i);
 					ActuVO actu = new ActuVO();
-					actu.setPostId(object.getInt("postId"));
+					actu.setPostId(object.getInt("postid"));
 					actu.setTitre(object.getString("titre"));
 					actu.setTexte(object.getString("texte"));
 					actu.setUrl(object.getString("url"));
