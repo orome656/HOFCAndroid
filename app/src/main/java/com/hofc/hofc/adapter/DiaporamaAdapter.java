@@ -14,10 +14,13 @@ import android.widget.RelativeLayout;
 
 import com.hofc.hofc.R;
 import com.hofc.hofc.data.download.ImageDownloader;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -28,10 +31,16 @@ public class DiaporamaAdapter extends PagerAdapter {
     List<String> imagesUrl;
     LayoutInflater layoutInflater;
     ImageLoader imageLoader;
+    DisplayImageOptions imageOptions;
+
     public DiaporamaAdapter(Context context, List<String> imagesUrl) {
         this.context = context;
         this.imagesUrl = imagesUrl;
         imageLoader = ImageLoader.getInstance();
+        imageOptions = new DisplayImageOptions.Builder()
+                        .cacheInMemory(true)
+                        .cacheOnDisk(true)
+                        .build();
     }
 
     @Override
@@ -53,7 +62,7 @@ public class DiaporamaAdapter extends PagerAdapter {
         final ImageView imageView = (ImageView) itemView.findViewById(R.id.image_diaporama);
         final ProgressBar progressBar = (ProgressBar) itemView.findViewById(R.id.image_diaporama_progress);
         container.addView(itemView);
-        imageLoader.displayImage(imagesUrl.get(position), imageView, new SimpleImageLoadingListener() {
+        imageLoader.displayImage(imagesUrl.get(position), imageView, imageOptions, new SimpleImageLoadingListener() {
             @Override
             public void onLoadingStarted(String imageUri, View view) {
                 super.onLoadingStarted(imageUri, view);

@@ -19,8 +19,10 @@ import android.widget.ImageView;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -30,6 +32,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -85,8 +88,11 @@ public class Accueil extends Activity
             registerInBackground();
         }
 
+        File cacheDir = StorageUtils.getCacheDirectory(context);
 
-        ImageLoaderConfiguration loaderConfiguration = ImageLoaderConfiguration.createDefault(context);
+        ImageLoaderConfiguration loaderConfiguration = new ImageLoaderConfiguration.Builder(this)
+                                                            .diskCache(new UnlimitedDiscCache(cacheDir))
+                                                            .build();
         ImageLoader.getInstance().init(loaderConfiguration);
 
     }
