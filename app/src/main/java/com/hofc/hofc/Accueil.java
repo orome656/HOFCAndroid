@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -82,6 +84,10 @@ public class Accueil extends Activity
         if(regId == null || regId.isEmpty()) {
             registerInBackground();
         }
+
+
+        ImageLoaderConfiguration loaderConfiguration = ImageLoaderConfiguration.createDefault(context);
+        ImageLoader.getInstance().init(loaderConfiguration);
 
     }
 

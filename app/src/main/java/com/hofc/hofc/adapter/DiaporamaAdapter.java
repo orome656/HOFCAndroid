@@ -1,6 +1,7 @@
 package com.hofc.hofc.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -13,6 +14,9 @@ import android.widget.RelativeLayout;
 
 import com.hofc.hofc.R;
 import com.hofc.hofc.data.download.ImageDownloader;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.util.List;
 
@@ -23,9 +27,11 @@ public class DiaporamaAdapter extends PagerAdapter {
     Context context;
     List<String> imagesUrl;
     LayoutInflater layoutInflater;
+    ImageLoader imageLoader;
     public DiaporamaAdapter(Context context, List<String> imagesUrl) {
         this.context = context;
         this.imagesUrl = imagesUrl;
+        imageLoader = ImageLoader.getInstance();
     }
 
     @Override
@@ -44,16 +50,31 @@ public class DiaporamaAdapter extends PagerAdapter {
             layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View itemView = layoutInflater.inflate(R.layout.image_diaporama, null);
-        ImageView imageView = (ImageView) itemView.findViewById(R.id.image_diaporama);
-        ProgressBar progressBar = (ProgressBar) itemView.findViewById(R.id.image_diaporama_progress);
+        final ImageView imageView = (ImageView) itemView.findViewById(R.id.image_diaporama);
+        final ProgressBar progressBar = (ProgressBar) itemView.findViewById(R.id.image_diaporama_progress);
         container.addView(itemView);
-        new ImageDownloader(imageView, null, progressBar).execute(imagesUrl.get(position));
+        imageLoader.displayImage(imagesUrl.get(position), imageView, new SimpleImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String imageUri, View view) {
+                super.onLoadingStarted(imageUri, view);
+                progressBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                super.onLoadingFailed(imageUri, view, failReason);
+                progressBar.setVisibility(View.GONE);
+                imageView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                super.onLoadingComplete(imageUri, view, loadedImage);
+                progressBar.setVisibility(View.GONE);
+                imageView.setVisibility(View.VISIBLE);
+            }
+        });
         return itemView;
-        /*
-        ImageView imageView = new ImageView(context);
-        new ImageDownloader(imageView, null).execute(imagesUrl.get(position));
-        container.addView(imageView);
-        return imageView;*/
     }
 
     @Override
