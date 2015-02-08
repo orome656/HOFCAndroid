@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,7 +40,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Accueil extends Activity
+public class Accueil extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
@@ -69,9 +71,11 @@ public class Accueil extends Activity
 
         setContentView(R.layout.activity_accueil);
         DataSingleton.initialize(this);
+
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
+        mTitle = getText(R.string.title_accueil);
+        getSupportActionBar().setTitle(mTitle);
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
@@ -132,6 +136,7 @@ public class Accueil extends Activity
         } else {
         	Log.e("Accueil", "NavigationDrawer number click unknown ");
         }
+        getSupportActionBar().setTitle(mTitle);
     }
 
     public void onSectionAttached(int number) {
@@ -151,7 +156,6 @@ public class Accueil extends Activity
     public void restoreActionBar() {
         ActionBar actionBar = getActionBar();
         if(actionBar != null) {
-            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
             actionBar.setDisplayShowTitleEnabled(true);
             actionBar.setTitle(mTitle);
         }

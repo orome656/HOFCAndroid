@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,7 +39,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class ActusDiaporama extends Activity {
+public class ActusDiaporama extends ActionBarActivity {
 
     private ProgressBar progressBar;
     @Override
@@ -48,7 +49,7 @@ public class ActusDiaporama extends Activity {
         progressBar = (ProgressBar)findViewById(R.id.diaporama_progress);
         new DiaporamaDownloader().execute((String)getIntent().getExtras().get("URL"));
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 
