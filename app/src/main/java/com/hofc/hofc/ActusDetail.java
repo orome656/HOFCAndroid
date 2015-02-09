@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -61,11 +60,13 @@ public class ActusDetail extends Activity {
         contentTextView = (WebView)findViewById(R.id.actus_details_content);
         progressBar = (ProgressBar)findViewById(R.id.actus_details_progress);
 
-        sdf = new SimpleDateFormat("EEEE dd MMMM yyyy");
-
-        getActionBar().setTitle("HOFC");
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-
+        sdf = new SimpleDateFormat("EEEE dd MMMM yyyy", Locale.getDefault());
+        if(getActionBar() != null) {
+            getActionBar().setTitle("HOFC");
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+        } else {
+            Log.e(ActusDetail.class.getName(), "ActionBar is null ?!?");
+        }
         Intent i = getIntent();
         String url = (String)i.getExtras().get("URL");
 
@@ -101,7 +102,7 @@ public class ActusDetail extends Activity {
     }
 
     private void downloadError() {
-        Toast.makeText(this, R.string.connexion_error, Toast.LENGTH_SHORT);
+        Toast.makeText(this, R.string.connexion_error, Toast.LENGTH_SHORT).show();
     }
 
     private class ActusDetailDownloader extends AsyncTask<String, Void, ActusDetailsVO> {
@@ -125,7 +126,7 @@ public class ActusDetail extends Activity {
 
             try {
                 HttpPost httpPost = new HttpPost(stringBuilder.toString());
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+                List<NameValuePair> nameValuePairs = new ArrayList<>(2);
                 nameValuePairs.add(new BasicNameValuePair("url", url));
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                 HttpResponse httpResponse = httpClient.execute(httpPost);
@@ -148,8 +149,6 @@ public class ActusDetail extends Activity {
                 } else {
                     Log.e(ActusDetailDownloader.class.getName(), "Problem when contacting server, inputStream is null");
                 }
-            } catch (ClientProtocolException e) {
-                Log.e(ActusDetailDownloader.class.getName(), "Problem when contacting server", e);
             } catch (JSONException e) {
                 Log.e(ActusDetailDownloader.class.getName(), "Problem when parsing server response", e);
             } catch (IOException e) {

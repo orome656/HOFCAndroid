@@ -1,7 +1,8 @@
 package com.hofc.hofc;
 
-import java.util.concurrent.Callable;
-
+/**
+ * Common interface for fragment
+ */
 public interface CustomFragment {
 	public void     refreshDataAndView();
 }

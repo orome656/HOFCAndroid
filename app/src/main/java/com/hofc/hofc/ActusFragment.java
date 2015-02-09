@@ -1,7 +1,6 @@
 package com.hofc.hofc;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -34,7 +33,7 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
 				String url = ((TextView)v.findViewById(R.id.actus_url)).getText().toString();
-                Intent i = null;
+                Intent i;
                 if(url.contains("en-images")) {
                     i = new Intent(getActivity(), ActusDiaporama.class);
                 } else {

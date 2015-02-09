@@ -1,7 +1,6 @@
 package com.hofc.hofc;
 
-import android.app.ActionBar;
-import android.app.Activity;
+import android.support.v7.app.ActionBar;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -26,17 +25,13 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,6 +69,10 @@ public class Accueil extends ActionBarActivity
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         mTitle = getText(R.string.title_accueil);
         getSupportActionBar().setTitle(mTitle);
 
@@ -83,7 +82,7 @@ public class Accueil extends ActionBarActivity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
         /**
-         *
+         * Gestion des notifications, enregistrement auprès du serveur
          */
         context = getApplicationContext();
         gcm = GoogleCloudMessaging.getInstance(context);
@@ -92,13 +91,18 @@ public class Accueil extends ActionBarActivity
             registerInBackground();
         }
 
-        File cacheDir = StorageUtils.getCacheDirectory(context);
+        /**
+         * Cache d'image
+         */
+        if(!ImageLoader.getInstance().isInited()) {
+            File cacheDir = StorageUtils.getCacheDirectory(context);
 
-        ImageLoaderConfiguration loaderConfiguration = new ImageLoaderConfiguration.Builder(this)
-                                                            .diskCache(new UnlimitedDiscCache(cacheDir))
-                                                            .build();
-        ImageLoader.getInstance().init(loaderConfiguration);
+            ImageLoaderConfiguration loaderConfiguration = new ImageLoaderConfiguration.Builder(this)
+                    .diskCache(new UnlimitedDiscCache(cacheDir))
+                    .build();
 
+            ImageLoader.getInstance().init(loaderConfiguration);
+        }
     }
 
     @Override
@@ -136,25 +140,12 @@ public class Accueil extends ActionBarActivity
         } else {
         	Log.e("Accueil", "NavigationDrawer number click unknown ");
         }
-        getSupportActionBar().setTitle(mTitle);
-    }
-
-    public void onSectionAttached(int number) {
-        switch (number) {
-            case 1:
-                mTitle = getString(R.string.title_accueil);
-                break;
-            case 2:
-                mTitle = getString(R.string.title_classement);
-                break;
-            case 3:
-                mTitle = getString(R.string.title_calendrier);
-                break;
-        }
+        if(getSupportActionBar() != null)
+            getSupportActionBar().setTitle(mTitle);
     }
 
     public void restoreActionBar() {
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
             actionBar.setDisplayShowTitleEnabled(true);
             actionBar.setTitle(mTitle);
@@ -232,7 +223,7 @@ public class Accueil extends ActionBarActivity
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... params) {
-                String msg = "";
+                String msg;
                 try {
                     if (gcm == null) {
                         gcm = GoogleCloudMessaging.getInstance(context);
@@ -268,7 +259,6 @@ public class Accueil extends ActionBarActivity
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
-                InputStream inputStream;
                 StringBuilder stringBuilder = new StringBuilder("http://");
                 stringBuilder.append(ServerConstant.SERVER_URL);
                 if(ServerConstant.SERVER_PORT != 0) {
@@ -278,17 +268,12 @@ public class Accueil extends ActionBarActivity
                 stringBuilder.append("/");
                 stringBuilder.append(ServerConstant.NOTIF_CONTEXT);
 
-                HttpClient httpClient = new DefaultHttpClient();
-
                 try {
                     HttpPost httpPost = new HttpPost(stringBuilder.toString());
-                    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+                    List<NameValuePair> nameValuePairs = new ArrayList<>(2);
                     nameValuePairs.add(new BasicNameValuePair("notification_id", regId));
                     nameValuePairs.add(new BasicNameValuePair("uuid", Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID)));
                     httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                    HttpResponse httpResponse = httpClient.execute(httpPost);
-
-                    inputStream = httpResponse.getEntity().getContent();
 
                 } catch (IOException ex) {
                     Log.e(Accueil.class.getName(), "Problem while sending Notification ID", ex);

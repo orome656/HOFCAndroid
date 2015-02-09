@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.concurrent.Callable;
-
 public class ClassementFragment extends CommonFragment implements FragmentCallback, CustomFragment {
 
 	private ListView classementListView;

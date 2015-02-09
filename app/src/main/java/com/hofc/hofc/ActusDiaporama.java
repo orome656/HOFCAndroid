@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,19 +38,26 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executor;
 
 
 public class ActusDiaporama extends ActionBarActivity {
 
     private ProgressBar progressBar;
+    private AsyncTask diaporamaDownloader;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actus_diaporama);
         progressBar = (ProgressBar)findViewById(R.id.diaporama_progress);
-        new DiaporamaDownloader().execute((String)getIntent().getExtras().get("URL"));
 
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.diaporama_toolbar);
+        setSupportActionBar(toolbar);
+
+        diaporamaDownloader = new DiaporamaDownloader().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (String) getIntent().getExtras().get("URL"));
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 
@@ -58,6 +66,14 @@ public class ActusDiaporama extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_actus_diaporama, menu);
         return true;
+    }
+
+    @Override
+    protected void onPause() {
+        if(diaporamaDownloader != null) {
+            diaporamaDownloader.cancel(true);
+        }
+        super.onPause();
     }
 
     @Override
@@ -79,19 +95,20 @@ public class ActusDiaporama extends ActionBarActivity {
     }
 
     private void downloadError() {
-        Toast.makeText(this, R.string.connexion_error, Toast.LENGTH_SHORT);
+        Toast.makeText(this, R.string.connexion_error, Toast.LENGTH_SHORT).show();
     }
 
     private class DiaporamaDownloader extends AsyncTask<String, Void, List<String>> {
 
         @Override
         protected List<String> doInBackground(String... params) {
-            String url = params[0];
+            String url;
+            url = params[0];
 
             InputStream inputStream;
             String result;
             HttpClient httpClient = new DefaultHttpClient();
-            List<String> listeImageUrl = new ArrayList<String>();
+            List<String> listeImageUrl = new ArrayList<>();
 
             StringBuilder stringBuilder = new StringBuilder(ServerConstant.SERVER_URL_PREFIX);
             stringBuilder.append(ServerConstant.SERVER_URL);
@@ -104,7 +121,7 @@ public class ActusDiaporama extends ActionBarActivity {
 
             try {
                 HttpPost httpPost = new HttpPost(stringBuilder.toString());
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+                List<NameValuePair> nameValuePairs = new ArrayList<>(2);
                 nameValuePairs.add(new BasicNameValuePair("url", url));
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                 HttpResponse httpResponse = httpClient.execute(httpPost);
@@ -121,8 +138,6 @@ public class ActusDiaporama extends ActionBarActivity {
                 } else {
                     Log.e(DiaporamaDownloader.class.getName(), "Problem when contacting server, inputStream is null");
                 }
-            } catch (ClientProtocolException e) {
-                Log.e(DiaporamaDownloader.class.getName(), "Problem when contacting server", e);
             } catch (JSONException e) {
                 Log.e(DiaporamaDownloader.class.getName(), "Problem when parsing server response", e);
             } catch (IOException e) {

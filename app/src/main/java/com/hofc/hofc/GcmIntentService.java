@@ -6,26 +6,22 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 /**
  * Created by Fixe on 29/11/2014.
+ * Used to receive notification from GCM
  */
 public class GcmIntentService extends IntentService {
 
     public static int NOTIFICATION_ID = 1;
     private NotificationManager mNotificationManager;
-    NotificationCompat.Builder builder;
 
 
     private static final String MESSAGE_TITLE = "title";
     private static final String MESSAGE_CONTENT = "message";
-    public GcmIntentService() {
-        super("GcmIntentService");
-    }
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.

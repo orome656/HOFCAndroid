@@ -4,10 +4,9 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.widget.Toast;
 
-import java.util.concurrent.Callable;
-
 /**
  * Created by maladota on 08/11/2014.
+ * This Class is a common implementation for fragment, implementing common methods
  */
 public class CommonFragment extends Fragment implements CustomFragment, FragmentCallback {
     private Accueil mainActivity;

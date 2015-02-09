@@ -8,6 +8,7 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 
 /**
  * Created by Fixe on 28/11/2014.
+ * This class is used for notification
  */
 public class GcmBroadcastReceiver extends WakefulBroadcastReceiver {
     @Override

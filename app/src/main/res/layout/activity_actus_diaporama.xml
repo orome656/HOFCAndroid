@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     tools:context="com.hofc.hofc.ActusDiaporama"
     android:background="@android:color/black">
+    <include layout="@layout/toolbar"
+             android:id="@+id/diaporama_toolbar"/>
     <ProgressBar
         android:id="@+id/diaporama_progress"
         android:layout_width="wrap_content"
