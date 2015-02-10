@@ -1,4 +1,4 @@
-package com.hofc.hofc;
+package com.hofc.hofc.fragment;
 
 public interface FragmentCallback {
 	public void onTaskDone();

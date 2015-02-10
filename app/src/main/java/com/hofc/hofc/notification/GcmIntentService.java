@@ -1,4 +1,4 @@
-package com.hofc.hofc;
+package com.hofc.hofc.notification;
 
 import android.app.IntentService;
 import android.app.NotificationManager;
@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.hofc.hofc.Accueil;
+import com.hofc.hofc.R;
 
 /**
  * Created by Fixe on 29/11/2014.

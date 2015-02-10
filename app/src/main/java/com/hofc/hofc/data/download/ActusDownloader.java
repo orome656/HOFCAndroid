@@ -20,7 +20,7 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.hofc.hofc.FragmentCallback;
+import com.hofc.hofc.fragment.FragmentCallback;
 import com.hofc.hofc.R;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.ActusBDD;

@@ -1,5 +1,6 @@
-package com.hofc.hofc;
+package com.hofc.hofc.fragment;
 
+import com.hofc.hofc.R;
 import com.hofc.hofc.adapter.ClassementAdapter;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.data.download.ClassementDownloader;

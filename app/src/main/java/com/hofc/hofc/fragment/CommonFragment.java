@@ -1,8 +1,11 @@
-package com.hofc.hofc;
+package com.hofc.hofc.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.widget.Toast;
+
+import com.hofc.hofc.Accueil;
+import com.hofc.hofc.R;
 
 /**
  * Created by maladota on 08/11/2014.

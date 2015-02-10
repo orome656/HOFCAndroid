@@ -1,4 +1,4 @@
-package com.hofc.hofc;
+package com.hofc.hofc.fragment;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -11,6 +11,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.hofc.hofc.ActusDetail;
+import com.hofc.hofc.ActusDiaporama;
+import com.hofc.hofc.R;
 import com.hofc.hofc.adapter.ActusAdapter;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.data.download.ActusDownloader;

@@ -10,7 +10,7 @@ import java.util.Map;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.hofc.hofc.FragmentCallback;
+import com.hofc.hofc.fragment.FragmentCallback;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.download.ActusDownloader;
 import com.hofc.hofc.data.download.CalendrierDownloader;

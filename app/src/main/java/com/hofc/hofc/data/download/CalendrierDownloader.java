@@ -17,7 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.hofc.hofc.FragmentCallback;
+import com.hofc.hofc.fragment.FragmentCallback;
 import com.hofc.hofc.R;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.CalendrierBDD;

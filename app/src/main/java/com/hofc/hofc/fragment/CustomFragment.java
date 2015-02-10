@@ -1,4 +1,4 @@
-package com.hofc.hofc;
+package com.hofc.hofc.fragment;
 
 /**
  * Common interface for fragment
