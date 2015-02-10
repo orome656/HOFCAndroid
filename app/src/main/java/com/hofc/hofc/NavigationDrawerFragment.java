@@ -100,8 +100,8 @@ public class NavigationDrawerFragment extends Fragment {
         });
         mDrawerListView.setAdapter(new ArrayAdapter<>(
                 getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
+                R.layout.navigation_drawer_item,
+                R.id.navigation_drawer_text,
                 new String[]{
                         getString(R.string.title_accueil),
                         getString(R.string.title_classement),

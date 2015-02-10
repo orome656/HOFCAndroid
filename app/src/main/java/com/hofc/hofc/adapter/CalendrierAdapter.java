@@ -22,10 +22,13 @@ public class CalendrierAdapter extends BaseAdapter {
 
 	LayoutInflater inflater;
 	SimpleDateFormat sdf;
+    Context context;
 	
 	public CalendrierAdapter(Context context) {
-        if (context != null)
-		    inflater = LayoutInflater.from(context);
+        if (context != null) {
+            inflater = LayoutInflater.from(context);
+            this.context = context;
+        }
 		//CalendrierBDD.initiate(context);
 		sdf = new SimpleDateFormat("EEEE dd MMMM yyyy");
 	}	
@@ -70,13 +73,13 @@ public class CalendrierAdapter extends BaseAdapter {
 		if(AppConstant.hofcName.equalsIgnoreCase(line.getEquipe1())) {
 			holder.imageEquipe1.setImageResource(R.drawable.ic_launcher);
 			holder.imageEquipe2.setImageResource(android.R.color.transparent);
-            this.applyColor(holder, Color.BLUE, Color.BLACK);
+            this.applyColor(holder, context.getResources().getColor(R.color.hofc_blue), Color.BLACK);
 		} else if(AppConstant.hofcName.equalsIgnoreCase(line.getEquipe2())) {
 			holder.imageEquipe2.setImageResource(R.drawable.ic_launcher);
 			holder.imageEquipe1.setImageResource(android.R.color.transparent);
-            this.applyColor(holder, Color.BLACK, Color.BLUE);
+            this.applyColor(holder, Color.BLACK, context.getResources().getColor(R.color.hofc_blue));
 		}
-		
+
 		if(line.getScore1() != null && line.getScore1() > line.getScore2()) {
             this.applyStyle(holder, Typeface.BOLD, Typeface.NORMAL);
 		} else if (line.getScore1() != null && line.getScore1() < line.getScore2()) {
@@ -90,7 +93,7 @@ public class CalendrierAdapter extends BaseAdapter {
 		holder.calendrierEquipe2.setText(line.getEquipe2());
 		if(line.getDate() != null)
 			holder.dateMatch.setText(sdf.format(line.getDate()));
-		
+
 		return convertView;
 	}
 

@@ -3,5 +3,6 @@
 
     <color name="main_background">#DCDCDC</color>
     <color name="black_overlay">#66000000</color>
+    <color name="hofc_blue">#08589D</color>
 
 </resources>

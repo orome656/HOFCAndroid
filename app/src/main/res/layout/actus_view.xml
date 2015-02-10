@@ -22,13 +22,15 @@ android:layout_height="15dp">
 	        android:layout_height="wrap_content"
             android:textStyle="bold"
             android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:textColor="@android:color/black"/>
 	    <TextView 
 	        android:id="@+id/actus_view_texte"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:textColor="@android:color/black"/>
 	    <TextView 
 	        android:id="@+id/actus_view_date"
 	        android:layout_width="fill_parent"
@@ -36,7 +38,8 @@ android:layout_height="15dp">
             android:layout_marginBottom="10dp"
             android:layout_gravity="right"
             android:gravity="right"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:textColor="@android:color/black"/>
 		<TextView 
 		    android:id="@+id/actus_url"
 		    android:layout_width="fill_parent"
