@@ -10,4 +10,7 @@ gen/com/hofc/hofc/R.java
 /app/build
 
 /.gradle
-/.idea
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
