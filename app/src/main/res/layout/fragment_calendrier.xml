@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_calendrier"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:id="@+id/calendrier_layout"
     android:background="@color/main_background">
     <ListView
         android:id="@+id/calendrier_listView"
@@ -15,4 +16,4 @@
         android:scrollbars="none">
     </ListView>
 
-</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

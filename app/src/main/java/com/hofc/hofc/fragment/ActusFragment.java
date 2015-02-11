@@ -1,8 +1,10 @@
 package com.hofc.hofc.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +20,10 @@ import com.hofc.hofc.adapter.ActusAdapter;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.data.download.ActusDownloader;
 
-public class ActusFragment extends CommonFragment  implements FragmentCallback, CustomFragment {
+public class ActusFragment extends CommonFragment  implements FragmentCallback, CustomFragment, SwipeRefreshLayout.OnRefreshListener {
 
 	private ListView actusListView;
-	
+	private SwipeRefreshLayout swipeActus;
 	public static ActusFragment newInstance() {
 		return new ActusFragment();
 	}
@@ -46,6 +48,10 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
                 startActivity(i);
 			}
 		});
+        swipeActus = (SwipeRefreshLayout)rootView.findViewById(R.id.swipe_accueil);
+        swipeActus.setOnRefreshListener(this);
+        swipeActus.setColorSchemeColors(Color.BLACK, getResources().getColor(R.color.hofc_blue));
+
         if(DataSingleton.isSynchroActuNeeded()) {
         	this.refreshDataAndView();
 		} else {
@@ -58,14 +64,26 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
         super.refreshView();
 		ActusAdapter adapter = new ActusAdapter(getActivity());
 		actusListView.setAdapter(adapter);
+        if(swipeActus.isRefreshing())
+            swipeActus.setRefreshing(false);
 	}
 
 	@Override
 	public void refreshDataAndView() {
+        this.swipeActus.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeActus.setRefreshing(true);
+            }
+        });
         super.refreshDataAndView();
 		ActusDownloader downloader = new ActusDownloader(this);
         downloader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
-	
-	
+
+
+    @Override
+    public void onRefresh() {
+        this.refreshDataAndView();
+    }
 }

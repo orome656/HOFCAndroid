@@ -5,18 +5,21 @@ import com.hofc.hofc.adapter.ClassementAdapter;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.data.download.ClassementDownloader;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ClassementFragment extends CommonFragment implements FragmentCallback, CustomFragment {
+public class ClassementFragment extends CommonFragment implements FragmentCallback, CustomFragment, SwipeRefreshLayout.OnRefreshListener {
 
 	private ListView classementListView;
-	
+	private SwipeRefreshLayout swipeClassement;
+
 	public static ClassementFragment newInstance() {
 		return new ClassementFragment();
 	}
@@ -62,6 +65,11 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
 
         classementListView.addHeaderView(header);
 
+        swipeClassement = (SwipeRefreshLayout)rootView.findViewById(R.id.swipe_classement);
+        swipeClassement.setOnRefreshListener(this);
+        swipeClassement.setColorSchemeColors(Color.BLACK, getResources().getColor(R.color.hofc_blue));
+
+
         return rootView;
     }
 
@@ -79,13 +87,25 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
         super.refreshView();
 		ClassementAdapter adapter = new ClassementAdapter(getActivity());
 		classementListView.setAdapter(adapter);
+        if(swipeClassement.isRefreshing())
+            swipeClassement.setRefreshing(false);
 	}
 
 	@Override
 	public void refreshDataAndView() {
+        this.swipeClassement.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeClassement.setRefreshing(true);
+            }
+        });
         super.refreshDataAndView();
 		ClassementDownloader downloader = new ClassementDownloader(this);
 		downloader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
-	
+
+    @Override
+    public void onRefresh() {
+        this.refreshDataAndView();
+    }
 }

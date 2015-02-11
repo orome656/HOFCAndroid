@@ -1,11 +1,4 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.hofc.hofc.Accueil" >
-    <item
-        android:id="@+id/action_refresh"
-        app:showAsAction="ifRoom"
-        android:title="@string/action_refresh"
-        android:icon="@drawable/ic_action_refresh"/>
+<menu xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.hofc.hofc.Accueil" >
 
 </menu>

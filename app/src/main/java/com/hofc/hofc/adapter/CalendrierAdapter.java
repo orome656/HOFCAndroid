@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 
 import com.hofc.hofc.R;
 import com.hofc.hofc.constant.AppConstant;
-import com.hofc.hofc.data.CalendrierBDD;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.vo.CalendrierLineVO;
 
@@ -29,7 +28,6 @@ public class CalendrierAdapter extends BaseAdapter {
             inflater = LayoutInflater.from(context);
             this.context = context;
         }
-		//CalendrierBDD.initiate(context);
 		sdf = new SimpleDateFormat("EEEE dd MMMM yyyy");
 	}	
 	@Override

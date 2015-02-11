@@ -10,12 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.hofc.hofc.constant.ServerConstant;
@@ -23,7 +18,6 @@ import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.fragment.ActusFragment;
 import com.hofc.hofc.fragment.CalendrierFragment;
 import com.hofc.hofc.fragment.ClassementFragment;
-import com.hofc.hofc.fragment.CustomFragment;
 import com.hofc.hofc.notification.GcmPreference;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -56,9 +50,6 @@ public class Accueil extends ActionBarActivity
     private ActusFragment actusFragment = null;
     private CalendrierFragment calendrierFragment = null;
     private ClassementFragment classementFragment = null;
-    private MenuItem refreshButton = null;
-    private Menu menu = null;
-    private boolean runningDownload = false;
 
     private Context context;
     private GoogleCloudMessaging gcm;
@@ -168,54 +159,7 @@ public class Accueil extends ActionBarActivity
             restoreActionBar();
             return true;
         }
-        if(this.runningDownload) {
-            if(menu.findItem(R.id.action_refresh) != null)
-                startRefreshAnimation(menu.findItem(R.id.action_refresh));
-        }
-        this.menu = menu;
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if(id == R.id.action_refresh) {
-        	CustomFragment custom = (CustomFragment) fragmentManager.findFragmentById(R.id.container);
-            this.startRefreshAnimation(item);
-        	custom.refreshDataAndView();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void startRefresh() {
-        this.runningDownload = true;
-        if (this.menu != null) {
-            MenuItem item = this.menu.findItem(R.id.action_refresh);
-            if (item != null) {
-                this.startRefreshAnimation(item);
-            }
-        }
-    }
-
-    private void startRefreshAnimation(MenuItem refreshItem) {
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        ImageView iv = (ImageView) inflater.inflate(R.layout.iv_refresh, null);
-        Animation rotation = AnimationUtils.loadAnimation(this, R.anim.refresh);
-        rotation.setRepeatCount(Animation.INFINITE);
-        iv.startAnimation(rotation);
-        refreshItem.setActionView(iv);
-        this.refreshButton = refreshItem;
-    }
-
-    public void endRefresh() {
-        this.runningDownload = false;
-        if(this.refreshButton != null && this.refreshButton.getActionView() != null) {
-            this.refreshButton.getActionView().clearAnimation();
-            this.refreshButton.setActionView(null);
-        }
     }
 
     /**
