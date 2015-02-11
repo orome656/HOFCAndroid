@@ -4,11 +4,12 @@ import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.utils.HOFCUtils;
 import com.hofc.hofc.vo.ActusDetailsVO;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,7 +38,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class ActusDetail extends Activity {
+public class ActusDetail extends ActionBarActivity {
 
     private TextView titleTextView = null;
     private TextView dateTextView = null;
@@ -61,8 +62,13 @@ public class ActusDetail extends Activity {
         progressBar = (ProgressBar)findViewById(R.id.actus_details_progress);
 
         sdf = new SimpleDateFormat("EEEE dd MMMM yyyy", Locale.getDefault());
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle("HOFC");
+
         if(getActionBar() != null) {
-            getActionBar().setTitle("HOFC");
             getActionBar().setDisplayHomeAsUpEnabled(true);
         } else {
             Log.e(ActusDetail.class.getName(), "ActionBar is null ?!?");

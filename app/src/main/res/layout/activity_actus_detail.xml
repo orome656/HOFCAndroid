@@ -6,6 +6,9 @@
     android:orientation="vertical"
     android:background="@android:color/white"
     tools:context="com.hofc.hofc.ActusDetail">
+
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar"/>
     <ProgressBar
         android:id="@+id/actus_details_progress"
         android:layout_width="wrap_content"
