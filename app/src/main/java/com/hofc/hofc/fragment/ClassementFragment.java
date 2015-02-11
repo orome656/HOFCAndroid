@@ -31,44 +31,12 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
         classementListView = (ListView) rootView.findViewById(R.id.classement_listView);
 
         View header = inflater.inflate(R.layout.item_classement, null);
-
-        TextView classementPosition = (TextView) header.findViewById(R.id.classement_position);
-        classementPosition.setText(" ");
-        classementPosition.setTextColor(getResources().getColor(android.R.color.black));
-        TextView classementNom = (TextView) header.findViewById(R.id.classement_nom);
-        classementNom.setText("Equipe");
-        classementNom.setTextColor(getResources().getColor(android.R.color.black));
-        TextView classementPoints = (TextView) header.findViewById(R.id.classement_points);
-        classementPoints.setText("Pts");
-        classementPoints.setTextColor(getResources().getColor(android.R.color.black));
-        TextView classementJoue = (TextView) header.findViewById(R.id.classement_joue);
-        classementJoue.setText("J");
-        classementJoue.setTextColor(getResources().getColor(android.R.color.black));
-        TextView classementDiff = (TextView) header.findViewById(R.id.classement_diff);
-        classementDiff.setText("+/-");
-        classementDiff.setTextColor(getResources().getColor(android.R.color.black));
-        TextView classementVictoire = (TextView) header.findViewById(R.id.classement_victoire);
-        classementVictoire.setText("V");
-        classementVictoire.setTextColor(getResources().getColor(android.R.color.black));
-        TextView classementNul = (TextView) header.findViewById(R.id.classement_nul);
-        classementNul.setText("N");
-        classementNul.setTextColor(getResources().getColor(android.R.color.black));
-        TextView classementDefaite = (TextView) header.findViewById(R.id.classement_defaite);
-        classementDefaite.setText("D");
-        classementDefaite.setTextColor(getResources().getColor(android.R.color.black));
-        TextView classementBp = (TextView) header.findViewById(R.id.classement_bp);
-        classementBp.setText("BP");
-        classementBp.setTextColor(getResources().getColor(android.R.color.black));
-        TextView classementBc = (TextView) header.findViewById(R.id.classement_bc);
-        classementBc.setText("BC");
-        classementBc.setTextColor(getResources().getColor(android.R.color.black));
-
+        this.populateHeader(header);
         classementListView.addHeaderView(header);
 
         swipeClassement = (SwipeRefreshLayout)rootView.findViewById(R.id.swipe_classement);
         swipeClassement.setOnRefreshListener(this);
         swipeClassement.setColorSchemeColors(Color.BLACK, getResources().getColor(R.color.hofc_blue));
-
 
         return rootView;
     }
@@ -107,5 +75,38 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
     @Override
     public void onRefresh() {
         this.refreshDataAndView();
+    }
+
+    private void populateHeader(View header) {
+        TextView classementPosition = (TextView) header.findViewById(R.id.classement_position);
+        classementPosition.setText(" ");
+        classementPosition.setTextColor(getResources().getColor(android.R.color.black));
+        TextView classementNom = (TextView) header.findViewById(R.id.classement_nom);
+        classementNom.setText("Equipe");
+        classementNom.setTextColor(getResources().getColor(android.R.color.black));
+        TextView classementPoints = (TextView) header.findViewById(R.id.classement_points);
+        classementPoints.setText("Pts");
+        classementPoints.setTextColor(getResources().getColor(android.R.color.black));
+        TextView classementJoue = (TextView) header.findViewById(R.id.classement_joue);
+        classementJoue.setText("J");
+        classementJoue.setTextColor(getResources().getColor(android.R.color.black));
+        TextView classementDiff = (TextView) header.findViewById(R.id.classement_diff);
+        classementDiff.setText("+/-");
+        classementDiff.setTextColor(getResources().getColor(android.R.color.black));
+        TextView classementVictoire = (TextView) header.findViewById(R.id.classement_victoire);
+        classementVictoire.setText("V");
+        classementVictoire.setTextColor(getResources().getColor(android.R.color.black));
+        TextView classementNul = (TextView) header.findViewById(R.id.classement_nul);
+        classementNul.setText("N");
+        classementNul.setTextColor(getResources().getColor(android.R.color.black));
+        TextView classementDefaite = (TextView) header.findViewById(R.id.classement_defaite);
+        classementDefaite.setText("D");
+        classementDefaite.setTextColor(getResources().getColor(android.R.color.black));
+        TextView classementBp = (TextView) header.findViewById(R.id.classement_bp);
+        classementBp.setText("BP");
+        classementBp.setTextColor(getResources().getColor(android.R.color.black));
+        TextView classementBc = (TextView) header.findViewById(R.id.classement_bc);
+        classementBc.setText("BC");
+        classementBc.setTextColor(getResources().getColor(android.R.color.black));
     }
 }
