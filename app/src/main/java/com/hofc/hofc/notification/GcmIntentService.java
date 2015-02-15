@@ -25,6 +25,10 @@ public class GcmIntentService extends IntentService {
     private static final String MESSAGE_TITLE = "title";
     private static final String MESSAGE_CONTENT = "message";
 
+    public GcmIntentService() {
+        super("Test");
+    }
+
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
      *

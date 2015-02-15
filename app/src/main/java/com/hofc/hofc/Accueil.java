@@ -25,8 +25,10 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.io.File;
@@ -208,7 +210,7 @@ public class Accueil extends ActionBarActivity
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
-                StringBuilder stringBuilder = new StringBuilder("http://");
+                StringBuilder stringBuilder = new StringBuilder(ServerConstant.SERVER_URL_PREFIX);
                 stringBuilder.append(ServerConstant.SERVER_URL);
                 if(ServerConstant.SERVER_PORT != 0) {
                     stringBuilder.append(":");
@@ -218,12 +220,13 @@ public class Accueil extends ActionBarActivity
                 stringBuilder.append(ServerConstant.NOTIF_CONTEXT);
 
                 try {
+                    HttpClient httpClient = new DefaultHttpClient();
                     HttpPost httpPost = new HttpPost(stringBuilder.toString());
                     List<NameValuePair> nameValuePairs = new ArrayList<>(2);
                     nameValuePairs.add(new BasicNameValuePair("notification_id", regId));
                     nameValuePairs.add(new BasicNameValuePair("uuid", Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID)));
                     httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
+                    httpClient.execute(httpPost);
                 } catch (IOException ex) {
                     Log.e(Accueil.class.getName(), "Problem while sending Notification ID", ex);
                 }
