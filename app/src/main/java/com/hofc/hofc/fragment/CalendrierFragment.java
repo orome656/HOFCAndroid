@@ -64,6 +64,22 @@ public class CalendrierFragment extends CommonFragment  implements FragmentCallb
 
 
     @Override
+    public void onError() {
+        if(swipeCalendrier.isRefreshing())
+            swipeCalendrier.setRefreshing(false);
+
+        super.onError();
+    }
+
+    @Override
+    public void onError(int messageId) {
+        if(swipeCalendrier.isRefreshing())
+            swipeCalendrier.setRefreshing(false);
+
+        super.onError(messageId);
+    }
+
+    @Override
     public void onRefresh() {
         this.refreshDataAndView();
     }

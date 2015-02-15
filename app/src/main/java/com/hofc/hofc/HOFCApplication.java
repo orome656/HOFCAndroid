@@ -18,7 +18,7 @@ public class HOFCApplication extends Application {
 
     @Override
     public void onTerminate() {
-        requestQueue.stop();
+        requestQueue.cancelAll(true);
         super.onTerminate();
     }
 

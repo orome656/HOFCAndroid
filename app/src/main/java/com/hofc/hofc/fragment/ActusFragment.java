@@ -2,7 +2,6 @@ package com.hofc.hofc.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -13,8 +12,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
 import com.hofc.hofc.ActusDetail;
 import com.hofc.hofc.ActusDiaporama;
+import com.hofc.hofc.HOFCApplication;
 import com.hofc.hofc.R;
 import com.hofc.hofc.adapter.ActusAdapter;
 import com.hofc.hofc.data.DataSingleton;
@@ -77,10 +78,25 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
             }
         });
         super.refreshDataAndView();
-		ActusDownloader downloader = new ActusDownloader(this);
-        downloader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        RequestQueue requestQueue = ((HOFCApplication) getActivity().getApplication()).getRequestQueue();
+		ActusDownloader.updateActus(requestQueue, this);
 	}
 
+    @Override
+    public void onError() {
+        if(swipeActus.isRefreshing())
+            swipeActus.setRefreshing(false);
+
+        super.onError();
+    }
+
+    @Override
+    public void onError(int messageId) {
+        if(swipeActus.isRefreshing())
+            swipeActus.setRefreshing(false);
+
+        super.onError(messageId);
+    }
 
     @Override
     public void onRefresh() {

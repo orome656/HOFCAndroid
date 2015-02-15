@@ -72,6 +72,22 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
 		downloader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
 
+
+    @Override
+    public void onError() {
+        if(swipeClassement.isRefreshing())
+            swipeClassement.setRefreshing(false);
+
+        super.onError();
+    }
+
+    @Override
+    public void onError(int messageId) {
+        if(swipeClassement.isRefreshing())
+            swipeClassement.setRefreshing(false);
+
+        super.onError(messageId);
+    }
     @Override
     public void onRefresh() {
         this.refreshDataAndView();

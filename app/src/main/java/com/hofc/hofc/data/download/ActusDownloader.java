@@ -17,9 +17,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.DownloadManager;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.hofc.hofc.fragment.FragmentCallback;
 import com.hofc.hofc.R;
 import com.hofc.hofc.constant.ServerConstant;
@@ -120,5 +127,56 @@ public class ActusDownloader extends AsyncTask<Void, Void, Integer> {
 		}
 		super.onPostExecute(result);
 	}
+
+    public static void updateActus(RequestQueue requestQueue, final FragmentCallback callback) {
+        StringBuilder stringBuilder = new StringBuilder(ServerConstant.SERVER_URL_PREFIX);
+        stringBuilder.append(ServerConstant.SERVER_URL);
+        if(ServerConstant.SERVER_PORT != 0) {
+            stringBuilder.append(":");
+            stringBuilder.append(ServerConstant.SERVER_PORT);
+        }
+        stringBuilder.append("/");
+        stringBuilder.append(ServerConstant.ACTUS_CONTEXT);
+
+        JsonArrayRequest jsonRequest = new JsonArrayRequest(stringBuilder.toString(), new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+                    ArrayList<ActuVO> actusList = new ArrayList<ActuVO>();
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject object = response.getJSONObject(i);
+                        ActuVO actu = new ActuVO();
+                        actu.setPostId(object.getInt("postid"));
+                        actu.setTitre(object.getString("titre"));
+                        actu.setTexte(object.getString("texte"));
+                        actu.setUrl(object.getString("url"));
+                        actu.setImageUrl(object.getString("image"));
+                        try {
+                            actu.setDate(sdf.parse(object.getString("date")));
+                        } catch (ParseException e) {
+                            Log.e(ActusDownloader.class.getName(), "Problem when parsing date", e);
+                            actu.setDate(null);
+                        }
+                        actusList.add(actu);
+                    }
+                    DataSingleton.setActus(actusList);
+                    // Sauvegarde en base
+                    ActusBDD.insertList(actusList);
+                    ActusBDD.updateDateSynchro(new Date());
+                    callback.onTaskDone();
+                } catch (JSONException e) {
+                    callback.onError(R.string.internal_error);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                callback.onError(R.string.internal_error);
+            }
+        });
+
+        requestQueue.add(jsonRequest);
+    }
 
 }
