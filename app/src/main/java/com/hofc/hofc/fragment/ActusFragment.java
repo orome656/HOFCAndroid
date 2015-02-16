@@ -32,6 +32,8 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+        if(DataSingleton.getActus() == null)
+            DataSingleton.initializeActus(getActivity());
         View rootView = inflater.inflate(R.layout.fragment_accueil, container, false);
         actusListView = (ListView) rootView.findViewById(R.id.actus_listview);
         actusListView.setOnItemClickListener(new OnItemClickListener() {

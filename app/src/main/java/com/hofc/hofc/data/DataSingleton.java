@@ -31,19 +31,32 @@ public enum DataSingleton {
     private Map<String, Bitmap> cachedImage;
 
     public static void initialize(Context c) {
-    	CalendrierBDD.initiate(c);
-    	INSTANCE.calendrier = CalendrierBDD.getAll();
-    	INSTANCE.lastSynchroCalendrier = CalendrierBDD.getDateSynchro();
-    	ClassementBDD.initiate(c);
-    	INSTANCE.classement = ClassementBDD.getAll();
-    	INSTANCE.lastSynchroClassement = ClassementBDD.getDateSynchro();
-    	ActusBDD.initiate(c);
-    	INSTANCE.actus = ActusBDD.getAll();
-    	INSTANCE.lastSynchroActus = ActusBDD.getDateSynchro();
         INSTANCE.cachedImage = new HashMap<String, Bitmap>();
     	
     }
-    
+
+    public static void initializeCalendrier(Context c) {
+        CalendrierBDD.initiate(c);
+        INSTANCE.calendrier = CalendrierBDD.getAll();
+        INSTANCE.lastSynchroCalendrier = CalendrierBDD.getDateSynchro();
+
+    }
+
+
+    public static void initializeClassement(Context c) {
+        ClassementBDD.initiate(c);
+        INSTANCE.classement = ClassementBDD.getAll();
+        INSTANCE.lastSynchroClassement = ClassementBDD.getDateSynchro();
+
+    }
+
+
+    public static void initializeActus(Context c) {
+        ActusBDD.initiate(c);
+        INSTANCE.actus = ActusBDD.getAll();
+        INSTANCE.lastSynchroActus = ActusBDD.getDateSynchro();
+
+    }
     
     public static List<CalendrierLineVO> getCalendrier() {
     	return INSTANCE.calendrier;

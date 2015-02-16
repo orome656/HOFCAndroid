@@ -28,6 +28,10 @@ public class CalendrierFragment extends CommonFragment  implements FragmentCallb
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+
+        if(DataSingleton.getCalendrier() == null)
+            DataSingleton.initializeCalendrier(getActivity());
+
         View rootView = inflater.inflate(R.layout.fragment_calendrier, container, false);
         calendrierListView = (ListView) rootView.findViewById(R.id.calendrier_listView);
 
