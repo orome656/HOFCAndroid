@@ -1,5 +1,7 @@
 package com.hofc.hofc.fragment;
 
+import com.android.volley.RequestQueue;
+import com.hofc.hofc.HOFCApplication;
 import com.hofc.hofc.R;
 import com.hofc.hofc.adapter.CalendrierAdapter;
 import com.hofc.hofc.data.DataSingleton;
@@ -58,8 +60,8 @@ public class CalendrierFragment extends CommonFragment  implements FragmentCallb
             }
         });
         super.refreshDataAndView();
-		CalendrierDownloader downloader = new CalendrierDownloader(this);
-        downloader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        RequestQueue requestQueue = ((HOFCApplication) getActivity().getApplication()).getRequestQueue();
+        CalendrierDownloader.update(requestQueue, this);
 	}
 
 

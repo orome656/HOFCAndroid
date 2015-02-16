@@ -68,22 +68,7 @@ public enum DataSingleton {
     public static void setActus(List<ActuVO> pActus) {
     	INSTANCE.actus = pActus;
     }
-    
-    public static void launchSynchroCalendrier(FragmentCallback callback) {
-    	CalendrierDownloader downloader = new CalendrierDownloader(callback);
-    	downloader.execute();
-    }
-    
-    public static void launchSynchroClassement(FragmentCallback callback) {
-    	ClassementDownloader downloader = new ClassementDownloader(callback);
-    	downloader.execute();
-    }
-    
-    public static void launchSynchroActus(FragmentCallback callback) {
-    	ActusDownloader downloader = new ActusDownloader(callback);
-    	downloader.execute();
-    }
-    
+
     public static boolean isSynchroCalendrierNeeded() {
     	GregorianCalendar calendar = (GregorianCalendar) GregorianCalendar.getInstance();
     	calendar.setTime(new Date());

@@ -1,5 +1,7 @@
 package com.hofc.hofc.fragment;
 
+import com.android.volley.RequestQueue;
+import com.hofc.hofc.HOFCApplication;
 import com.hofc.hofc.R;
 import com.hofc.hofc.adapter.ClassementAdapter;
 import com.hofc.hofc.data.DataSingleton;
@@ -68,8 +70,8 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
             }
         });
         super.refreshDataAndView();
-		ClassementDownloader downloader = new ClassementDownloader(this);
-		downloader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        RequestQueue requestQueue = ((HOFCApplication) getActivity().getApplication()).getRequestQueue();
+        ClassementDownloader.update(requestQueue, this);
 	}
 
 
