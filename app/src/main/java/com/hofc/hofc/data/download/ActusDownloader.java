@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.android.volley.RequestQueue;
@@ -37,34 +38,46 @@ public class ActusDownloader {
 
         JsonArrayRequest jsonRequest = new JsonArrayRequest(stringBuilder.toString(), new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(JSONArray response) {
-                try {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
-                    ArrayList<ActuVO> actusList = new ArrayList<ActuVO>();
-                    for (int i = 0; i < response.length(); i++) {
-                        JSONObject object = response.getJSONObject(i);
-                        ActuVO actu = new ActuVO();
-                        actu.setPostId(object.getInt("postid"));
-                        actu.setTitre(object.getString("titre"));
-                        actu.setTexte(object.getString("texte"));
-                        actu.setUrl(object.getString("url"));
-                        actu.setImageUrl(object.getString("image"));
+            public void onResponse(final JSONArray response) {
+                new AsyncTask<Void, Void, Void>() {
+
+                    @Override
+                    protected Void doInBackground(Void... params) {
                         try {
-                            actu.setDate(sdf.parse(object.getString("date")));
-                        } catch (ParseException e) {
-                            Log.e(ActusDownloader.class.getName(), "Problem when parsing date", e);
-                            actu.setDate(null);
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+                            ArrayList<ActuVO> actusList = new ArrayList<ActuVO>();
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject object = response.getJSONObject(i);
+                                ActuVO actu = new ActuVO();
+                                actu.setPostId(object.getInt("postid"));
+                                actu.setTitre(object.getString("titre"));
+                                actu.setTexte(object.getString("texte"));
+                                actu.setUrl(object.getString("url"));
+                                actu.setImageUrl(object.getString("image"));
+                                try {
+                                    actu.setDate(sdf.parse(object.getString("date")));
+                                } catch (ParseException e) {
+                                    Log.e(ActusDownloader.class.getName(), "Problem when parsing date", e);
+                                    actu.setDate(null);
+                                }
+                                actusList.add(actu);
+                            }
+                            DataSingleton.setActus(actusList);
+                            // Sauvegarde en base
+                            ActusBDD.insertList(actusList);
+                            ActusBDD.updateDateSynchro(new Date());
+
+                        } catch (JSONException e) {
+                            callback.onError(R.string.internal_error);
                         }
-                        actusList.add(actu);
+                        return null;
                     }
-                    DataSingleton.setActus(actusList);
-                    // Sauvegarde en base
-                    ActusBDD.insertList(actusList);
-                    ActusBDD.updateDateSynchro(new Date());
-                    callback.onTaskDone();
-                } catch (JSONException e) {
-                    callback.onError(R.string.internal_error);
-                }
+
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+                        callback.onTaskDone();
+                    }
+                }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
         }, new Response.ErrorListener() {
             @Override
