@@ -51,38 +51,53 @@ public class CalendrierDownloader {
 
         JsonArrayRequest jsonRequest = new JsonArrayRequest(stringBuilder.toString(), new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(JSONArray response) {
-                try {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
-                    ArrayList<CalendrierLineVO> calendrierList = new ArrayList<CalendrierLineVO>();
-                    for (int i = 0; i < response.length(); i++) {
-                        JSONObject object = response.getJSONObject(i);
-                        CalendrierLineVO calendrier = new CalendrierLineVO();
-                        calendrier.setEquipe1(object.getString("equipe1"));
-                        calendrier.setEquipe2(object.getString("equipe2"));
-                        if(!"null".equalsIgnoreCase(object.getString("score1")) && !"null".equalsIgnoreCase(object.getString("score2"))) {
-                            calendrier.setScore1(object.getInt("score1"));
-                            calendrier.setScore2(object.getInt("score2"));
-                        } else {
-                            calendrier.setScore1(null);
-                            calendrier.setScore2(null);
-                        }
+            public void onResponse(final JSONArray response) {
+                new AsyncTask<Void, Void, Integer>() {
+
+                    @Override
+                    protected Integer doInBackground(Void... params) {
                         try {
-                            calendrier.setDate(sdf.parse(object.getString("date")));
-                        } catch (ParseException e) {
-                            Log.e(CalendrierDownloader.class.getName(), "Problem when parsing date", e);
-                            calendrier.setDate(null);
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+                            ArrayList<CalendrierLineVO> calendrierList = new ArrayList<CalendrierLineVO>();
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject object = response.getJSONObject(i);
+                                CalendrierLineVO calendrier = new CalendrierLineVO();
+                                calendrier.setEquipe1(object.getString("equipe1"));
+                                calendrier.setEquipe2(object.getString("equipe2"));
+                                if (!"null".equalsIgnoreCase(object.getString("score1")) && !"null".equalsIgnoreCase(object.getString("score2"))) {
+                                    calendrier.setScore1(object.getInt("score1"));
+                                    calendrier.setScore2(object.getInt("score2"));
+                                } else {
+                                    calendrier.setScore1(null);
+                                    calendrier.setScore2(null);
+                                }
+                                try {
+                                    calendrier.setDate(sdf.parse(object.getString("date")));
+                                } catch (ParseException e) {
+                                    Log.e(CalendrierDownloader.class.getName(), "Problem when parsing date", e);
+                                    calendrier.setDate(null);
+                                }
+                                calendrierList.add(calendrier);
+                            }
+                            DataSingleton.setCalendrier(calendrierList);
+                            // Sauvegarde en base
+                            CalendrierBDD.insertList(calendrierList);
+                            CalendrierBDD.updateDateSynchro(new Date());
+                            return 0;
+                        } catch (JSONException e) {
+                            return -1;
                         }
-                        calendrierList.add(calendrier);
                     }
-                    DataSingleton.setCalendrier(calendrierList);
-                    // Sauvegarde en base
-                    CalendrierBDD.insertList(calendrierList);
-                    CalendrierBDD.updateDateSynchro(new Date());
-                    callback.onTaskDone();
-                } catch (JSONException e) {
-                    callback.onError(R.string.internal_error);
-                }
+
+                    @Override
+                    protected void onPostExecute(Integer result) {
+                        if (result == 0) {
+                            callback.onTaskDone();
+                        } else {
+                            callback.onError(R.string.internal_error);
+                        }
+                    }
+                }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
         }, new Response.ErrorListener() {
             @Override

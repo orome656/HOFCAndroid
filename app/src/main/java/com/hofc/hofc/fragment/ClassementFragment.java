@@ -8,7 +8,6 @@ import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.data.download.ClassementDownloader;
 
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -59,8 +58,12 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
 
     public void refreshView(){
         super.refreshView();
-		ClassementAdapter adapter = new ClassementAdapter(getActivity());
-		classementListView.setAdapter(adapter);
+        if(classementListView.getAdapter() == null) {
+            ClassementAdapter adapter = new ClassementAdapter(getActivity());
+            classementListView.setAdapter(adapter);
+        } else {
+            ((ClassementAdapter)classementListView.getAdapter()).notifyDataSetChanged();
+        }
         if(swipeClassement.isRefreshing())
             swipeClassement.setRefreshing(false);
 	}

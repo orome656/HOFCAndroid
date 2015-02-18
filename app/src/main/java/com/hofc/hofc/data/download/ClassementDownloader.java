@@ -39,31 +39,47 @@ public class ClassementDownloader {
 
         JsonArrayRequest jsonRequest = new JsonArrayRequest(stringBuilder.toString(), new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(JSONArray response) {
-                try {
-                    ArrayList<ClassementLineVO> classementList = new ArrayList<>();
-                    for (int i = 0; i < response.length(); i++) {
-                        JSONObject object = response.getJSONObject(i);
-                        ClassementLineVO classement = new ClassementLineVO();
-					classement.setNom(object.getString("nom"));
-					classement.setPoints(object.getInt("points"));
-					classement.setJoue(object.getInt("joue"));
-					classement.setGagne(object.getInt("gagne"));
-					classement.setNul(object.getInt("nul"));
-					classement.setPerdu(object.getInt("perdu"));
-					classement.setBc(object.getInt("bc"));
-					classement.setBp(object.getInt("bp"));
-					classement.setDiff(object.getInt("diff"));
-                        classementList.add(classement);
+            public void onResponse(final JSONArray response) {
+                new AsyncTask<Void, Void, Integer>() {
+
+                    @Override
+                    protected Integer doInBackground(Void... params) {
+                        try {
+                            ArrayList<ClassementLineVO> classementList = new ArrayList<>();
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject object = response.getJSONObject(i);
+                                ClassementLineVO classement = new ClassementLineVO();
+                                classement.setNom(object.getString("nom"));
+                                classement.setPoints(object.getInt("points"));
+                                classement.setJoue(object.getInt("joue"));
+                                classement.setGagne(object.getInt("gagne"));
+                                classement.setNul(object.getInt("nul"));
+                                classement.setPerdu(object.getInt("perdu"));
+                                classement.setBc(object.getInt("bc"));
+                                classement.setBp(object.getInt("bp"));
+                                classement.setDiff(object.getInt("diff"));
+                                classementList.add(classement);
+                            }
+                            DataSingleton.setClassement(classementList);
+                            // Sauvegarde en base
+                            ClassementBDD.insertList(classementList);
+                            ClassementBDD.updateDateSynchro(new Date());
+                            return 0;
+                        } catch (JSONException e) {
+                            Log.e(ClassementDownloader.class.getName(), e.getMessage());
+                            return -1;
+                        }
                     }
-                    DataSingleton.setClassement(classementList);
-                    // Sauvegarde en base
-                    ClassementBDD.insertList(classementList);
-                    ClassementBDD.updateDateSynchro(new Date());
-                    callback.onTaskDone();
-                } catch (JSONException e) {
-                    callback.onError(R.string.internal_error);
-                }
+
+                    @Override
+                    protected void onPostExecute(Integer result) {
+                        if(result == 0) {
+                            callback.onTaskDone();
+                        } else {
+                            callback.onError(R.string.internal_error);
+                        }
+                    }
+                }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
         }, new Response.ErrorListener() {
             @Override

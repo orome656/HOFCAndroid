@@ -39,10 +39,10 @@ public class ActusDownloader {
         JsonArrayRequest jsonRequest = new JsonArrayRequest(stringBuilder.toString(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(final JSONArray response) {
-                new AsyncTask<Void, Void, Void>() {
+                new AsyncTask<Void, Void, Integer>() {
 
                     @Override
-                    protected Void doInBackground(Void... params) {
+                    protected Integer doInBackground(Void... params) {
                         try {
                             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
                             ArrayList<ActuVO> actusList = new ArrayList<ActuVO>();
@@ -66,16 +66,19 @@ public class ActusDownloader {
                             // Sauvegarde en base
                             ActusBDD.insertList(actusList);
                             ActusBDD.updateDateSynchro(new Date());
-
+                            return 0;
                         } catch (JSONException e) {
-                            callback.onError(R.string.internal_error);
+                            return -1;
                         }
-                        return null;
                     }
 
                     @Override
-                    protected void onPostExecute(Void aVoid) {
-                        callback.onTaskDone();
+                    protected void onPostExecute(Integer result) {
+                        if (result == 0) {
+                            callback.onTaskDone();
+                        } else {
+                            callback.onError(R.string.internal_error);
+                        }
                     }
                 }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }

@@ -8,7 +8,6 @@ import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.data.download.CalendrierDownloader;
 
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -49,8 +48,12 @@ public class CalendrierFragment extends CommonFragment  implements FragmentCallb
 
     public void refreshView() {
         super.refreshView();
-        CalendrierAdapter adapter = new CalendrierAdapter(getActivity());
-        calendrierListView.setAdapter(adapter);
+        if(calendrierListView.getAdapter() == null) {
+            CalendrierAdapter adapter = new CalendrierAdapter(getActivity());
+            calendrierListView.setAdapter(adapter);
+        } else {
+            ((CalendrierAdapter)calendrierListView.getAdapter()).notifyDataSetChanged();
+        }
         if(swipeCalendrier.isRefreshing())
             swipeCalendrier.setRefreshing(false);
     }

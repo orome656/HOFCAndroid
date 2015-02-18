@@ -65,8 +65,12 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
 
 	public void refreshView(){
         super.refreshView();
-		ActusAdapter adapter = new ActusAdapter(getActivity());
-		actusListView.setAdapter(adapter);
+        if(actusListView.getAdapter() == null) {
+            ActusAdapter adapter = new ActusAdapter(getActivity());
+            actusListView.setAdapter(adapter);
+        } else {
+            ((ActusAdapter)actusListView.getAdapter()).notifyDataSetChanged();
+        }
         if(swipeActus.isRefreshing())
             swipeActus.setRefreshing(false);
 	}
