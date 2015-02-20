@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:choiceMode="singleChoice"
-    android:divider="@android:color/transparent"
-    android:dividerHeight="0dp"
-    tools:context="com.hofc.hofc.NavigationDrawerFragment" />
+    android:divider="#D3D3D3"
+    android:dividerHeight="1dp"
+    tools:context="com.hofc.hofc.NavigationDrawerFragment"
+    android:fitsSystemWindows="true"/>
 

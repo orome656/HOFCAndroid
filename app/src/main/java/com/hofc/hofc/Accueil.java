@@ -79,6 +79,8 @@ public class Accueil extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout.setStatusBarBackgroundColor(getResources().getColor(android.R.color.transparent));
         /**
          * Gestion des notifications, enregistrement auprès du serveur
          */
