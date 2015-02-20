@@ -111,6 +111,8 @@ public class Accueil extends ActionBarActivity
     	if(this.fragmentManager == null)
     		fragmentManager = getFragmentManager();
         if(position == 0) {
+
+        } else if(position == 1) {
         	if(this.actusFragment == null) {
         		this.actusFragment = ActusFragment.newInstance();
         	}
@@ -119,7 +121,7 @@ public class Accueil extends ActionBarActivity
             .replace(R.id.container, this.actusFragment)
             .commit();
         	mTitle = getText(R.string.title_accueil);
-        } else if(position == 1) {
+        } else if(position == 2) {
         	if(this.classementFragment == null) {
         		this.classementFragment = ClassementFragment.newInstance();
         	}
@@ -128,7 +130,7 @@ public class Accueil extends ActionBarActivity
             .replace(R.id.container, this.classementFragment)
             .commit();
         	mTitle = getText(R.string.title_classement);
-        } else if (position == 2) {
+        } else if (position == 3) {
         	if(this.calendrierFragment == null) {
         		this.calendrierFragment = CalendrierFragment.newInstance();
         	}

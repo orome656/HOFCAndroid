@@ -24,6 +24,8 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.hofc.hofc.widget.ScrimInsetsFrameLayout;
+
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
@@ -55,7 +57,7 @@ public class NavigationDrawerFragment extends Fragment {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
     private View mFragmentContainerView;
-
+    private ScrimInsetsFrameLayout frameLayout;
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
@@ -91,8 +93,9 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        mDrawerListView = (ListView) inflater.inflate(
+        frameLayout = (ScrimInsetsFrameLayout) inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
+        mDrawerListView = (ListView) frameLayout.findViewById(R.id.navigation_list);
         LinearLayout header = (LinearLayout)inflater.inflate(R.layout.header, null);
         mDrawerListView.addHeaderView(header);
 
@@ -112,7 +115,7 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.title_calendrier),
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
-        return mDrawerListView;
+        return frameLayout;
     }
 
     public boolean isDrawerOpen() {
