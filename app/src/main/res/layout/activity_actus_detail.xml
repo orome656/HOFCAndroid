@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@android:color/white"
-    tools:context="com.hofc.hofc.ActusDetail">
+    tools:context="com.hofc.hofc.ActusDetail"
+    android:fitsSystemWindows="true">
 
     <include layout="@layout/toolbar"
         android:id="@+id/toolbar"/>

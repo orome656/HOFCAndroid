@@ -110,9 +110,7 @@ public class Accueil extends ActionBarActivity
         // update the main content by replacing fragments
     	if(this.fragmentManager == null)
     		fragmentManager = getFragmentManager();
-        if(position == 0) {
-
-        } else if(position == 1) {
+        if(position == 0 || position == 1) {
         	if(this.actusFragment == null) {
         		this.actusFragment = ActusFragment.newInstance();
         	}

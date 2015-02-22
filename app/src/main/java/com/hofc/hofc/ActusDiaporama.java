@@ -1,6 +1,5 @@
 package com.hofc.hofc;
 
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -17,11 +16,9 @@ import android.widget.Toast;
 import com.hofc.hofc.adapter.DiaporamaAdapter;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.utils.HOFCUtils;
-import com.hofc.hofc.vo.ActusDetailsVO;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -29,16 +26,11 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.Executor;
 
 
 public class ActusDiaporama extends ActionBarActivity {
@@ -58,6 +50,8 @@ public class ActusDiaporama extends ActionBarActivity {
         diaporamaDownloader = new DiaporamaDownloader().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (String) getIntent().getExtras().get("URL"));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
     }
 
 

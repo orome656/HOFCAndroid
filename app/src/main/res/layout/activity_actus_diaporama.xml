@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.hofc.hofc.ActusDiaporama"
-    android:background="@android:color/black">
+    android:background="@android:color/black"
+    android:fitsSystemWindows="true">
     <include layout="@layout/toolbar"
              android:id="@+id/diaporama_toolbar"/>
     <ProgressBar

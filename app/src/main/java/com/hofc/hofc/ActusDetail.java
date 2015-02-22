@@ -68,11 +68,9 @@ public class ActusDetail extends ActionBarActivity {
 
         getSupportActionBar().setTitle("HOFC");
 
-        if(getActionBar() != null) {
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-        } else {
-            Log.e(ActusDetail.class.getName(), "ActionBar is null ?!?");
-        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
         Intent i = getIntent();
         String url = (String)i.getExtras().get("URL");
 
