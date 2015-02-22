@@ -9,6 +9,7 @@ import java.util.GregorianCalendar;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.hofc.hofc.constant.ServerConstant;
 
@@ -32,9 +33,8 @@ public class CommonBDD {
 			try {
 				result = sdf.parse(cursor.getString(cursor.getColumnIndex("date")));
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                Log.e(CommonBDD.class.getName(),"Error while parsing sync date", e);
+            }
 			return result;
 		} else {
 			return null;
