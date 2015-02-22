@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.hofc.hofc.R;
 import com.hofc.hofc.data.DataSingleton;
-import com.hofc.hofc.data.download.ImageDownloader;
 import com.hofc.hofc.vo.ActuVO;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.text.SimpleDateFormat;
 
@@ -19,11 +19,12 @@ public class ActusAdapter extends BaseAdapter {
 
 	LayoutInflater inflater;
     SimpleDateFormat sdf;
-	
+	ImageLoader imageLoader;
 	public ActusAdapter(Context context) {
 		inflater = LayoutInflater.from(context);
 		//CalendrierBDD.initiate(context);
         sdf = new SimpleDateFormat("EEEE dd MMMM yyyy");
+        imageLoader = ImageLoader.getInstance();
 	}	
 	@Override
 	public int getCount() {
@@ -61,11 +62,9 @@ public class ActusAdapter extends BaseAdapter {
 		}
 		
 		ActuVO line = DataSingleton.getActus().get(position);
-		if(line.getBitmapImage() == null) {
+		if(holder.imageActu.getDrawable() == null) {
 			holder.imageActu.setImageBitmap(null);
-			new ImageDownloader(holder.imageActu, DataSingleton.getActus().get(position)).execute(line.getImageUrl());
-		} else {
-			holder.imageActu.setImageBitmap(line.getBitmapImage());
+            imageLoader.displayImage(DataSingleton.getActus().get(position).getImageUrl(), holder.imageActu);
 		}
 		holder.titleText.setText(line.getTitre());
 		holder.texte.setText(line.getTexte());
