@@ -1,25 +1,25 @@
 package com.hofc.hofc.data.download;
 
-import java.util.ArrayList;
-import java.util.Date;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.os.AsyncTask;
+import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.hofc.hofc.fragment.FragmentCallback;
 import com.hofc.hofc.R;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.ClassementBDD;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.fragment.FragmentCallback;
 import com.hofc.hofc.vo.ClassementLineVO;
 
-import android.os.AsyncTask;
-import android.util.Log;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 public class ClassementDownloader {
     /**

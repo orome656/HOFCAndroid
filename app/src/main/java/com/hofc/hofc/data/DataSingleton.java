@@ -1,23 +1,19 @@
 package com.hofc.hofc.data;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+
+import com.hofc.hofc.constant.ServerConstant;
+import com.hofc.hofc.vo.ActuVO;
+import com.hofc.hofc.vo.CalendrierLineVO;
+import com.hofc.hofc.vo.ClassementLineVO;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import android.content.Context;
-import android.graphics.Bitmap;
-
-import com.hofc.hofc.fragment.FragmentCallback;
-import com.hofc.hofc.constant.ServerConstant;
-import com.hofc.hofc.data.download.ActusDownloader;
-import com.hofc.hofc.data.download.CalendrierDownloader;
-import com.hofc.hofc.data.download.ClassementDownloader;
-import com.hofc.hofc.vo.ActuVO;
-import com.hofc.hofc.vo.CalendrierLineVO;
-import com.hofc.hofc.vo.ClassementLineVO;
 
 public enum DataSingleton {
 	INSTANCE;

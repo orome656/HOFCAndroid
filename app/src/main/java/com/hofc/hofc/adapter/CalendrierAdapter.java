@@ -1,12 +1,5 @@
 package com.hofc.hofc.adapter;
 
-import java.text.SimpleDateFormat;
-
-import com.hofc.hofc.R;
-import com.hofc.hofc.constant.AppConstant;
-import com.hofc.hofc.data.DataSingleton;
-import com.hofc.hofc.vo.CalendrierLineVO;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -16,6 +9,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.hofc.hofc.R;
+import com.hofc.hofc.constant.AppConstant;
+import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.vo.CalendrierLineVO;
+
+import java.text.SimpleDateFormat;
 
 public class CalendrierAdapter extends BaseAdapter {
 

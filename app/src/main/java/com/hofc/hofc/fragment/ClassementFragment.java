@@ -1,12 +1,5 @@
 package com.hofc.hofc.fragment;
 
-import com.android.volley.RequestQueue;
-import com.hofc.hofc.HOFCApplication;
-import com.hofc.hofc.R;
-import com.hofc.hofc.adapter.ClassementAdapter;
-import com.hofc.hofc.data.DataSingleton;
-import com.hofc.hofc.data.download.ClassementDownloader;
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,6 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.android.volley.RequestQueue;
+import com.hofc.hofc.HOFCApplication;
+import com.hofc.hofc.R;
+import com.hofc.hofc.adapter.ClassementAdapter;
+import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.data.download.ClassementDownloader;
 
 public class ClassementFragment extends CommonFragment implements FragmentCallback, CustomFragment, SwipeRefreshLayout.OnRefreshListener {
 

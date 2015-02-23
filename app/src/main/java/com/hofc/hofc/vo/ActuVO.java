@@ -1,8 +1,8 @@
 package com.hofc.hofc.vo;
 
-import java.util.Date;
-
 import android.graphics.Bitmap;
+
+import java.util.Date;
 
 public class ActuVO {
 	/**

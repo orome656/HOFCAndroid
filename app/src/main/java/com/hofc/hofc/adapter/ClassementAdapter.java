@@ -1,10 +1,5 @@
 package com.hofc.hofc.adapter;
 
-import com.hofc.hofc.R;
-import com.hofc.hofc.constant.AppConstant;
-import com.hofc.hofc.data.DataSingleton;
-import com.hofc.hofc.vo.ClassementLineVO;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -13,6 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.hofc.hofc.R;
+import com.hofc.hofc.constant.AppConstant;
+import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.vo.ClassementLineVO;
 
 public class ClassementAdapter extends BaseAdapter {
 

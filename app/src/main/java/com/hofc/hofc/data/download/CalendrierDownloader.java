@@ -1,37 +1,28 @@
 package com.hofc.hofc.data.download;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.os.AsyncTask;
+import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.hofc.hofc.fragment.CalendrierFragment;
-import com.hofc.hofc.fragment.FragmentCallback;
 import com.hofc.hofc.R;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.CalendrierBDD;
 import com.hofc.hofc.data.DataSingleton;
-import com.hofc.hofc.utils.HOFCUtils;
+import com.hofc.hofc.fragment.FragmentCallback;
 import com.hofc.hofc.vo.CalendrierLineVO;
 
-import android.os.AsyncTask;
-import android.util.Log;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class CalendrierDownloader {
     /**

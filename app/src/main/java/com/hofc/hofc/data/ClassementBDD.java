@@ -1,17 +1,17 @@
 package com.hofc.hofc.data;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import com.hofc.hofc.vo.ClassementLineVO;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+
+import com.hofc.hofc.vo.ClassementLineVO;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class ClassementBDD {
 	
