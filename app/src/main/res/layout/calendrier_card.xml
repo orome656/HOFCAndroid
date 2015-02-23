@@ -17,7 +17,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -35,7 +36,8 @@
                 <ImageView
                     android:id="@+id/calendrier_card_image_1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/calendrier_image"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -82,7 +84,8 @@
                 <ImageView
                     android:id="@+id/calendrier_card_image_2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/calendrier_image" />
 
             </LinearLayout>
         </LinearLayout>

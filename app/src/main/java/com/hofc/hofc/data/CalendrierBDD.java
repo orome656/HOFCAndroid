@@ -122,6 +122,7 @@ public class CalendrierBDD {
     			list.add(line);
         	}
     	}
+        cursor.close();
     	return list;
     }
     
@@ -148,6 +149,7 @@ public class CalendrierBDD {
     			values.put(CalendrierEntry.COLUMN_EQUIPE_2, line.getEquipe2());
     			hofcDatabase.insert(CalendrierEntry.CALENDRIER_TABLE_NAME, null, values);
     		}
+            cursor.close();
     	}
     }
 

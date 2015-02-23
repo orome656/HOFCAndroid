@@ -26,7 +26,7 @@
                     android:id="@+id/classement_view_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="Actuality Image"/>
+                    android:contentDescription="@string/actuality_image_description"/>
                 </LinearLayout>
             <TextView
                 android:id="@+id/classement_view_name"
@@ -40,7 +40,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -49,7 +50,7 @@
                     android:id="@+id/classement_view_points_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pts"/>
+                    android:text="@string/classement_header_points"/>
                 <TextView
                     android:id="@+id/classement_view_points_value"
                     android:layout_width="wrap_content"
@@ -66,7 +67,7 @@
                     android:id="@+id/classement_view_joue_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="J"/>
+                    android:text="@string/classement_header_joue"/>
                 <TextView
                     android:id="@+id/classement_view_joue_value"
                     android:layout_width="wrap_content"
@@ -82,7 +83,7 @@
                     android:id="@+id/classement_view_victoire_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="V"/>
+                    android:text="@string/classement_header_victoire"/>
                 <TextView
                     android:id="@+id/classement_view_victoire_value"
                     android:layout_width="wrap_content"
@@ -98,7 +99,7 @@
                     android:id="@+id/classement_view_nul_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="N"/>
+                    android:text="@string/classement_header_nul"/>
                 <TextView
                     android:id="@+id/classement_view_nul_value"
                     android:layout_width="wrap_content"
@@ -115,7 +116,7 @@
                     android:id="@+id/classement_view_defaite_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="D"/>
+                    android:text="@string/classement_header_defaite"/>
                 <TextView
                     android:id="@+id/classement_view_defaite_value"
                     android:layout_width="wrap_content"
@@ -127,7 +128,8 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -136,7 +138,7 @@
                     android:id="@+id/classement_view_bp_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="BP"/>
+                    android:text="@string/classement_header_bp"/>
                 <TextView
                     android:id="@+id/classement_view_bp_value"
                     android:layout_width="wrap_content"
@@ -153,7 +155,7 @@
                     android:id="@+id/classement_view_bc_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="BC"/>
+                    android:text="@string/classement_header_bc"/>
                 <TextView
                     android:id="@+id/classement_view_bc_value"
                     android:layout_width="wrap_content"
@@ -169,7 +171,7 @@
                     android:id="@+id/classement_view_diff_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Diff"/>
+                    android:text="@string/classement_header_diff"/>
                 <TextView
                     android:id="@+id/classement_view_diff_value"
                     android:layout_width="wrap_content"

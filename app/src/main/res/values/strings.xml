@@ -21,5 +21,19 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_actus_diaporama">HOFC</string>
     <string name="hello_world">Hello world!</string>
+    <string name="actuality_image_description">Actuality Image</string>
+    <string name="classement_header_points">Pts</string>
+    <string name="classement_header_joue">J</string>
+    <string name="classement_header_victoire">V</string>
+    <string name="classement_header_nul">N</string>
+    <string name="classement_header_defaite">D</string>
+    <string name="classement_header_bp">BP</string>
+    <string name="classement_header_bc">BC</string>
+    <string name="classement_header_diff">Diff</string>
+    <string name="header_title">HOFC</string>
+    <string name="header_text">Horgues Odos Football Club</string>
+    <string name="calendrier_image_1">Calendrier Image 1</string>
+    <string name="calendrier_image">Calendrier Image</string>
+    <string name="diaporama_image">Image Diaporama</string>
 
 </resources>

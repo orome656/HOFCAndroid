@@ -22,7 +22,9 @@ public class CommonBDD {
     	calendar.setTime(new Date());
     	calendar.add(Calendar.DATE, -ServerConstant.NOMBRE_JOUR_SYNCHRO);
 		Cursor cursor = hofcDatabase.query("date_synchro", null, "nom='"+bddName+"' and date > "+sdf.format(calendar.getTime()), null, null, null, null);
-		return cursor.getCount() <= 0;
+        boolean synchroNeeded = cursor.getCount() <=0;
+        cursor.close();
+		return synchroNeeded;
 	}
 
 	public static Date getDateSynchro(SQLiteDatabase hofcDatabase, String bddName) {
@@ -35,8 +37,10 @@ public class CommonBDD {
 			} catch (ParseException e) {
                 Log.e(CommonBDD.class.getName(),"Error while parsing sync date", e);
             }
+            cursor.close();
 			return result;
 		} else {
+            cursor.close();
 			return null;
 		}
 	}
@@ -52,5 +56,6 @@ public class CommonBDD {
 			values.put("nom", bddName);
 			hofcDatabase.insert("date_synchro", null, values);
 		}
+        cursor.close();
 	}
 }

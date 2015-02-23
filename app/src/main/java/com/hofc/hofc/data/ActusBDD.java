@@ -128,6 +128,7 @@ public class ActusBDD {
     			list.add(line);
         	}
     	}
+        cursor.close();
     	return list;
     }
     
@@ -159,7 +160,9 @@ public class ActusBDD {
     			values.put(ActusEntry.COLUMN_POST_ID, line.getPostId());
     			hofcDatabase.insert(ActusEntry.ACTUS_TABLE_NAME, null, values);
     		}
+            cursor.close();
     	}
+
     }
     
     public static void updateImageBitmap(int postId, Bitmap img) {
@@ -174,6 +177,7 @@ public class ActusBDD {
                 // UPDATE
                 hofcDatabase.update(ActusEntry.ACTUS_TABLE_NAME, values, ActusEntry.COLUMN_POST_ID + " =" + postId, null);
             }
+            cursor.close();
         }
     }
 

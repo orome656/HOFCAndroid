@@ -119,6 +119,7 @@ public class ClassementBDD {
     			list.add(line);
         	}
     	}
+        cursor.close();
     	return list;
     }
     
@@ -147,6 +148,7 @@ public class ClassementBDD {
     			values.put(ClassementEntry.COLUMN_NOM, line.getNom());
     			hofcDatabase.insert(ClassementEntry.CLASSEMENT_TABLE_NAME, null, values);
     		}
+            cursor.close();
     	}
     }
 
