@@ -20,6 +20,7 @@ import com.hofc.hofc.fragment.CalendrierFragment;
 import com.hofc.hofc.fragment.ClassementFragment;
 import com.hofc.hofc.notification.GcmPreference;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.utils.StorageUtils;
@@ -97,8 +98,13 @@ public class Accueil extends ActionBarActivity
         if(!ImageLoader.getInstance().isInited()) {
             File cacheDir = StorageUtils.getCacheDirectory(context);
 
+            DisplayImageOptions displayImageOptions = new DisplayImageOptions.Builder()
+                    .cacheOnDisk(true)
+                    .build();
+
             ImageLoaderConfiguration loaderConfiguration = new ImageLoaderConfiguration.Builder(this)
                     .diskCache(new UnlimitedDiscCache(cacheDir))
+                    .defaultDisplayImageOptions(displayImageOptions)
                     .build();
 
             ImageLoader.getInstance().init(loaderConfiguration);

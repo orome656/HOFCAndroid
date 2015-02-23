@@ -62,10 +62,8 @@ public class ActusAdapter extends BaseAdapter {
 		}
 		
 		ActuVO line = DataSingleton.getActus().get(position);
-		if(holder.imageActu.getDrawable() == null) {
-			holder.imageActu.setImageBitmap(null);
-            imageLoader.displayImage(DataSingleton.getActus().get(position).getImageUrl(), holder.imageActu);
-		}
+        holder.imageActu.setImageBitmap(null);
+        imageLoader.displayImage(DataSingleton.getActus().get(position).getImageUrl(), holder.imageActu);
 		holder.titleText.setText(line.getTitre());
 		holder.texte.setText(line.getTexte());
         if(line.getDate() != null)
