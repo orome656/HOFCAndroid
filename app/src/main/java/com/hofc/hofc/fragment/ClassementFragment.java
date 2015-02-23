@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HeaderViewListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -62,7 +63,7 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
             ClassementAdapter adapter = new ClassementAdapter(getActivity());
             classementListView.setAdapter(adapter);
         } else {
-            ((ClassementAdapter)classementListView.getAdapter()).notifyDataSetChanged();
+            ((ClassementAdapter)((HeaderViewListAdapter)classementListView.getAdapter()).getWrappedAdapter()).notifyDataSetChanged();
         }
         if(swipeClassement.isRefreshing())
             swipeClassement.setRefreshing(false);
