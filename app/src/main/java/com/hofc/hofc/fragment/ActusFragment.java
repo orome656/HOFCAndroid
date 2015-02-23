@@ -25,6 +25,7 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
 
 	private ListView actusListView;
 	private SwipeRefreshLayout swipeActus;
+    private boolean isLoading;
 	public static ActusFragment newInstance() {
 		return new ActusFragment();
 	}
@@ -64,6 +65,7 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
     }
 
 	public void refreshView(){
+        this.isLoading = true;
         super.refreshView();
         if(actusListView.getAdapter() == null) {
             ActusAdapter adapter = new ActusAdapter(getActivity());
@@ -77,10 +79,12 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
 
 	@Override
 	public void refreshDataAndView() {
+        this.isLoading = true;
         this.swipeActus.post(new Runnable() {
             @Override
             public void run() {
-                swipeActus.setRefreshing(true);
+                if(isLoading == true)
+                    swipeActus.setRefreshing(true);
             }
         });
         super.refreshDataAndView();
@@ -90,6 +94,7 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
 
     @Override
     public void onError() {
+        this.isLoading = false;
         if(swipeActus.isRefreshing())
             swipeActus.setRefreshing(false);
 
@@ -98,6 +103,7 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
 
     @Override
     public void onError(int messageId) {
+        this.isLoading = false;
         if(swipeActus.isRefreshing())
             swipeActus.setRefreshing(false);
 

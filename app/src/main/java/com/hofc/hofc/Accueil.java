@@ -100,6 +100,9 @@ public class Accueil extends ActionBarActivity
 
             DisplayImageOptions displayImageOptions = new DisplayImageOptions.Builder()
                     .cacheOnDisk(true)
+                    .showImageOnLoading(R.drawable.ic_launcher)
+                    .showImageForEmptyUri(R.drawable.no_image_available)
+                    .showImageOnFail(R.drawable.no_image_available)
                     .build();
 
             ImageLoaderConfiguration loaderConfiguration = new ImageLoaderConfiguration.Builder(this)
