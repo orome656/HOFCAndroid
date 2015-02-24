@@ -101,7 +101,7 @@ public class CalendrierBDD {
     	ArrayList<CalendrierLineVO> list = null;
     	Cursor cursor = hofcDatabase.query(CalendrierEntry.CALENDRIER_TABLE_NAME, null, null, null, null, null, CalendrierEntry.COLUMN_DATE);
     	if(cursor.getCount() > 0){
-    		list = new ArrayList<CalendrierLineVO>();
+    		list = new ArrayList<>();
     		while(cursor.moveToNext()) {
         		CalendrierLineVO line = new CalendrierLineVO();
     			line.setEquipe1(cursor.getString(CalendrierEntry.NUM_COLUMN_EQUIPE_1));

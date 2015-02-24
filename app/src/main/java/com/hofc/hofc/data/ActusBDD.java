@@ -108,7 +108,7 @@ public class ActusBDD {
     	ArrayList<ActuVO> list = null;
     	Cursor cursor = hofcDatabase.query(ActusEntry.ACTUS_TABLE_NAME, null, null, null, null, null, ActusEntry.COLUMN_DATE + " DESC");
     	if(cursor.getCount() > 0){
-    		list = new ArrayList<ActuVO>();
+    		list = new ArrayList<>();
     		while(cursor.moveToNext()) {
     			ActuVO line = new ActuVO();
     			line.setTitre(cursor.getString(ActusEntry.NUM_COLUMN_TITLE));

@@ -19,6 +19,7 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import java.util.List;
 
 /**
+ * Adapter for Diaporama
  * Created by Anthony on 13/12/2014.
  */
 public class DiaporamaAdapter extends PagerAdapter {
@@ -40,7 +41,7 @@ public class DiaporamaAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == ((RelativeLayout) object);
+        return view == object;
     }
 
     @Override
@@ -78,6 +79,6 @@ public class DiaporamaAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        ((ViewPager) container).removeView((RelativeLayout) object);
+        container.removeView((RelativeLayout) object);
     }
 }

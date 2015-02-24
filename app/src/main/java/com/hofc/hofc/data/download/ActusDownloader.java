@@ -45,7 +45,7 @@ public class ActusDownloader {
                     protected Integer doInBackground(Void... params) {
                         try {
                             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
-                            ArrayList<ActuVO> actusList = new ArrayList<ActuVO>();
+                            ArrayList<ActuVO> actusList = new ArrayList<>();
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject object = response.getJSONObject(i);
                                 ActuVO actu = new ActuVO();

@@ -26,9 +26,9 @@ import java.util.Locale;
 
 public class CalendrierDownloader {
     /**
-     *
-     * @param requestQueue
-     * @param callback
+     * Update Calendrier informations from server
+     * @param requestQueue The Volley request queue to add the produced request
+     * @param callback Callback to call at the end of the request
      */
     public static void update(RequestQueue requestQueue, final FragmentCallback callback) {
         StringBuilder stringBuilder = new StringBuilder(ServerConstant.SERVER_URL_PREFIX);
@@ -49,7 +49,7 @@ public class CalendrierDownloader {
                     protected Integer doInBackground(Void... params) {
                         try {
                             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
-                            ArrayList<CalendrierLineVO> calendrierList = new ArrayList<CalendrierLineVO>();
+                            ArrayList<CalendrierLineVO> calendrierList = new ArrayList<>();
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject object = response.getJSONObject(i);
                                 CalendrierLineVO calendrier = new CalendrierLineVO();

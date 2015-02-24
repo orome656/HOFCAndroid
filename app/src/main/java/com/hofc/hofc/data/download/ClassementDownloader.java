@@ -23,9 +23,9 @@ import java.util.Date;
 
 public class ClassementDownloader {
     /**
-     *
-     * @param requestQueue
-     * @param callback
+     * Update Classement informations from server
+     * @param requestQueue The Volley request queue to add the produced request
+     * @param callback Callback to call at the end of the request
      */
     public static void update(RequestQueue requestQueue, final FragmentCallback callback) {
         StringBuilder stringBuilder = new StringBuilder(ServerConstant.SERVER_URL_PREFIX);

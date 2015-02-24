@@ -6,6 +6,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
 /**
+ * Application Class.
+ *  - Init Volley Queue
+ *  - Cancel Queue on close
  * Created by maladota on 13/02/2015.
  */
 public class HOFCApplication extends Application {

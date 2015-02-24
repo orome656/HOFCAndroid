@@ -3,6 +3,10 @@ package com.hofc.hofc.vo;
 import java.util.Date;
 
 /**
+ * Value Object to store Actus Details
+ *  - Title
+ *  - Date
+ *  - Content
  * Created by maladota on 09/12/2014.
  */
 public class ActusDetailsVO {

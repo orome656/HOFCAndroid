@@ -83,7 +83,7 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
         this.swipeActus.post(new Runnable() {
             @Override
             public void run() {
-                if(isLoading == true)
+                if(isLoading)
                     swipeActus.setRefreshing(true);
             }
         });

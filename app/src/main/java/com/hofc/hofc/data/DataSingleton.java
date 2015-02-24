@@ -27,7 +27,7 @@ public enum DataSingleton {
     private Map<String, Bitmap> cachedImage;
 
     public static void initialize(Context c) {
-        INSTANCE.cachedImage = new HashMap<String, Bitmap>();
+        INSTANCE.cachedImage = new HashMap<>();
     	
     }
 

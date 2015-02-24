@@ -104,7 +104,7 @@ public class ClassementBDD {
     	ArrayList<ClassementLineVO> list = null;
     	Cursor cursor = hofcDatabase.query(ClassementEntry.CLASSEMENT_TABLE_NAME, null, null, null, null, null, ClassementEntry.COLUMN_POINTS + " DESC," + ClassementEntry.COLUMN_DIFF + " DESC");
     	if(cursor.getCount() > 0){
-    		list = new ArrayList<ClassementLineVO>();
+    		list = new ArrayList<>();
     		while(cursor.moveToNext()) {
     			ClassementLineVO line = new ClassementLineVO();
     			line.setNom(cursor.getString(ClassementEntry.NUM_COLUMN_NOM));
