@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_item_height"
     android:orientation="horizontal" >
@@ -9,7 +10,8 @@
         android:layout_width="20dp"
         android:layout_height="@dimen/list_item_height"
         android:gravity="center_vertical"
-        android:layout_marginLeft="3dp"/>
+        android:layout_marginLeft="3dp"
+        tools:text="1"/>
     <TextView
         android:id="@+id/classement_nom"
         android:layout_width="match_parent"
@@ -19,53 +21,62 @@
         android:ellipsize="end"
         android:layout_toLeftOf="@+id/classement_points"
         android:layout_toRightOf="@id/classement_position"
-        android:layout_marginRight="3dp"/>
+        android:layout_marginRight="3dp"
+        tools:text="TestNom"/>
     <TextView
         android:id="@+id/classement_points"
         android:layout_width="25dp"
         android:layout_height="@dimen/list_item_height"
         android:gravity="center_vertical"
-        android:layout_toLeftOf="@+id/classement_joue"/>
+        android:layout_toLeftOf="@+id/classement_joue"
+        tools:text="1"/>
     <TextView
         android:id="@+id/classement_joue"
         android:layout_width="25dp"
         android:layout_height="@dimen/list_item_height"
         android:gravity="center_vertical"
-        android:layout_toLeftOf="@+id/classement_victoire"/>
+        android:layout_toLeftOf="@+id/classement_victoire"
+        tools:text="1"/>
     <TextView
         android:id="@+id/classement_victoire"
         android:layout_width="25dp"
         android:layout_height="@dimen/list_item_height"
         android:gravity="center_vertical"
-        android:layout_toLeftOf="@+id/classement_nul"/>
+        android:layout_toLeftOf="@+id/classement_nul"
+        tools:text="1"/>
     <TextView
         android:id="@+id/classement_nul"
         android:layout_width="25dp"
         android:layout_height="@dimen/list_item_height"
         android:gravity="center_vertical"
-        android:layout_toLeftOf="@+id/classement_defaite"/>
+        android:layout_toLeftOf="@+id/classement_defaite"
+        tools:text="1"/>
     <TextView
         android:id="@+id/classement_defaite"
         android:layout_width="25dp"
         android:layout_height="@dimen/list_item_height"
         android:gravity="center_vertical"
-        android:layout_toLeftOf="@+id/classement_bp"/>
+        android:layout_toLeftOf="@+id/classement_bp"
+        tools:text="1"/>
     <TextView
         android:id="@+id/classement_bp"
         android:layout_width="25dp"
         android:layout_height="@dimen/list_item_height"
         android:gravity="center_vertical"
-        android:layout_toLeftOf="@+id/classement_bc"/>
+        android:layout_toLeftOf="@+id/classement_bc"
+        tools:text="1"/>
     <TextView
         android:id="@+id/classement_bc"
         android:layout_width="25dp"
         android:layout_height="@dimen/list_item_height"
         android:gravity="center_vertical"
-        android:layout_toLeftOf="@+id/classement_diff"/>
+        android:layout_toLeftOf="@+id/classement_diff"
+        tools:text="1"/>
     <TextView
         android:id="@+id/classement_diff"
         android:layout_width="25dp"
         android:layout_height="@dimen/list_item_height"
         android:gravity="center_vertical"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        tools:text="1"/>
 </RelativeLayout>
