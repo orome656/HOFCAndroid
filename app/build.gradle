@@ -26,4 +26,6 @@ dependencies {
     compile 'com.mcxiaoke.volley:library:1.0.10'
     compile 'de.hdodenhof:circleimageview:1.2.1'
     compile files('libs/universal-image-loader-1.9.3.jar')
+    provided 'com.squareup.okhttp:mockwebserver:2.2.0'
+    androidTestCompile 'com.squareup.okhttp:mockwebserver:2.1.0'
 }
