@@ -10,4 +10,16 @@
     <dimen name="navigation_drawer_width">240dp</dimen>
     <dimen name="calendar_card_text_size">20sp</dimen>
 
+
+    <!-- General vertical padding values -->
+    <dimen name="material_drawer_vertical_padding">16dp</dimen>
+
+    <!-- Definition for the primary item -->
+    <dimen name="material_drawer_item_primary">48dp</dimen>
+
+    <!-- General icon margins for the drawer item -->
+    <dimen name="material_drawer_item_padding">8dp</dimen>
+    <dimen name="material_drawer_item_primary_icon_padding">12dp</dimen>
+    <dimen name="material_drawer_item_primary_icon_padding_right">24dp</dimen>
+    <dimen name="material_drawer_item_primary_text">14sp</dimen>
 </resources>
