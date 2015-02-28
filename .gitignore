@@ -17,3 +17,6 @@ gen/com/hofc/hofc/R.java
 
 /.idea/dictionaries
 /.idea/inspectionProfiles
+
+/app/app.iml
+/.idea/misc.xml
