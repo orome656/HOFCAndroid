@@ -24,7 +24,12 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.hofc.hofc.adapter.NavigationDrawerAdapter;
+import com.hofc.hofc.vo.NavigationDrawerItem;
 import com.hofc.hofc.widget.ScrimInsetsFrameLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -105,15 +110,14 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
-        mDrawerListView.setAdapter(new ArrayAdapter<>(
+        List<NavigationDrawerItem> listDrawerItems = new ArrayList<>();
+        listDrawerItems.add(new NavigationDrawerItem(getString(R.string.title_accueil), R.drawable.accueil_icon));
+        listDrawerItems.add(new NavigationDrawerItem(getString(R.string.title_classement), R.drawable.classement_icon));
+        listDrawerItems.add(new NavigationDrawerItem(getString(R.string.title_calendrier), R.drawable.calendar_icon));
+        mDrawerListView.setAdapter(new NavigationDrawerAdapter(
                 getActivity(),
                 R.layout.navigation_drawer_item,
-                R.id.navigation_drawer_text,
-                new String[]{
-                        getString(R.string.title_accueil),
-                        getString(R.string.title_classement),
-                        getString(R.string.title_calendrier),
-                }));
+                listDrawerItems));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return frameLayout;
     }
