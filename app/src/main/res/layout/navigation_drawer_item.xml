@@ -5,7 +5,8 @@
     android:paddingLeft="@dimen/material_drawer_vertical_padding"
     android:paddingStart="@dimen/material_drawer_vertical_padding"
     android:paddingRight="@dimen/material_drawer_vertical_padding"
-    android:paddingEnd="@dimen/material_drawer_vertical_padding">
+    android:paddingEnd="@dimen/material_drawer_vertical_padding"
+    android:background="@drawable/navigation_effect">
 
     <ImageView
         android:id="@+id/navigation_drawer_image"

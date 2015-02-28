@@ -3,6 +3,7 @@
 
     <color name="main_background">#DCDCDC</color>
     <color name="hofc_blue">#08589D</color>
+    <color name="hofc_blue_transparent">#3308589D</color>
 
     <color name="primary_text">#212121</color>
     <color name="material_drawer_primary_text">@color/primary_text</color>

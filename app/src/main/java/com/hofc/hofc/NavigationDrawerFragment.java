@@ -118,6 +118,7 @@ public class NavigationDrawerFragment extends Fragment {
                 getActivity(),
                 R.layout.navigation_drawer_item,
                 listDrawerItems));
+        mCurrentSelectedPosition = (mCurrentSelectedPosition == 0)?1:mCurrentSelectedPosition;
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return frameLayout;
     }
@@ -204,7 +205,7 @@ public class NavigationDrawerFragment extends Fragment {
     private void selectItem(int position) {
         mCurrentSelectedPosition = position;
         if (mDrawerListView != null) {
-            mDrawerListView.setItemChecked(position, true);
+            mDrawerListView.setItemChecked((position==0)?1:position, true);
         }
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
