@@ -62,6 +62,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.hofc.hofc.Accueil" />
         </activity>
+        <activity
+            android:name=".ActusImageGrid"
+            android:label="@string/title_activity_actus_diaporama" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.hofc.hofc.Accueil" />
+        </activity>
     </application>
 
 </manifest>
