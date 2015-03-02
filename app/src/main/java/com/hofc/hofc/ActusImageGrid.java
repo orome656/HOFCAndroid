@@ -2,11 +2,14 @@ package com.hofc.hofc;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Display;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import android.graphics.Point;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -16,6 +19,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.hofc.hofc.adapter.GridImageAdapter;
 import com.hofc.hofc.constant.ServerConstant;
+import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.utils.PreCachingLayoutManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +36,9 @@ import java.util.Map;
 public class ActusImageGrid extends ActionBarActivity {
 
     ProgressBar progressBar;
-    GridView grid;
+    RecyclerView recyclerView;
+
+    String url;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,18 +50,33 @@ public class ActusImageGrid extends ActionBarActivity {
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.grid_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("HOFC");
 
-        grid = (GridView) findViewById(R.id.grid_view);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
 
-        String url = (String) getIntent().getExtras().get("URL");
+        Display display = getWindowManager().getDefaultDisplay();
+        Point p = new Point();
+        display.getSize(p);
+
+        recyclerView.setLayoutManager(new PreCachingLayoutManager(this, 2, p.y));
+
+        this.url = (String) getIntent().getExtras().get("URL");
         RequestQueue requestQueue = ((HOFCApplication) getApplication()).getRequestQueue();
-        this.downloadListImage(requestQueue, url);
+        if(DataSingleton.getCachedImageUrls(url) == null) {
+            this.downloadListImage(requestQueue, this.url);
+        } else {
+            downloadDone(DataSingleton.getCachedImageUrls(url));
+        }
     }
 
     private void downloadDone(List<String> imageUrls) {
+        DataSingleton.insertImageCacheUrls(this.url, imageUrls);
         progressBar.setVisibility(View.GONE);
-        grid.setVisibility(View.VISIBLE);
-        grid.setAdapter(new GridImageAdapter(this, imageUrls));
+        recyclerView.setVisibility(View.VISIBLE);
+        recyclerView.setAdapter(new GridImageAdapter(this, imageUrls));
     }
 
     private void downloadError() {

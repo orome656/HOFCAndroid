@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.hofc.hofc.ActusDetail;
 import com.hofc.hofc.ActusDiaporama;
+import com.hofc.hofc.ActusImageGrid;
 import com.hofc.hofc.HOFCApplication;
 import com.hofc.hofc.R;
 import com.hofc.hofc.adapter.ActusAdapter;
@@ -44,7 +45,7 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
 				String url = ((TextView)v.findViewById(R.id.actus_url)).getText().toString();
                 Intent i;
                 if(url.contains("en-images")) {
-                    i = new Intent(getActivity(), ActusDiaporama.class);
+                    i = new Intent(getActivity(), ActusImageGrid.class);
                 } else {
                     i = new Intent(getActivity(), ActusDetail.class);
                 }

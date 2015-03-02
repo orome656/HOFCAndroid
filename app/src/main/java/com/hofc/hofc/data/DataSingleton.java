@@ -24,10 +24,13 @@ public enum DataSingleton {
     private List<ActuVO> actus;
     private Date lastSynchroActus;
 
+    private HashMap<String, List<String>> cacheImageUrls;
+
     private Map<String, Bitmap> cachedImage;
 
     public static void initialize(Context c) {
         INSTANCE.cachedImage = new HashMap<>();
+        INSTANCE.cacheImageUrls = new HashMap<>();
     	
     }
 
@@ -118,6 +121,18 @@ public enum DataSingleton {
     public static Bitmap getCachedImage(String url) {
         if(INSTANCE.cachedImage.containsKey(url)) {
             return INSTANCE.cachedImage.get(url);
+        } else {
+            return null;
+        }
+    }
+
+    public static void insertImageCacheUrls(String url, List<String> urls) {
+        INSTANCE.cacheImageUrls.put(url, urls);
+    }
+
+    public static List<String> getCachedImageUrls(String url) {
+        if(INSTANCE.cacheImageUrls.containsKey(url)) {
+            return INSTANCE.cacheImageUrls.get(url);
         } else {
             return null;
         }
