@@ -76,7 +76,7 @@ public class ActusImageGrid extends ActionBarActivity {
         DataSingleton.insertImageCacheUrls(this.url, imageUrls);
         progressBar.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
-        recyclerView.setAdapter(new GridImageAdapter(this, imageUrls));
+        recyclerView.setAdapter(new GridImageAdapter(this, imageUrls, this.url));
     }
 
     private void downloadError() {
