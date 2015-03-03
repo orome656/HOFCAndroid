@@ -1,6 +1,7 @@
 package com.hofc.hofc;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
@@ -92,6 +93,7 @@ public class ActusDetail extends ActionBarActivity {
         titleTextView.setText(actusDetails.getTitle());
         dateTextView.setText(sdf.format(actusDetails.getDate()));
         contentTextView.loadDataWithBaseURL(null, HTML_PREFIX + actusDetails.getContent() + HTML_SUFIX, "text/html", "utf-8", null);
+        contentTextView.setBackgroundColor(Color.TRANSPARENT);
         progressBar.setVisibility(View.GONE);
         titleTextView.setVisibility(View.VISIBLE);
         dateTextView.setVisibility(View.VISIBLE);

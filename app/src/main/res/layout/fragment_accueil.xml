@@ -4,7 +4,6 @@
     android:id="@+id/swipe_accueil"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_background"
     tools:context="com.hofc.hofc.Accueil$PlaceholderFragment">
     <ListView
         android:id="@+id/actus_listview"
