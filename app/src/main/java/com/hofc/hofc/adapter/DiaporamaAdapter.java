@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.hofc.hofc.R;
+import com.hofc.hofc.utils.TouchImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
@@ -49,7 +50,7 @@ public class DiaporamaAdapter extends PagerAdapter {
             layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View itemView = layoutInflater.inflate(R.layout.image_diaporama, null);
-        final ImageView imageView = (ImageView) itemView.findViewById(R.id.image_diaporama);
+        final TouchImageView imageView = (TouchImageView) itemView.findViewById(R.id.image_diaporama);
         final ProgressBar progressBar = (ProgressBar) itemView.findViewById(R.id.image_diaporama_progress);
         container.addView(itemView);
         imageLoader.displayImage(imagesUrl.get(position), imageView, new SimpleImageLoadingListener() {
