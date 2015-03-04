@@ -4,7 +4,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/swipe_classement"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/classement_side_margin"
+    android:layout_marginRight="@dimen/classement_side_margin">
     <ListView
         android:id="@+id/classement_listView"
         android:layout_width="fill_parent"
@@ -12,8 +14,6 @@
         android:dividerHeight="10dp"
         android:divider="@android:color/transparent"
         android:scrollbars="none"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         tools:listitem="@layout/item_classement">
     </ListView>
 </android.support.v4.widget.SwipeRefreshLayout>
