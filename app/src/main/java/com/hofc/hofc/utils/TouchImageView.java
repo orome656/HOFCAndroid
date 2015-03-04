@@ -655,26 +655,26 @@ public class TouchImageView extends ImageView {
      *
      * @param mode
      * @param size
-     * @param drawableWidth
+     * @param drawableSize
      * @return
      */
-    private int setViewSize(int mode, int size, int drawableWidth) {
+    private int setViewSize(int mode, int size, int drawableSize) {
         int viewSize;
         switch (mode) {
             case MeasureSpec.EXACTLY:
-                viewSize = size;
+                viewSize = (int) (size*Math.max(normalizedScale, 1.0));
                 break;
 
             case MeasureSpec.AT_MOST:
-                viewSize = Math.min(drawableWidth, size);
+                viewSize = (int) (size*Math.max(normalizedScale, 1.0));
                 break;
 
             case MeasureSpec.UNSPECIFIED:
-                viewSize = drawableWidth;
+                viewSize = drawableSize;
                 break;
 
             default:
-                viewSize = size;
+                viewSize = (int) (size*Math.max(normalizedScale, 1.0));
                 break;
         }
         return viewSize;
