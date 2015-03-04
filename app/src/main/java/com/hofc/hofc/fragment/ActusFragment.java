@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.hofc.hofc.ActusDetail;
-import com.hofc.hofc.ActusDiaporama;
 import com.hofc.hofc.ActusImageGrid;
 import com.hofc.hofc.HOFCApplication;
 import com.hofc.hofc.R;

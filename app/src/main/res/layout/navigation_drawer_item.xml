@@ -18,7 +18,8 @@
         android:paddingEnd="@dimen/material_drawer_item_primary_icon_padding_right"
         android:layout_marginRight="@dimen/material_drawer_item_padding"
         android:layout_marginEnd="@dimen/material_drawer_item_padding"
-        android:layout_gravity="center_vertical"/>
+        android:layout_gravity="center_vertical"
+        android:contentDescription="Navigation Drawer Icon"/>
 
     <TextView
         android:id="@+id/navigation_drawer_text"

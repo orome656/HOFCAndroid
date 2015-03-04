@@ -2,26 +2,15 @@ package com.hofc.hofc.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Point;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.hofc.hofc.ActusDiaporama;
 import com.hofc.hofc.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.List;
 
@@ -46,8 +35,7 @@ public class GridImageAdapter extends RecyclerView.Adapter<GridImageAdapter.View
                                                    int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_recycler, parent, false);
         v.setOnClickListener(this);
-        ViewHolder vh = new ViewHolder((ImageView)v);
-        return vh;
+        return new ViewHolder((ImageView)v);
     }
 
     @Override

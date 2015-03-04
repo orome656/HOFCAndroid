@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.hofc.hofc.ActusImageGrid"
-    android:background="@color/main_background"
     android:fitsSystemWindows="true">
     <include layout="@layout/toolbar"
         android:id="@+id/grid_toolbar"/>

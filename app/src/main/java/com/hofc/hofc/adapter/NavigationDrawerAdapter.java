@@ -30,7 +30,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItem> 
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = null;
+        ViewHolder holder;
         NavigationDrawerItem rowItem = getItem(position);
 
         LayoutInflater mInflater = (LayoutInflater) context
