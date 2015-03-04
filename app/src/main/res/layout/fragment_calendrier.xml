@@ -3,15 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/swipe_calendrier"
     android:layout_width="fill_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginRight="@dimen/card_view_side_margin"
+    android:layout_marginLeft="@dimen/card_view_side_margin">
     <ListView
         android:id="@+id/calendrier_listView"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:dividerHeight="10dp"
         android:divider="@android:color/transparent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:scrollbars="none">
     </ListView>
 
