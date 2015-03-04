@@ -59,6 +59,8 @@ public class Accueil extends ActionBarActivity
     private String regId;
     private String SENDER_ID = "";
 
+    private int position = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,10 +116,17 @@ public class Accueil extends ActionBarActivity
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
+        if(position == 1) {
+            position = 0;
+        }
+        if(position == this.position) {
+            return;
+        }
         // update the main content by replacing fragments
+        this.position = position;
     	if(this.fragmentManager == null)
     		fragmentManager = getFragmentManager();
-        if(position == 0 || position == 1) {
+        if(position == 0) {
         	if(this.actusFragment == null) {
         		this.actusFragment = ActusFragment.newInstance();
         	}
