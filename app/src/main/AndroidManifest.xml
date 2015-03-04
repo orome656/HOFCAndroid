@@ -57,14 +57,15 @@
         </activity>
         <activity
             android:name=".ActusDiaporama"
-            android:label="@string/title_activity_actus_diaporama" >
+            android:label="@string/title_activity_actus_diaporama">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.hofc.hofc.Accueil" />
+                android:value="com.hofc.hofc.ActusImageGrid"/>
         </activity>
         <activity
             android:name=".ActusImageGrid"
-            android:label="@string/title_activity_actus_diaporama" >
+            android:label="@string/title_activity_actus_diaporama"
+            android:launchMode="singleTop" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.hofc.hofc.Accueil" />

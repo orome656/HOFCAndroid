@@ -1,7 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.hofc.hofc.ActusDiaporama"
     android:fitsSystemWindows="true">
     <include layout="@layout/toolbar"
@@ -10,7 +11,7 @@
         android:id="@+id/diaporama_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_gravity="center"
         android:indeterminate="true"
         android:visibility="visible"/>
     <android.support.v4.view.ViewPager
@@ -19,4 +20,4 @@
         android:layout_height="match_parent"
         android:visibility="gone"/>
 
-</RelativeLayout>
+</LinearLayout>

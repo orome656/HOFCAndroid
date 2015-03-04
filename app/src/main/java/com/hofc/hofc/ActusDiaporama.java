@@ -27,6 +27,7 @@ public class ActusDiaporama extends ActionBarActivity {
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.diaporama_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("HOFC");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);

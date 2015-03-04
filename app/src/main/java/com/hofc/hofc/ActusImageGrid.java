@@ -80,6 +80,7 @@ public class ActusImageGrid extends ActionBarActivity {
 
     private void downloadError() {
         Toast.makeText(this, getString(R.string.connexion_error), Toast.LENGTH_SHORT).show();
+        progressBar.setVisibility(View.GONE);
 
     }
 
