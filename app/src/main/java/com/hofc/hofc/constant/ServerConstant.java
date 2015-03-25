@@ -9,6 +9,7 @@ public class ServerConstant {
 	public static String ACTUS_CONTEXT = "actus";
     public static String NOTIF_CONTEXT = "registerPush";
     public static String PARSE_PAGE_CONTEXT = "parsePage";
+    public static String AGENDA_CONTEXT = "agenda";
 	
 	public static final int NOMBRE_JOUR_SYNCHRO = 7;
 }
