@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.vo.ActuVO;
+import com.hofc.hofc.vo.AgendaLineVO;
 import com.hofc.hofc.vo.CalendrierLineVO;
 import com.hofc.hofc.vo.ClassementLineVO;
 
@@ -23,6 +24,7 @@ public enum DataSingleton {
     private Date lastSynchroClassement;
     private List<ActuVO> actus;
     private Date lastSynchroActus;
+    private List<AgendaLineVO> agenda;
 
     private HashMap<String, List<String>> cacheImageUrls;
 
@@ -80,6 +82,10 @@ public enum DataSingleton {
     public static void setActus(List<ActuVO> pActus) {
     	INSTANCE.actus = pActus;
     }
+
+    public static List<AgendaLineVO> getAgenda() { return INSTANCE.agenda; }
+
+    public static void setAgenda(List<AgendaLineVO> list) { INSTANCE.agenda = list; }
 
     public static boolean isSynchroCalendrierNeeded() {
     	GregorianCalendar calendar = (GregorianCalendar) GregorianCalendar.getInstance();

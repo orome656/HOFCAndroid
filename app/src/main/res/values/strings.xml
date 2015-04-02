@@ -27,5 +27,7 @@
     <string name="header_text">Horgues Odos Football Club</string>
     <string name="calendrier_image">Calendrier Image</string>
     <string name="diaporama_image">Image Diaporama</string>
+    <string name="agenda_image">image agenda</string>
+    <string name="title_agenda">Agenda</string>
 
 </resources>

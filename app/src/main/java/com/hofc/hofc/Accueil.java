@@ -16,6 +16,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.fragment.ActusFragment;
+import com.hofc.hofc.fragment.AgendaFragment;
 import com.hofc.hofc.fragment.CalendrierFragment;
 import com.hofc.hofc.fragment.ClassementFragment;
 import com.hofc.hofc.notification.GcmPreference;
@@ -53,6 +54,7 @@ public class Accueil extends ActionBarActivity
     private ActusFragment actusFragment = null;
     private CalendrierFragment calendrierFragment = null;
     private ClassementFragment classementFragment = null;
+    private AgendaFragment agendaFragment = null;
 
     private Context context;
     private GoogleCloudMessaging gcm;
@@ -153,6 +155,15 @@ public class Accueil extends ActionBarActivity
             .replace(R.id.container, this.calendrierFragment)
             .commit();
         	mTitle = getText(R.string.title_calendrier);
+        } else if (position == 4) {
+            if(this.agendaFragment == null) {
+                this.agendaFragment = AgendaFragment.newInstance();
+            }
+            // Agenda
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, this.agendaFragment)
+                    .commit();
+            mTitle = getText(R.string.title_agenda);
         } else {
         	Log.e("Accueil", "NavigationDrawer number click unknown ");
         }
