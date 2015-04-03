@@ -1,10 +1,10 @@
 package com.hofc.hofc;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -127,7 +127,7 @@ public class Accueil extends ActionBarActivity
         // update the main content by replacing fragments
         this.position = position;
     	if(this.fragmentManager == null)
-    		fragmentManager = getFragmentManager();
+    		fragmentManager = getSupportFragmentManager();
         if(position == 0) {
         	if(this.actusFragment == null) {
         		this.actusFragment = ActusFragment.newInstance();

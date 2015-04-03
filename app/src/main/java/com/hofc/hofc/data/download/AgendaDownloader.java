@@ -21,7 +21,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class AgendaDownloader {
     /**
@@ -29,7 +31,7 @@ public class AgendaDownloader {
      * @param requestQueue The Volley request queue to add the produced request
      * @param callback Callback to call at the end of the request
      */
-    public static void update(RequestQueue requestQueue, final FragmentCallback callback) {
+    public static void update(RequestQueue requestQueue, final FragmentCallback callback, String dateArgument) {
         StringBuilder stringBuilder = new StringBuilder(ServerConstant.SERVER_URL_PREFIX);
         stringBuilder.append(ServerConstant.SERVER_URL);
         if(ServerConstant.SERVER_PORT != 0) {
@@ -38,6 +40,10 @@ public class AgendaDownloader {
         }
         stringBuilder.append("/");
         stringBuilder.append(ServerConstant.AGENDA_CONTEXT);
+
+        if(dateArgument != null && !dateArgument.isEmpty()) {
+            stringBuilder.append("/").append(dateArgument);
+        }
 
         JsonArrayRequest jsonRequest = new JsonArrayRequest(stringBuilder.toString(), new Response.Listener<JSONArray>() {
             @Override
