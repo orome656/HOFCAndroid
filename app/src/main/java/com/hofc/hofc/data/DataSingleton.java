@@ -24,7 +24,7 @@ public enum DataSingleton {
     private Date lastSynchroClassement;
     private List<ActuVO> actus;
     private Date lastSynchroActus;
-    private List<AgendaLineVO> agenda;
+    private Map<String,List<AgendaLineVO>> agenda;
 
     private HashMap<String, List<String>> cacheImageUrls;
 
@@ -33,6 +33,7 @@ public enum DataSingleton {
     public static void initialize(Context c) {
         INSTANCE.cachedImage = new HashMap<>();
         INSTANCE.cacheImageUrls = new HashMap<>();
+        INSTANCE.agenda = new HashMap<>();
     	
     }
 
@@ -83,9 +84,9 @@ public enum DataSingleton {
     	INSTANCE.actus = pActus;
     }
 
-    public static List<AgendaLineVO> getAgenda() { return INSTANCE.agenda; }
+    public static List<AgendaLineVO> getAgenda(String date) { return INSTANCE.agenda.get(date); }
 
-    public static void setAgenda(List<AgendaLineVO> list) { INSTANCE.agenda = list; }
+    public static void setAgenda(String date,List<AgendaLineVO> list) { INSTANCE.agenda.put(date,list); }
 
     public static boolean isSynchroCalendrierNeeded() {
     	GregorianCalendar calendar = (GregorianCalendar) GregorianCalendar.getInstance();

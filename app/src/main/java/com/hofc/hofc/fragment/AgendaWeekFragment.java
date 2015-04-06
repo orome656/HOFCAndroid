@@ -12,6 +12,7 @@ import com.android.volley.RequestQueue;
 import com.hofc.hofc.HOFCApplication;
 import com.hofc.hofc.R;
 import com.hofc.hofc.adapter.AgendaAdapter;
+import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.data.download.AgendaDownloader;
 import com.hofc.hofc.utils.HOFCUtils;
 
@@ -28,6 +29,7 @@ public class AgendaWeekFragment extends CommonFragment  implements FragmentCallb
     private ListView agendaListView;
     private String callArgument;
     private SwipeRefreshLayout swipeAgenda;
+    private String semaine;
 
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private static SimpleDateFormat fffFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -56,6 +58,7 @@ public class AgendaWeekFragment extends CommonFragment  implements FragmentCallb
         View rootView = inflater.inflate(R.layout.fragment_agenda_week,
                 container, false);
         agendaListView = (ListView)rootView.findViewById(R.id.agenda_listView);
+        semaine = getArguments().getString("date");
         try {
             Date dateObject = fffFormat.parse(getArguments().getString("date"));
             if(!HOFCUtils.isDateInCurrentWeek(dateObject)) {
@@ -72,7 +75,11 @@ public class AgendaWeekFragment extends CommonFragment  implements FragmentCallb
         swipeAgenda.setOnRefreshListener(this);
         swipeAgenda.setColorSchemeColors(Color.BLACK, getResources().getColor(R.color.hofc_blue));
 
-        this.refreshDataAndView();
+        if(DataSingleton.getAgenda(semaine) == null) {
+            this.refreshDataAndView();
+        } else {
+            this.refreshView();
+        }
 
         return rootView;
     }
@@ -81,7 +88,7 @@ public class AgendaWeekFragment extends CommonFragment  implements FragmentCallb
         this.isLoading = true;
         super.refreshView();
         if(agendaListView.getAdapter() == null) {
-            AgendaAdapter adapter = new AgendaAdapter(getActivity());
+            AgendaAdapter adapter = new AgendaAdapter(getActivity(), semaine);
             agendaListView.setAdapter(adapter);
         } else {
             ((AgendaAdapter)agendaListView.getAdapter()).notifyDataSetChanged();

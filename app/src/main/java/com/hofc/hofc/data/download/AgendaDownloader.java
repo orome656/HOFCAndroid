@@ -12,6 +12,7 @@ import com.hofc.hofc.R;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.fragment.FragmentCallback;
+import com.hofc.hofc.utils.HOFCUtils;
 import com.hofc.hofc.vo.AgendaLineVO;
 
 import org.json.JSONArray;
@@ -32,7 +33,7 @@ public class AgendaDownloader {
      * @param requestQueue The Volley request queue to add the produced request
      * @param callback Callback to call at the end of the request
      */
-    public static void update(RequestQueue requestQueue, final FragmentCallback callback, String dateArgument) {
+    public static void update(RequestQueue requestQueue, final FragmentCallback callback, final String dateArgument) {
         StringBuilder stringBuilder = new StringBuilder(ServerConstant.SERVER_URL_PREFIX);
         stringBuilder.append(ServerConstant.SERVER_URL);
         if(ServerConstant.SERVER_PORT != 0) {
@@ -77,7 +78,11 @@ public class AgendaDownloader {
                                 }
                                 agendaList.add(agenda);
                             }
-                            DataSingleton.setAgenda(agendaList);
+                            if(dateArgument != null && !dateArgument.isEmpty()) {
+                                DataSingleton.setAgenda(dateArgument, agendaList);
+                            } else {
+                                DataSingleton.setAgenda(HOFCUtils.getCurrentWeekMonday(),agendaList);
+                            }
                             return 0;
                         } catch (JSONException e) {
                             return -1;

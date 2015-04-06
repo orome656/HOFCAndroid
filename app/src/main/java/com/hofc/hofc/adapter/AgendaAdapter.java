@@ -22,18 +22,20 @@ public class AgendaAdapter extends BaseAdapter {
 	LayoutInflater inflater;
 	SimpleDateFormat sdf;
     Context context;
+	String semaine;
 
-	public AgendaAdapter(Context context) {
+	public AgendaAdapter(Context context, String semaine) {
         if (context != null) {
             inflater = LayoutInflater.from(context);
             this.context = context;
         }
+		this.semaine = semaine;
 		sdf = new SimpleDateFormat("EEEE dd MMMM yyyy HH:mm");
 	}	
 	@Override
 	public int getCount() {
-		if(DataSingleton.getAgenda() != null) {
-			return DataSingleton.getAgenda().size();
+		if(DataSingleton.getAgenda(semaine) != null) {
+			return DataSingleton.getAgenda(semaine).size();
 		} else {
 			return 0;
 		}
@@ -41,7 +43,7 @@ public class AgendaAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		return DataSingleton.getAgenda().get(position);
+		return DataSingleton.getAgenda(semaine).get(position);
 	}
 
 	@Override
@@ -68,12 +70,12 @@ public class AgendaAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		AgendaLineVO line = DataSingleton.getAgenda().get(position);
-		if(AppConstant.hofcName.equalsIgnoreCase(line.getEquipe1())) {
+		AgendaLineVO line = DataSingleton.getAgenda(semaine).get(position);
+		if(line.getEquipe1() != null && line.getEquipe1().contains(AppConstant.hofcName)) {
 			holder.imageEquipe1.setImageResource(R.drawable.ic_launcher);
 			holder.imageEquipe2.setImageResource(android.R.color.transparent);
             this.applyColor(holder, context.getResources().getColor(R.color.hofc_blue), Color.BLACK);
-		} else if(AppConstant.hofcName.equalsIgnoreCase(line.getEquipe2())) {
+		} else if(line.getEquipe2() != null && line.getEquipe2().contains(AppConstant.hofcName)) {
 			holder.imageEquipe2.setImageResource(R.drawable.ic_launcher);
 			holder.imageEquipe1.setImageResource(android.R.color.transparent);
             this.applyColor(holder, Color.BLACK, context.getResources().getColor(R.color.hofc_blue));

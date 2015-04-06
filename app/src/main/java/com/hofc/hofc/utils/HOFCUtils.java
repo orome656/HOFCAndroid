@@ -23,9 +23,14 @@ public class HOFCUtils {
         Calendar calParam = Calendar.getInstance();
         calParam.setTime(date);
 
-
-
         return cal.get(Calendar.YEAR) == calParam.get(Calendar.YEAR) && cal.get(Calendar.DAY_OF_YEAR) == calParam.get(Calendar.DAY_OF_YEAR);
+    }
 
+    public static String getCurrentWeekMonday() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        return sdf.format(cal.getTime());
     }
 }
