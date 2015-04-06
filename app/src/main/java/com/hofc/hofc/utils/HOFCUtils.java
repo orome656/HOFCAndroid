@@ -1,9 +1,5 @@
 package com.hofc.hofc.utils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,5 +14,18 @@ public class HOFCUtils {
         cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 
         return sdf.format(cal.getTime());
+    }
+
+    public static boolean isDateInCurrentWeek(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+
+        Calendar calParam = Calendar.getInstance();
+        calParam.setTime(date);
+
+
+
+        return cal.get(Calendar.YEAR) == calParam.get(Calendar.YEAR) && cal.get(Calendar.DAY_OF_YEAR) == calParam.get(Calendar.DAY_OF_YEAR);
+
     }
 }

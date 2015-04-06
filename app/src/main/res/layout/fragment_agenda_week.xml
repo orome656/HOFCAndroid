@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView
+<android.support.v4.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/agenda_listView"
+    android:id="@+id/agenda_swipe"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:dividerHeight="10dp"
-    android:divider="@android:color/transparent"
-    android:scrollbars="none">
-</ListView>
+    android:layout_marginRight="@dimen/card_view_side_margin"
+    android:layout_marginLeft="@dimen/card_view_side_margin">
+    <ListView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/agenda_listView"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="10dp"
+        android:divider="@android:color/transparent"
+        android:scrollbars="none">
+    </ListView>
+</android.support.v4.widget.SwipeRefreshLayout>

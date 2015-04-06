@@ -3,6 +3,7 @@ package com.hofc.hofc.data.download;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -99,7 +100,10 @@ public class AgendaDownloader {
                 callback.onError(R.string.internal_error);
             }
         });
-
+        jsonRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(jsonRequest);
     }
 }
