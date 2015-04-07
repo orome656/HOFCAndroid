@@ -3,6 +3,7 @@ package com.hofc.hofc.fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,20 +20,21 @@ import com.hofc.hofc.utils.HOFCUtils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by maladota on 03/04/2015.
+ * Fragment d'affichage des matchs d'une semaine
  */
 public class AgendaWeekFragment extends CommonFragment  implements FragmentCallback, CustomFragment, SwipeRefreshLayout.OnRefreshListener {
-    private String date;
     private boolean isLoading = false;
     private ListView agendaListView;
     private String callArgument;
     private SwipeRefreshLayout swipeAgenda;
     private String semaine;
 
-    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    private static SimpleDateFormat fffFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+    private static SimpleDateFormat fffFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE);
     public AgendaWeekFragment() {
 
     }
@@ -68,20 +70,33 @@ public class AgendaWeekFragment extends CommonFragment  implements FragmentCallb
             }
         } catch (ParseException e) {
             callArgument = getArguments().getString("date");
-            e.printStackTrace();
+            Log.e(AgendaWeekFragment.class.getName(), "Erreur lors de la deserialisation de la date", e);
         }
 
         swipeAgenda = (SwipeRefreshLayout)rootView.findViewById(R.id.agenda_swipe);
         swipeAgenda.setOnRefreshListener(this);
         swipeAgenda.setColorSchemeColors(Color.BLACK, getResources().getColor(R.color.hofc_blue));
-
-        if(DataSingleton.getAgenda(semaine) == null) {
-            this.refreshDataAndView();
-        } else {
-            this.refreshView();
+        if(getUserVisibleHint()) {
+            if (DataSingleton.getAgenda(semaine) == null) {
+                this.refreshDataAndView();
+            } else {
+                this.refreshView();
+            }
         }
 
         return rootView;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(getView() != null) {
+            if (DataSingleton.getAgenda(semaine) == null) {
+                this.refreshDataAndView();
+            } else {
+                this.refreshView();
+            }
+        }
     }
 
     public void refreshView(){
@@ -106,7 +121,7 @@ public class AgendaWeekFragment extends CommonFragment  implements FragmentCallb
         this.swipeAgenda.post(new Runnable() {
             @Override
             public void run() {
-                if(isLoading)
+                if (isLoading)
                     swipeAgenda.setRefreshing(true);
             }
         });

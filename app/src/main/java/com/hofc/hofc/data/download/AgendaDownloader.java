@@ -102,7 +102,17 @@ public class AgendaDownloader {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                callback.onError(R.string.internal_error);
+                if(error == null || error.networkResponse == null ) {
+                    callback.onError(R.string.internal_error);
+                } else if(error.networkResponse.statusCode == 504) {
+                    callback.onError(R.string.timeout_error);
+                } else if (error.networkResponse.statusCode == 404) {
+                    callback.onError(R.string.internal_error);
+                } else if (error.networkResponse.statusCode == 500 || error.networkResponse.statusCode == 503) {
+                    callback.onError(R.string.server_error);
+                } else {
+                    callback.onError(R.string.internal_error);
+                }
             }
         });
         jsonRequest.setRetryPolicy(new DefaultRetryPolicy(

@@ -12,6 +12,7 @@
     <string name="score_separator"> - </string>
     <string name="connexion_error">Merci de vérifier votre connexion</string>
     <string name="internal_error">Erreur lors de la récupération des données</string>
+    <string name="timeout_error">Le serveur a mis trop de temps à répondre. Merci de réessayer plus tard.</string>
     <string name="title_activity_actus_detail">ActusDetail</string>
     <string name="title_activity_actus_diaporama">HOFC</string>
     <string name="actuality_image_description">Actuality Image</string>
@@ -29,5 +30,6 @@
     <string name="diaporama_image">Image Diaporama</string>
     <string name="agenda_image">image agenda</string>
     <string name="title_agenda">Agenda</string>
+    <string name="server_error">Le serveur a rencontré une erreur lors de la récupération des informations</string>
 
 </resources>
