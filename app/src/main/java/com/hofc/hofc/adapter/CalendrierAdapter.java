@@ -28,7 +28,7 @@ public class CalendrierAdapter extends BaseAdapter {
             inflater = LayoutInflater.from(context);
             this.context = context;
         }
-		sdf = new SimpleDateFormat("EEEE dd MMMM yyyy");
+		sdf = new SimpleDateFormat("EEEE dd MMMM yyyy - HH:mm");
 	}	
 	@Override
 	public int getCount() {
