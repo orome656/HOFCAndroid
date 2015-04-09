@@ -13,49 +13,49 @@ public class HOFCOpenHelper extends SQLiteOpenHelper {
     private static final String HOFC_BASE_NAME = "hofc.db";
  
     // Nom de la table
-    public static final String CLASSEMENT_TABLE_NAME = "classement";
-    public static final String CALENDRIER_TABLE_NAME = "calendrier";
-    public static final String ACTUS_TABLE_NAME = "actus";
-    public static final String DATE_SYNCHRO_TABLE_NAME= "date_synchro";
+    private static final String CLASSEMENT_TABLE_NAME = "classement";
+    private static final String CALENDRIER_TABLE_NAME = "calendrier";
+    private static final String ACTUS_TABLE_NAME = "actus";
+    private static final String DATE_SYNCHRO_TABLE_NAME= "date_synchro";
 
     // Description des colonnes commun
-    public static final String COLUMN_ID = "ID";
+    private static final String COLUMN_ID = "ID";
     public static final int NUM_COLUMN_ID = 0;
     
     // Description des colonnes Classement
-    public static final String COLUMN_NOM = "NOM";
-    public static final String COLUMN_POINTS = "POINTS";
-    public static final String COLUMN_JOUE = "JOUE";
-    public static final String COLUMN_GAGNE = "GAGNE";
-    public static final String COLUMN_NUL = "NUL";
-    public static final String COLUMN_PERDU = "PERDU";
-    public static final String COLUMN_BP = "BP";
-    public static final String COLUMN_BC = "BC";
-    public static final String COLUMN_DIFF = "DIFF";
+    private static final String COLUMN_NOM = "NOM";
+    private static final String COLUMN_POINTS = "POINTS";
+    private static final String COLUMN_JOUE = "JOUE";
+    private static final String COLUMN_GAGNE = "GAGNE";
+    private static final String COLUMN_NUL = "NUL";
+    private static final String COLUMN_PERDU = "PERDU";
+    private static final String COLUMN_BP = "BP";
+    private static final String COLUMN_BC = "BC";
+    private static final String COLUMN_DIFF = "DIFF";
  
     // Description des colonnes calendrier
-    public static final String COLUMN_EQUIPE_1 = "EQUIPE_1";
+    private static final String COLUMN_EQUIPE_1 = "EQUIPE_1";
     public static final int NUM_COLUMN_EQUIPE_1 = 1;
-    public static final String COLUMN_SCORE_1 = "SCORE_1";
+    private static final String COLUMN_SCORE_1 = "SCORE_1";
     public static final int NUM_COLUMN_SCORE_1 = 2;
-    public static final String COLUMN_SCORE_2 = "SCORE_2";
+    private static final String COLUMN_SCORE_2 = "SCORE_2";
     public static final int NUM_COLUMN_SCORE_2 = 3;
-    public static final String COLUMN_EQUIPE_2 = "EQUIPE_2";
+    private static final String COLUMN_EQUIPE_2 = "EQUIPE_2";
     public static final int NUM_COLUMN_EQUIPE_2 = 4;
  
     // Description des colonnes actus
-    public static final String COLUMN_TITLE = "TITRE";
-    public static final String COLUMN_DESCRIPTION = "DESCRIPTION";
-    public static final String COLUMN_DATE_ACTUS = "DATE";
-    public static final String COLUMN_IMG = "IMAGE";
-    public static final String COLUMN_POST_ID = "POST_ID";
-    public static final String COLUMN_URL = "URL";
-    public static final String COLUMN_IMAGE_URL = "IMAGE_URL";
+    private static final String COLUMN_TITLE = "TITRE";
+    private static final String COLUMN_DESCRIPTION = "DESCRIPTION";
+    private static final String COLUMN_DATE_ACTUS = "DATE";
+    private static final String COLUMN_IMG = "IMAGE";
+    private static final String COLUMN_POST_ID = "POST_ID";
+    private static final String COLUMN_URL = "URL";
+    private static final String COLUMN_IMAGE_URL = "IMAGE_URL";
     
     // Synchro
-    public static final String COLUMN_NOM_SYNCHRO = "NOM";
+    private static final String COLUMN_NOM_SYNCHRO = "NOM";
     public static final int NUM_COLUMN_NOM_SYNCHRO = 1;
-    public static final String COLUMN_DATE = "date";
+    private static final String COLUMN_DATE = "date";
     public static final int NUM_DATE = 2;
     
     

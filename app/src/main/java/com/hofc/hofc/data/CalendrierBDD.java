@@ -20,8 +20,8 @@ import java.util.Locale;
 public class CalendrierBDD {
 	
 	// Base de données
-    protected static SQLiteDatabase hofcDatabase;
-    protected static HOFCOpenHelper hofcOpenHelper;
+	private static SQLiteDatabase hofcDatabase;
+	private static HOFCOpenHelper hofcOpenHelper;
     private static Context context = null;
     
 	public static abstract class CalendrierEntry implements BaseColumns {
@@ -55,13 +55,13 @@ public class CalendrierBDD {
     	if(CalendrierBDD.context == null) 
     		CalendrierBDD.context = context;
     }
-    
-    public static void openReadable() {
+
+	private static void openReadable() {
     	if(hofcDatabase == null) 
     		hofcDatabase = hofcOpenHelper.getReadableDatabase();
     }
- 
-    public static void openWritable() throws SQLException{
+
+	private static void openWritable() throws SQLException{
         if ((hofcDatabase == null) || hofcDatabase.isReadOnly()) {
             openWritable(true);
         }
@@ -72,7 +72,7 @@ public class CalendrierBDD {
      * @param foreignKeys State of Foreign Keys Constraint, true = ON, false = OFF
      * @throws SQLException if the database cannot be opened for writing
      */
-    public static void openWritable(boolean foreignKeys) throws SQLException{
+	private static void openWritable(boolean foreignKeys) throws SQLException{
     	hofcDatabase = hofcOpenHelper.getWritableDatabase();
         if (foreignKeys) {
         	hofcDatabase.execSQL("PRAGMA foreign_keys = ON;");

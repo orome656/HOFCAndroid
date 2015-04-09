@@ -16,8 +16,8 @@ import java.util.List;
 public class ClassementBDD {
 	
 	// Base de données
-    protected static SQLiteDatabase hofcDatabase;
-    protected static HOFCOpenHelper hofcOpenHelper;
+	private static SQLiteDatabase hofcDatabase;
+	private static HOFCOpenHelper hofcOpenHelper;
     private static Context context = null;
     
 	public static abstract class ClassementEntry implements BaseColumns {
@@ -59,13 +59,13 @@ public class ClassementBDD {
     	if(ClassementBDD.context == null) 
     		ClassementBDD.context = context;
     }
-    
-    public static void openReadable() {
+
+	private static void openReadable() {
     	if(hofcDatabase == null) 
     		hofcDatabase = hofcOpenHelper.getReadableDatabase();
     }
- 
-    public static void openWritable() throws SQLException{
+
+	private static void openWritable() throws SQLException{
         if ((hofcDatabase == null) || hofcDatabase.isReadOnly()) {
             openWritable(true);
         }
@@ -76,7 +76,7 @@ public class ClassementBDD {
      * @param foreignKeys State of Foreign Keys Constraint, true = ON, false = OFF
      * @throws SQLException if the database cannot be opened for writing
      */
-    public static void openWritable(boolean foreignKeys) throws SQLException{
+	private static void openWritable(boolean foreignKeys) throws SQLException{
     	hofcDatabase = hofcOpenHelper.getWritableDatabase();
         if (foreignKeys) {
         	hofcDatabase.execSQL("PRAGMA foreign_keys = ON;");

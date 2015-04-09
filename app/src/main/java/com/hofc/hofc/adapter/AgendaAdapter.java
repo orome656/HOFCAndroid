@@ -19,10 +19,10 @@ import java.text.SimpleDateFormat;
 
 public class AgendaAdapter extends BaseAdapter {
 
-	LayoutInflater inflater;
-	SimpleDateFormat sdf;
-    Context context;
-	String semaine;
+	private LayoutInflater inflater;
+	private final SimpleDateFormat sdf;
+	private Context context;
+	private final String semaine;
 
 	public AgendaAdapter(Context context, String semaine) {
         if (context != null) {

@@ -22,14 +22,14 @@ import java.util.concurrent.CountDownLatch;
  * Created by maladota on 25/02/2015.
  */
 public class AppTest extends AndroidTestCase {
-    private CountDownLatch lock = new CountDownLatch(1);
+    private final CountDownLatch lock = new CountDownLatch(1);
 
     /**
      * Test d'appel réseau pour Actu sans vérification d'insertion dans la base ou dans DataSingleton
      * @throws Exception
      */
     public void testActusOK() throws Exception {
-        DataSingleton.initialize(getContext());
+        DataSingleton.initialize();
         DataSingleton.initializeActus(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -71,7 +71,7 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testCalendrierOK() throws Exception {
-        DataSingleton.initialize(getContext());
+        DataSingleton.initialize();
         DataSingleton.initializeCalendrier(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -113,7 +113,7 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testClassementOK() throws Exception {
-        DataSingleton.initialize(getContext());
+        DataSingleton.initialize();
         DataSingleton.initializeClassement(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -155,7 +155,7 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testActusKO() throws Exception {
-        DataSingleton.initialize(getContext());
+        DataSingleton.initialize();
         DataSingleton.initializeActus(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -198,7 +198,7 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testCalendrierKO() throws Exception {
-        DataSingleton.initialize(getContext());
+        DataSingleton.initialize();
         DataSingleton.initializeActus(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -240,7 +240,7 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testClassementKO() throws Exception {
-        DataSingleton.initialize(getContext());
+        DataSingleton.initialize();
         DataSingleton.initializeActus(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -282,7 +282,7 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testActusDataSingleton() throws Exception {
-        DataSingleton.initialize(getContext());
+        DataSingleton.initialize();
         DataSingleton.initializeActus(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -323,7 +323,7 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testActusDatabase() throws Exception {
-        DataSingleton.initialize(getContext());
+        DataSingleton.initialize();
         DataSingleton.initializeActus(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -364,7 +364,7 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testCalendrierDataSingleton() throws Exception {
-        DataSingleton.initialize(getContext());
+        DataSingleton.initialize();
         DataSingleton.initializeCalendrier(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -405,7 +405,7 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testCalendrierDatabase() throws Exception {
-        DataSingleton.initialize(getContext());
+        DataSingleton.initialize();
         DataSingleton.initializeCalendrier(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -446,7 +446,7 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testClassementDataSingleton() throws Exception {
-        DataSingleton.initialize(getContext());
+        DataSingleton.initialize();
         DataSingleton.initializeClassement(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -487,7 +487,7 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testClassementDatabase() throws Exception {
-        DataSingleton.initialize(getContext());
+        DataSingleton.initialize();
         DataSingleton.initializeClassement(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());

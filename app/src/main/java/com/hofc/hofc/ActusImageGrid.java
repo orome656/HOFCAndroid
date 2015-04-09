@@ -35,10 +35,10 @@ import java.util.Map;
  */
 public class ActusImageGrid extends ActionBarActivity {
 
-    ProgressBar progressBar;
-    RecyclerView recyclerView;
+    private ProgressBar progressBar;
+    private RecyclerView recyclerView;
 
-    String url;
+    private String url;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

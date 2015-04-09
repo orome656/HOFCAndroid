@@ -30,7 +30,7 @@ public enum DataSingleton {
 
     private Map<String, Bitmap> cachedImage;
 
-    public static void initialize(Context c) {
+    public static void initialize() {
         INSTANCE.cachedImage = new HashMap<>();
         INSTANCE.cacheImageUrls = new HashMap<>();
         INSTANCE.agenda = new HashMap<>();

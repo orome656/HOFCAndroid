@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.hofc.hofc.constant.AppConstant;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.fragment.ActusFragment;
@@ -46,7 +47,7 @@ public class Accueil extends ActionBarActivity
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
-    FragmentManager fragmentManager = null;
+    private FragmentManager fragmentManager = null;
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
@@ -59,7 +60,6 @@ public class Accueil extends ActionBarActivity
     private Context context;
     private GoogleCloudMessaging gcm;
     private String regId;
-    private String SENDER_ID = "";
 
     private int position = 1;
 
@@ -68,7 +68,7 @@ public class Accueil extends ActionBarActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_accueil);
-        DataSingleton.initialize(this);
+        DataSingleton.initialize();
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -171,7 +171,7 @@ public class Accueil extends ActionBarActivity
             getSupportActionBar().setTitle(mTitle);
     }
 
-    public void restoreActionBar() {
+    private void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
             actionBar.setDisplayShowTitleEnabled(true);
@@ -208,7 +208,7 @@ public class Accueil extends ActionBarActivity
                     if (gcm == null) {
                         gcm = GoogleCloudMessaging.getInstance(context);
                     }
-                    regId = gcm.register(SENDER_ID);
+                    regId = gcm.register(AppConstant.SENDER_ID);
                     msg = "Device registered, registration ID=" + regId;
 
                     // You should send the registration ID to your server over HTTP,

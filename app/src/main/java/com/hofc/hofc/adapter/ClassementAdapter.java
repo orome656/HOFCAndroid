@@ -16,8 +16,8 @@ import com.hofc.hofc.vo.ClassementLineVO;
 
 public class ClassementAdapter extends BaseAdapter {
 
-	LayoutInflater inflater;
-    Context context;
+	private LayoutInflater inflater;
+	private Context context;
 	
 	public ClassementAdapter(Context context) {
         if(context != null) {

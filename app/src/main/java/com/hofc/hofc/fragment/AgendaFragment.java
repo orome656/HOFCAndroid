@@ -17,10 +17,6 @@ import com.hofc.hofc.utils.HOFCUtils;
 
 public class AgendaFragment extends Fragment {
 
-	private ListView agendaListView;
-    private SwipeRefreshLayout swipeagenda;
-    private ViewPager viewPager;
-    private SectionsPagerAdapter customPagerAdapter;
 	public static AgendaFragment newInstance() {
 		return new AgendaFragment();
 	}
@@ -30,19 +26,14 @@ public class AgendaFragment extends Fragment {
             Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_agenda, container, false);
-        //agendaListView = (ListView) rootView.findViewById(R.id.agenda_listView);
 
-        customPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
+        SectionsPagerAdapter customPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
 
-        viewPager = (ViewPager) rootView.findViewById(R.id.agenda_pager);
+        ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.agenda_pager);
         viewPager.setAdapter(customPagerAdapter);
 
         viewPager.setCurrentItem(AppConstant.AGENDA_WEEK_NUMBER);
-        //swipeagenda = (SwipeRefreshLayout)rootView.findViewById(R.id.swipe_agenda);
-        //swipeagenda.setOnRefreshListener(this);
-        //swipeagenda.setColorSchemeColors(Color.BLACK, getResources().getColor(R.color.hofc_blue));
 
-        //this.refreshDataAndView();
         return rootView;
     }
 

@@ -14,7 +14,7 @@ public class CommonFragment extends Fragment implements CustomFragment, Fragment
     @Override
     public void refreshDataAndView() {}
 
-    public void refreshView(){}
+    void refreshView(){}
 
     @Override
     public void onTaskDone() {
@@ -33,8 +33,4 @@ public class CommonFragment extends Fragment implements CustomFragment, Fragment
             Toast.makeText(getActivity(), messageId, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
 }

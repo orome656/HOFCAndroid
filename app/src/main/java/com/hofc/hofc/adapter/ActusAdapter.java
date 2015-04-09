@@ -17,9 +17,9 @@ import java.text.SimpleDateFormat;
 
 public class ActusAdapter extends BaseAdapter {
 
-	LayoutInflater inflater;
-    SimpleDateFormat sdf;
-	ImageLoader imageLoader;
+	private final LayoutInflater inflater;
+	private final SimpleDateFormat sdf;
+	private final ImageLoader imageLoader;
 	public ActusAdapter(Context context) {
 		inflater = LayoutInflater.from(context);
 		//CalendrierBDD.initiate(context);

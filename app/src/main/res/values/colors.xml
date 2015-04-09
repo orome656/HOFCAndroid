@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="main_background">#DCDCDC</color>
     <color name="hofc_blue">#08589D</color>
     <color name="hofc_blue_transparent">#3308589D</color>
 

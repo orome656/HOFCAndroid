@@ -31,5 +31,7 @@
     <string name="agenda_image">image agenda</string>
     <string name="title_agenda">Agenda</string>
     <string name="server_error">Le serveur a rencontré une erreur lors de la récupération des informations</string>
+    <string name="diaporama_image_recycle">diaporama image</string>
+    <string name="navigation_drawer_icon">Navigation Drawer Icon</string>
 
 </resources>

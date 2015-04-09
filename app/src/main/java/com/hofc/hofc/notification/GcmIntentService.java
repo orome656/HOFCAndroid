@@ -18,7 +18,7 @@ import com.hofc.hofc.R;
  */
 public class GcmIntentService extends IntentService {
 
-    public static int NOTIFICATION_ID = 1;
+    private static int NOTIFICATION_ID = 1;
     private NotificationManager mNotificationManager;
 
 

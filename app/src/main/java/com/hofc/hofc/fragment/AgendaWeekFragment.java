@@ -33,8 +33,8 @@ public class AgendaWeekFragment extends CommonFragment  implements FragmentCallb
     private SwipeRefreshLayout swipeAgenda;
     private String semaine;
 
-    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
-    private static SimpleDateFormat fffFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE);
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+    private static final SimpleDateFormat fffFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE);
     public AgendaWeekFragment() {
 
     }

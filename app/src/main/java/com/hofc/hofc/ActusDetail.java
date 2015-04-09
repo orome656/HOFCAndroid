@@ -37,10 +37,10 @@ public class ActusDetail extends ActionBarActivity {
     private WebView contentTextView = null;
     private ProgressBar progressBar = null;
 
-    SimpleDateFormat sdf = null;
+    private SimpleDateFormat sdf = null;
 
-    private String HTML_PREFIX = "<html><body style=\"text-align:justify\">";
-    private String HTML_SUFIX = "</body></Html>";
+    private final String HTML_PREFIX = "<html><body style=\"text-align:justify\">";
+    private final String HTML_SUFIX = "</body></Html>";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

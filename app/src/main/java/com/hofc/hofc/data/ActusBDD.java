@@ -23,8 +23,8 @@ import java.util.Locale;
 public class ActusBDD {
 
 	// Base de données
-    protected static SQLiteDatabase hofcDatabase;
-    protected static HOFCOpenHelper hofcOpenHelper;
+	private static SQLiteDatabase hofcDatabase;
+	private static HOFCOpenHelper hofcOpenHelper;
     private static Context context = null;
     
     private static abstract class ActusEntry implements BaseColumns {
@@ -62,13 +62,13 @@ public class ActusBDD {
     	if(ActusBDD.context == null) 
     		ActusBDD.context = context;
     }
-    
-    public static void openReadable() {
+
+	private static void openReadable() {
     	if(hofcDatabase == null) 
     		hofcDatabase = hofcOpenHelper.getReadableDatabase();
     }
- 
-    public static void openWritable() throws SQLException{
+
+	private static void openWritable() throws SQLException{
         if ((hofcDatabase == null)|| hofcDatabase.isReadOnly()) {
             openWritable(true);
         }
@@ -79,7 +79,7 @@ public class ActusBDD {
      * @param foreignKeys State of Foreign Keys Constraint, true = ON, false = OFF
      * @throws SQLException if the database cannot be opened for writing
      */
-    public static void openWritable(boolean foreignKeys) throws SQLException{
+	private static void openWritable(boolean foreignKeys) throws SQLException{
     	hofcDatabase = hofcOpenHelper.getWritableDatabase();
         if (foreignKeys) {
         	hofcDatabase.execSQL("PRAGMA foreign_keys = ON;");

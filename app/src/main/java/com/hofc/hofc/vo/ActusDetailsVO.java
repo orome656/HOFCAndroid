@@ -11,9 +11,9 @@ import java.util.Date;
  */
 public class ActusDetailsVO {
 
-    String title;
-    Date date;
-    String content;
+    private String title;
+    private Date date;
+    private String content;
 
     public String getTitle() {
         return title;

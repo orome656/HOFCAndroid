@@ -19,9 +19,9 @@ import java.text.SimpleDateFormat;
 
 public class CalendrierAdapter extends BaseAdapter {
 
-	LayoutInflater inflater;
-	SimpleDateFormat sdf;
-    Context context;
+	private LayoutInflater inflater;
+	private final SimpleDateFormat sdf;
+	private Context context;
 	
 	public CalendrierAdapter(Context context) {
         if (context != null) {

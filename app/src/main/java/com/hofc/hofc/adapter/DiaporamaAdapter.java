@@ -6,7 +6,6 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -23,10 +22,10 @@ import java.util.List;
  * Created by Anthony on 13/12/2014.
  */
 public class DiaporamaAdapter extends PagerAdapter {
-    Context context;
-    List<String> imagesUrl;
-    LayoutInflater layoutInflater;
-    ImageLoader imageLoader;
+    private final Context context;
+    private final List<String> imagesUrl;
+    private LayoutInflater layoutInflater;
+    private final ImageLoader imageLoader;
 
     public DiaporamaAdapter(Context context, List<String> imagesUrl) {
         this.context = context;

@@ -19,10 +19,10 @@ import java.util.List;
  */
 public class GridImageAdapter extends RecyclerView.Adapter<GridImageAdapter.ViewHolder> implements View.OnClickListener {
 
-    private List<String> imageUrls;
-    private ImageLoader imageLoader;
-    private Context context;
-    private String url;
+    private final List<String> imageUrls;
+    private final ImageLoader imageLoader;
+    private final Context context;
+    private final String url;
     public GridImageAdapter(Context context, List<String> imageUrls, String url) {
         this.imageUrls = imageUrls;
         this.context = context;
@@ -60,7 +60,7 @@ public class GridImageAdapter extends RecyclerView.Adapter<GridImageAdapter.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView imageView;
+        public final ImageView imageView;
         public ViewHolder(ImageView v) {
             super(v);
             imageView = v;

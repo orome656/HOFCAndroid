@@ -61,7 +61,6 @@ public class NavigationDrawerFragment extends Fragment {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
     private View mFragmentContainerView;
-    private ScrimInsetsFrameLayout frameLayout;
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
@@ -97,7 +96,7 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        frameLayout = (ScrimInsetsFrameLayout) inflater.inflate(
+        ScrimInsetsFrameLayout frameLayout = (ScrimInsetsFrameLayout) inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
         mDrawerListView = (ListView) frameLayout.findViewById(R.id.navigation_list);
         LinearLayout header = (LinearLayout)inflater.inflate(R.layout.header, null);
@@ -285,7 +284,7 @@ public class NavigationDrawerFragment extends Fragment {
     /**
      * Callbacks interface that all activities using this fragment must implement.
      */
-    public static interface NavigationDrawerCallbacks {
+    public interface NavigationDrawerCallbacks {
         /**
          * Called when an item in the navigation drawer is selected.
          */

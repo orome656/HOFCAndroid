@@ -8,13 +8,13 @@ public class ActuVO {
 	/**
 	 * Attributes
 	 */
-	int postId;
-	String titre;
-	String texte;
-	String url;
-	String imageUrl;
-	Date date;
-	Bitmap bitmapImage;
+	private int postId;
+	private String titre;
+	private String texte;
+	private String url;
+	private String imageUrl;
+	private Date date;
+	private Bitmap bitmapImage;
 
 	/**
 	 * Methods
