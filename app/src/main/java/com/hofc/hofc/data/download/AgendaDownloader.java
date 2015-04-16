@@ -73,6 +73,7 @@ public class AgendaDownloader {
                                     Log.e(AgendaDownloader.class.getName(), "Problem when parsing date", e);
                                     agenda.setDate(null);
                                 }
+                                agenda.setIdInfos(object.getString("infos"));
                                 agendaList.add(agenda);
                             }
                             if(dateArgument != null && !dateArgument.isEmpty()) {

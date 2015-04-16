@@ -103,7 +103,7 @@ public class AgendaWeekFragment extends CommonFragment  implements FragmentCallb
         this.isLoading = true;
         super.refreshView();
         if(agendaListView.getAdapter() == null) {
-            AgendaAdapter adapter = new AgendaAdapter(getActivity(), semaine);
+            AgendaAdapter adapter = new AgendaAdapter(getActivity(), semaine, ((HOFCApplication) getActivity().getApplication()).getRequestQueue());
             agendaListView.setAdapter(adapter);
         } else {
             ((AgendaAdapter)agendaListView.getAdapter()).notifyDataSetChanged();

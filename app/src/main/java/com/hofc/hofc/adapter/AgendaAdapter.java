@@ -3,17 +3,31 @@ package com.hofc.hofc.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.hofc.hofc.R;
 import com.hofc.hofc.constant.AppConstant;
+import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.vo.AgendaLineVO;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 
@@ -23,11 +37,13 @@ public class AgendaAdapter extends BaseAdapter {
 	private final SimpleDateFormat sdf;
 	private Context context;
 	private final String semaine;
+	private RequestQueue requestQueue;
 
-	public AgendaAdapter(Context context, String semaine) {
+	public AgendaAdapter(Context context, String semaine, RequestQueue requestQueue) {
         if (context != null) {
-            inflater = LayoutInflater.from(context);
+            this.inflater = LayoutInflater.from(context);
             this.context = context;
+			this.requestQueue = requestQueue;
         }
 		this.semaine = semaine;
 		sdf = new SimpleDateFormat("EEEE dd MMMM yyyy HH:mm");
@@ -65,12 +81,13 @@ public class AgendaAdapter extends BaseAdapter {
 			holder.imageEquipe2 = (ImageView)convertView.findViewById(R.id.agenda_card_image_2);
 			holder.dateMatch = (TextView)convertView.findViewById(R.id.agenda_card_date);
             holder.agendaTitle = (TextView)convertView.findViewById(R.id.agenda_card_title);
+			holder.infoButton = (ImageButton)convertView.findViewById(R.id.agenda_info_button);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		AgendaLineVO line = DataSingleton.getAgenda(semaine).get(position);
+		final AgendaLineVO line = DataSingleton.getAgenda(semaine).get(position);
 		if(line.getEquipe1() != null && line.getEquipe1().contains(AppConstant.hofcName)) {
 			holder.imageEquipe1.setImageResource(R.drawable.ic_launcher);
 			holder.imageEquipe2.setImageResource(android.R.color.transparent);
@@ -95,6 +112,47 @@ public class AgendaAdapter extends BaseAdapter {
 		if(line.getDate() != null)
 			holder.dateMatch.setText(sdf.format(line.getDate()));
         holder.agendaTitle.setText(line.getTitle());
+		holder.infoButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				StringBuilder stringBuilder = new StringBuilder(ServerConstant.SERVER_URL_PREFIX);
+				stringBuilder.append(ServerConstant.SERVER_URL);
+				if(ServerConstant.SERVER_PORT != 0) {
+					stringBuilder.append(":");
+					stringBuilder.append(ServerConstant.SERVER_PORT);
+				}
+				stringBuilder.append("/");
+				stringBuilder.append(ServerConstant.MATCH_CONTEXT);
+				stringBuilder.append("/");
+				String id = line.getIdInfos();
+				stringBuilder.append(id);
+
+				JsonObjectRequest jsonRequest = new JsonObjectRequest(stringBuilder.toString(), null, new Response.Listener<JSONObject>() {
+					@Override
+					public void onResponse(final JSONObject response) {
+						MaterialDialog dialog = new MaterialDialog.Builder(context)
+								.customView(R.layout.dialog_details_match, true)
+								.positiveText("Fermer")
+								.build();
+						try {
+							((TextView)dialog.findViewById(R.id.dialog_lieu_nom)).setText(response.getString("nom"));
+							((TextView)dialog.findViewById(R.id.dialog_lieu_adresse)).setText(response.getString("adresse"));
+							((TextView)dialog.findViewById(R.id.dialog_lieu_ville)).setText(response.getString("ville"));
+
+						} catch (JSONException e) {
+							Log.e(AgendaAdapter.class.getName(), "Deserialization error", e);
+						}
+						dialog.show();
+					}
+				}, new Response.ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError error) {
+					}
+				});
+				requestQueue.add(jsonRequest);
+
+			}
+		});
 		return convertView;
 	}
 
@@ -121,6 +179,7 @@ public class AgendaAdapter extends BaseAdapter {
 		TextView agendaEquipe2;
 		ImageView imageEquipe2;
 		TextView dateMatch;
+		ImageButton infoButton;
 	}
 
 }

@@ -9,6 +9,7 @@ public class AgendaLineVO {
 	private String equipe2;
 	private Date date;
     private String title;
+	private String idInfos;
 
 	public String getEquipe1() {
 		return equipe1;
@@ -43,9 +44,14 @@ public class AgendaLineVO {
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
+	public String getIdInfos() {
+		return idInfos;
+	}
+	public void setIdInfos(String idInfos) {
+		this.idInfos = idInfos;
+	}
 
 }
