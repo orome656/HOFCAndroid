@@ -31,7 +31,7 @@ public class AgendaFragment extends Fragment {
 
         ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.agenda_pager);
         viewPager.setAdapter(customPagerAdapter);
-
+        viewPager.setOffscreenPageLimit(3);
         viewPager.setCurrentItem(AppConstant.AGENDA_WEEK_NUMBER);
 
         return rootView;
