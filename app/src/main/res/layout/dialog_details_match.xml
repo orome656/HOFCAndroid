@@ -3,19 +3,46 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#80000000"
+        android:textSize="14sp"
+        android:text="@string/dialog_lieu_titre"/>
+    <TextView
         android:id="@+id/dialog_lieu_nom"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/dialog_content_text" />
     <TextView
         android:id="@+id/dialog_lieu_adresse"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/dialog_content_text" />
     <TextView
         android:id="@+id/dialog_lieu_ville"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/dialog_content_text" />
     <TextView
-        android:id="@+id/dialog_arbitre"
+        android:id="@+id/dialog_arbitre_titre"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_marginTop="18dp"
+        android:textColor="#80000000"
+        android:text="@string/dialog_arbitre_titre"/>
+
+    <LinearLayout
+        android:id="@+id/dialog_layout_arbitre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </LinearLayout>
 </LinearLayout>

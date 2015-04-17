@@ -3,21 +3,23 @@ package com.hofc.hofc.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.android.volley.Request;
+import com.afollestad.materialdialogs.Theme;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.hofc.hofc.R;
 import com.hofc.hofc.constant.AppConstant;
@@ -115,6 +117,12 @@ public class AgendaAdapter extends BaseAdapter {
 		holder.infoButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				final MaterialDialog progress = new MaterialDialog.Builder(context)
+						.progress(true, 0)
+						.content(R.string.loading_popup)
+						.theme(Theme.LIGHT)
+						.show();
+
 				StringBuilder stringBuilder = new StringBuilder(ServerConstant.SERVER_URL_PREFIX);
 				stringBuilder.append(ServerConstant.SERVER_URL);
 				if(ServerConstant.SERVER_PORT != 0) {
@@ -130,15 +138,32 @@ public class AgendaAdapter extends BaseAdapter {
 				JsonObjectRequest jsonRequest = new JsonObjectRequest(stringBuilder.toString(), null, new Response.Listener<JSONObject>() {
 					@Override
 					public void onResponse(final JSONObject response) {
+						progress.dismiss();
 						MaterialDialog dialog = new MaterialDialog.Builder(context)
 								.customView(R.layout.dialog_details_match, true)
-								.positiveText("Fermer")
+								.positiveText(R.string.close_popup_button)
+								.theme(Theme.LIGHT)
 								.build();
 						try {
 							((TextView)dialog.findViewById(R.id.dialog_lieu_nom)).setText(response.getString("nom"));
 							((TextView)dialog.findViewById(R.id.dialog_lieu_adresse)).setText(response.getString("adresse"));
 							((TextView)dialog.findViewById(R.id.dialog_lieu_ville)).setText(response.getString("ville"));
-
+							LinearLayout layout = (LinearLayout)dialog.findViewById(R.id.dialog_layout_arbitre);
+							JSONArray arbitres = response.getJSONArray("arbitres");
+							if(arbitres.length() == 0) {
+								(dialog.findViewById(R.id.dialog_lieu_ville)).setVisibility(View.GONE);
+							} else {
+								for(int i = 0; i<arbitres.length(); i++) {
+									TextView tv = new TextView(context);
+									tv.setText((String) arbitres.get(i));
+									LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+									params.setMargins(0,4,0,0);
+									tv.setLayoutParams(params);
+									tv.setTextColor(context.getResources().getColor(R.color.dialog_content_text));
+									tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+									layout.addView(tv);
+								}
+							}
 						} catch (JSONException e) {
 							Log.e(AgendaAdapter.class.getName(), "Deserialization error", e);
 						}

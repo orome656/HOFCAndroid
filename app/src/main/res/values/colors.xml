@@ -13,4 +13,5 @@
     <color name="text_primary">#FFFFFF</color>
     <color name="navigation_list_divider">#D3D3D3</color>
 
+    <color name="dialog_content_text">#000000</color>
 </resources>
