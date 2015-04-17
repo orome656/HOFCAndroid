@@ -151,7 +151,7 @@ public class AgendaAdapter extends BaseAdapter {
 							LinearLayout layout = (LinearLayout)dialog.findViewById(R.id.dialog_layout_arbitre);
 							JSONArray arbitres = response.getJSONArray("arbitres");
 							if(arbitres.length() == 0) {
-								(dialog.findViewById(R.id.dialog_lieu_ville)).setVisibility(View.GONE);
+								(dialog.findViewById(R.id.dialog_arbitre_titre)).setVisibility(View.GONE);
 							} else {
 								for(int i = 0; i<arbitres.length(); i++) {
 									TextView tv = new TextView(context);

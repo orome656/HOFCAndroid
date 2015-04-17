@@ -29,7 +29,6 @@ import java.util.Locale;
 public class AgendaWeekFragment extends CommonFragment  implements FragmentCallback, CustomFragment, SwipeRefreshLayout.OnRefreshListener {
     private boolean isLoading = false;
     private ListView agendaListView;
-    private String callArgument;
     private SwipeRefreshLayout swipeAgenda;
     private String semaine;
 
@@ -61,17 +60,6 @@ public class AgendaWeekFragment extends CommonFragment  implements FragmentCallb
                 container, false);
         agendaListView = (ListView)rootView.findViewById(R.id.agenda_listView);
         semaine = getArguments().getString("date");
-        try {
-            Date dateObject = fffFormat.parse(getArguments().getString("date"));
-            if(!HOFCUtils.isDateInCurrentWeek(dateObject)) {
-                callArgument = getArguments().getString("date");
-            } else {
-                callArgument = null;
-            }
-        } catch (ParseException e) {
-            callArgument = getArguments().getString("date");
-            Log.e(AgendaWeekFragment.class.getName(), "Erreur lors de la deserialisation de la date", e);
-        }
 
         swipeAgenda = (SwipeRefreshLayout)rootView.findViewById(R.id.agenda_swipe);
         swipeAgenda.setOnRefreshListener(this);
@@ -128,7 +116,7 @@ public class AgendaWeekFragment extends CommonFragment  implements FragmentCallb
 
         super.refreshDataAndView();
         RequestQueue requestQueue = ((HOFCApplication) getActivity().getApplication()).getRequestQueue();
-        AgendaDownloader.update(requestQueue, this, callArgument);
+        AgendaDownloader.update(requestQueue, this, semaine);
     }
 
     @Override
@@ -138,7 +126,8 @@ public class AgendaWeekFragment extends CommonFragment  implements FragmentCallb
         if(swipeAgenda.isRefreshing())
             swipeAgenda.setRefreshing(false);
 
-        super.onError();
+        if(this.getUserVisibleHint())
+            super.onError();
     }
 
     @Override
@@ -147,8 +136,8 @@ public class AgendaWeekFragment extends CommonFragment  implements FragmentCallb
 
         if(swipeAgenda.isRefreshing())
             swipeAgenda.setRefreshing(false);
-
-        super.onError(messageId);
+        if(this.getUserVisibleHint())
+            super.onError(messageId);
     }
 
     @Override
