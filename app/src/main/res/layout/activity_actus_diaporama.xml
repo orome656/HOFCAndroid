@@ -7,13 +7,6 @@
     android:fitsSystemWindows="true">
     <include layout="@layout/toolbar"
              android:id="@+id/diaporama_toolbar"/>
-    <ProgressBar
-        android:id="@+id/diaporama_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:indeterminate="true"
-        android:visibility="visible"/>
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"

@@ -10,6 +10,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.graphics.Point;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -35,18 +37,22 @@ import java.util.Map;
  */
 public class ActusImageGrid extends ActionBarActivity {
 
-    private ProgressBar progressBar;
     private RecyclerView recyclerView;
 
     private String url;
+    private MaterialDialog dialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_grid);
 
-        progressBar = (ProgressBar)findViewById(R.id.grid_progress);
-        progressBar.setVisibility(View.VISIBLE);
+        dialog = new MaterialDialog.Builder(this)
+                .theme(Theme.LIGHT)
+                .content(R.string.loading_popup)
+                .progress(true, 0)
+                .build();
+        dialog.show();
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.grid_toolbar);
         setSupportActionBar(toolbar);
@@ -74,14 +80,14 @@ public class ActusImageGrid extends ActionBarActivity {
 
     private void downloadDone(List<String> imageUrls) {
         DataSingleton.insertImageCacheUrls(this.url, imageUrls);
-        progressBar.setVisibility(View.GONE);
+        dialog.dismiss();
         recyclerView.setVisibility(View.VISIBLE);
         recyclerView.setAdapter(new GridImageAdapter(this, imageUrls, this.url));
     }
 
     private void downloadError() {
         Toast.makeText(this, getString(R.string.connexion_error), Toast.LENGTH_SHORT).show();
-        progressBar.setVisibility(View.GONE);
+        dialog.dismiss();
 
     }
 

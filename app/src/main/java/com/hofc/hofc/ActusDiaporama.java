@@ -10,21 +10,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.hofc.hofc.adapter.DiaporamaAdapter;
 import com.hofc.hofc.data.DataSingleton;
 
 
 public class ActusDiaporama extends ActionBarActivity {
 
-    private ProgressBar progressBar;
     private String url;
     private int initialPosition;
+    private MaterialDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actus_diaporama);
-        progressBar = (ProgressBar)findViewById(R.id.diaporama_progress);
-
+        dialog = new MaterialDialog.Builder(this)
+                                   .theme(Theme.LIGHT)
+                                   .content(R.string.loading_popup)
+                                   .progress(true, 0)
+                                   .build();
+        dialog.show();
         Toolbar toolbar = (Toolbar)findViewById(R.id.diaporama_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("HOFC");
@@ -60,7 +66,7 @@ public class ActusDiaporama extends ActionBarActivity {
         DiaporamaAdapter adapter = new DiaporamaAdapter(this, DataSingleton.getCachedImageUrls(this.url));
         pager.setAdapter(adapter);
         pager.setCurrentItem(initialPosition);
-        progressBar.setVisibility(View.GONE);
+        dialog.dismiss();
         pager.setVisibility(View.VISIBLE);
     }
 }
