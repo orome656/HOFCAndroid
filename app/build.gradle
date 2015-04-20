@@ -16,6 +16,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+
+    productFlavors {
+        development {
+            buildConfigField "String", "SERVER_URL_PREFIX", "\"https://\""
+            buildConfigField "String", "SERVER_URL", "\"polar-peak-1368.herokuapp.com\""
+            buildConfigField "int", "SERVER_PORT", "0"
+        }
+        prod {
+            buildConfigField "String", "SERVER_URL_PREFIX", "\"https://\""
+            buildConfigField "String", "SERVER_URL", "\"quiet-wave-7010.herokuapp.com\""
+            buildConfigField "int", "SERVER_PORT", "0"
+        }
+    }
 }
 
 dependencies {
