@@ -1,5 +1,7 @@
 package com.hofc.hofc.utils;
 
+import com.hofc.hofc.constant.ServerConstant;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,22 +17,28 @@ public class HOFCUtils {
 
         return sdf.format(cal.getTime());
     }
-
-    public static boolean isDateInCurrentWeek(Date date) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-
-        Calendar calParam = Calendar.getInstance();
-        calParam.setTime(date);
-
-        return cal.get(Calendar.YEAR) == calParam.get(Calendar.YEAR) && cal.get(Calendar.DAY_OF_YEAR) == calParam.get(Calendar.DAY_OF_YEAR);
-    }
-
     public static String getCurrentWeekMonday() {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         return sdf.format(cal.getTime());
+    }
+
+    public static String buildUrl(String context, String[] params) {
+        StringBuilder stringBuilder = new StringBuilder(ServerConstant.SERVER_URL_PREFIX);
+        stringBuilder.append(ServerConstant.SERVER_URL);
+        if(ServerConstant.SERVER_PORT != 0) {
+            stringBuilder.append(":");
+            stringBuilder.append(ServerConstant.SERVER_PORT);
+        }
+        stringBuilder.append("/");
+        stringBuilder.append(context);
+        if(params != null && params.length > 0) {
+            for(String param: params) {
+                stringBuilder.append("/").append(param);
+            }
+        }
+        return stringBuilder.toString();
     }
 }

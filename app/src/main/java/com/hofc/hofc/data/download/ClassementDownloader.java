@@ -12,6 +12,7 @@ import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.ClassementBDD;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.fragment.FragmentCallback;
+import com.hofc.hofc.utils.HOFCUtils;
 import com.hofc.hofc.vo.ClassementLineVO;
 
 import org.json.JSONArray;
@@ -28,16 +29,9 @@ public class ClassementDownloader {
      * @param callback Callback to call at the end of the request
      */
     public static void update(RequestQueue requestQueue, final FragmentCallback callback) {
-        StringBuilder stringBuilder = new StringBuilder(ServerConstant.SERVER_URL_PREFIX);
-        stringBuilder.append(ServerConstant.SERVER_URL);
-        if(ServerConstant.SERVER_PORT != 0) {
-            stringBuilder.append(":");
-            stringBuilder.append(ServerConstant.SERVER_PORT);
-        }
-        stringBuilder.append("/");
-        stringBuilder.append(ServerConstant.CLASSEMENT_CONTEXT);
+        String url = HOFCUtils.buildUrl(ServerConstant.CLASSEMENT_CONTEXT, null);
 
-        JsonArrayRequest jsonRequest = new JsonArrayRequest(stringBuilder.toString(), new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(final JSONArray response) {
                 new AsyncTask<Void, Void, Integer>() {

@@ -31,20 +31,13 @@ public class AgendaDownloader {
      * @param callback Callback to call at the end of the request
      */
     public static void update(RequestQueue requestQueue, final FragmentCallback callback, final String dateArgument) {
-        StringBuilder stringBuilder = new StringBuilder(ServerConstant.SERVER_URL_PREFIX);
-        stringBuilder.append(ServerConstant.SERVER_URL);
-        if(ServerConstant.SERVER_PORT != 0) {
-            stringBuilder.append(":");
-            stringBuilder.append(ServerConstant.SERVER_PORT);
-        }
-        stringBuilder.append("/");
-        stringBuilder.append(ServerConstant.AGENDA_CONTEXT);
-
+        String[] array = null;
         if(dateArgument != null && !dateArgument.isEmpty()) {
-            stringBuilder.append("/").append(dateArgument);
+            array = new String[]{dateArgument};
         }
+        String url = HOFCUtils.buildUrl(ServerConstant.AGENDA_CONTEXT, array);
 
-        JsonArrayRequest jsonRequest = new JsonArrayRequest(stringBuilder.toString(), new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(final JSONArray response) {
                 new AsyncTask<Void, Void, Integer>() {

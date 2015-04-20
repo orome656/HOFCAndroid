@@ -21,6 +21,7 @@ import com.hofc.hofc.fragment.AgendaFragment;
 import com.hofc.hofc.fragment.CalendrierFragment;
 import com.hofc.hofc.fragment.ClassementFragment;
 import com.hofc.hofc.notification.GcmPreference;
+import com.hofc.hofc.utils.HOFCUtils;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -239,18 +240,11 @@ public class Accueil extends ActionBarActivity
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
-                StringBuilder stringBuilder = new StringBuilder(ServerConstant.SERVER_URL_PREFIX);
-                stringBuilder.append(ServerConstant.SERVER_URL);
-                if(ServerConstant.SERVER_PORT != 0) {
-                    stringBuilder.append(":");
-                    stringBuilder.append(ServerConstant.SERVER_PORT);
-                }
-                stringBuilder.append("/");
-                stringBuilder.append(ServerConstant.NOTIF_CONTEXT);
+                String url = HOFCUtils.buildUrl(ServerConstant.NOTIF_CONTEXT, null);
 
                 try {
                     HttpClient httpClient = new DefaultHttpClient();
-                    HttpPost httpPost = new HttpPost(stringBuilder.toString());
+                    HttpPost httpPost = new HttpPost(url);
                     List<NameValuePair> nameValuePairs = new ArrayList<>(2);
                     nameValuePairs.add(new BasicNameValuePair("notification_id", regId));
                     nameValuePairs.add(new BasicNameValuePair("uuid", Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID)));

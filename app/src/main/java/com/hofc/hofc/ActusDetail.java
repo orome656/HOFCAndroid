@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.hofc.hofc.constant.ServerConstant;
+import com.hofc.hofc.utils.HOFCUtils;
 import com.hofc.hofc.vo.ActusDetailsVO;
 
 import org.json.JSONException;
@@ -105,18 +106,11 @@ public class ActusDetail extends ActionBarActivity {
     }
 
     private void downloadDetails(RequestQueue requestQueue, String url) {
-        StringBuilder stringBuilder = new StringBuilder(ServerConstant.SERVER_URL_PREFIX);
-        stringBuilder.append(ServerConstant.SERVER_URL);
-        if(ServerConstant.SERVER_PORT != 0) {
-            stringBuilder.append(":");
-            stringBuilder.append(ServerConstant.SERVER_PORT);
-        }
-        stringBuilder.append("/");
-        stringBuilder.append(ServerConstant.PARSE_PAGE_CONTEXT);
+        String urlServer = HOFCUtils.buildUrl(ServerConstant.PARSE_PAGE_CONTEXT, null);
         try {
             JSONObject params = new JSONObject();
             params.put("url", url);
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, stringBuilder.toString(), params,new Response.Listener<JSONObject>() {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, urlServer, params,new Response.Listener<JSONObject>() {
 
                 @Override
                 public void onResponse(JSONObject response) {

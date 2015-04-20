@@ -25,6 +25,7 @@ import com.hofc.hofc.R;
 import com.hofc.hofc.constant.AppConstant;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.utils.HOFCUtils;
 import com.hofc.hofc.vo.AgendaLineVO;
 
 import org.json.JSONArray;
@@ -123,19 +124,9 @@ public class AgendaAdapter extends BaseAdapter {
 						.theme(Theme.LIGHT)
 						.show();
 
-				StringBuilder stringBuilder = new StringBuilder(ServerConstant.SERVER_URL_PREFIX);
-				stringBuilder.append(ServerConstant.SERVER_URL);
-				if(ServerConstant.SERVER_PORT != 0) {
-					stringBuilder.append(":");
-					stringBuilder.append(ServerConstant.SERVER_PORT);
-				}
-				stringBuilder.append("/");
-				stringBuilder.append(ServerConstant.MATCH_CONTEXT);
-				stringBuilder.append("/");
-				String id = line.getIdInfos();
-				stringBuilder.append(id);
+				String url = HOFCUtils.buildUrl(ServerConstant.MATCH_CONTEXT, new String[]{line.getIdInfos()});
 
-				JsonObjectRequest jsonRequest = new JsonObjectRequest(stringBuilder.toString(), null, new Response.Listener<JSONObject>() {
+				JsonObjectRequest jsonRequest = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
 					@Override
 					public void onResponse(final JSONObject response) {
 						progress.dismiss();

@@ -22,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.hofc.hofc.adapter.GridImageAdapter;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.utils.HOFCUtils;
 import com.hofc.hofc.utils.PreCachingLayoutManager;
 
 import org.json.JSONArray;
@@ -92,17 +93,10 @@ public class ActusImageGrid extends ActionBarActivity {
     }
 
     private void downloadListImage(RequestQueue requestQueue, String url) {
-        StringBuilder stringBuilder = new StringBuilder(ServerConstant.SERVER_URL_PREFIX);
-        stringBuilder.append(ServerConstant.SERVER_URL);
-        if(ServerConstant.SERVER_PORT != 0) {
-            stringBuilder.append(":");
-            stringBuilder.append(ServerConstant.SERVER_PORT);
-        }
-        stringBuilder.append("/");
-        stringBuilder.append(ServerConstant.PARSE_PAGE_CONTEXT);
+        String urlServer = HOFCUtils.buildUrl(ServerConstant.PARSE_PAGE_CONTEXT, null);
         final Map<String,String> params = new HashMap<>();
         params.put("url", url);
-        StringRequest jsonArrayRequest = new StringRequest(Request.Method.POST, stringBuilder.toString(), new Response.Listener<String>() {
+        StringRequest jsonArrayRequest = new StringRequest(Request.Method.POST, urlServer, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
