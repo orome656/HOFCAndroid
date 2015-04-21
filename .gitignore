@@ -21,3 +21,7 @@ gen/com/hofc/hofc/R.java
 
 /app/app.iml
 /.idea/misc.xml
+/.idea/scopes/scope_settings.xml
+
+release.properties
+development.properties

@@ -19,11 +19,17 @@ android {
 
     productFlavors {
         development {
+            def props = new Properties()
+            props.load(new FileInputStream(rootProject.file("development.properties")))
+            buildConfigField "String", "SENDER_ID",props.senderid
             buildConfigField "String", "SERVER_URL_PREFIX", "\"https://\""
             buildConfigField "String", "SERVER_URL", "\"polar-peak-1368.herokuapp.com\""
             buildConfigField "int", "SERVER_PORT", "0"
         }
         prod {
+            def props = new Properties()
+            props.load(new FileInputStream(rootProject.file("release.properties")))
+            buildConfigField "String", "SENDER_ID",props.senderid
             buildConfigField "String", "SERVER_URL_PREFIX", "\"https://\""
             buildConfigField "String", "SERVER_URL", "\"quiet-wave-7010.herokuapp.com\""
             buildConfigField "int", "SERVER_PORT", "0"
