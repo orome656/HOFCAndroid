@@ -20,6 +20,7 @@ import com.hofc.hofc.fragment.ActusFragment;
 import com.hofc.hofc.fragment.AgendaFragment;
 import com.hofc.hofc.fragment.CalendrierFragment;
 import com.hofc.hofc.fragment.ClassementFragment;
+import com.hofc.hofc.fragment.JourneeFragment;
 import com.hofc.hofc.notification.GcmPreference;
 import com.hofc.hofc.utils.HOFCUtils;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
@@ -57,6 +58,7 @@ public class Accueil extends ActionBarActivity
     private CalendrierFragment calendrierFragment = null;
     private ClassementFragment classementFragment = null;
     private AgendaFragment agendaFragment = null;
+    private JourneeFragment journeeFragment = null;
 
     private Context context;
     private GoogleCloudMessaging gcm;
@@ -165,6 +167,15 @@ public class Accueil extends ActionBarActivity
                     .replace(R.id.container, this.agendaFragment)
                     .commit();
             mTitle = getText(R.string.title_agenda);
+        } else if (position == 5) {
+            if(this.journeeFragment == null) {
+                this.journeeFragment = JourneeFragment.newInstance();
+            }
+            // Agenda Excellence
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, this.journeeFragment)
+                    .commit();
+            mTitle = getText(R.string.title_journee);
         } else {
         	Log.e("Accueil", "NavigationDrawer number click unknown ");
         }

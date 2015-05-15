@@ -8,6 +8,7 @@ import com.hofc.hofc.vo.ActuVO;
 import com.hofc.hofc.vo.AgendaLineVO;
 import com.hofc.hofc.vo.CalendrierLineVO;
 import com.hofc.hofc.vo.ClassementLineVO;
+import com.hofc.hofc.vo.MatchVO;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -25,6 +26,7 @@ public enum DataSingleton {
     private List<ActuVO> actus;
     private Date lastSynchroActus;
     private Map<String,List<AgendaLineVO>> agenda;
+    private Map<String,List<MatchVO>> journee;
 
     private HashMap<String, List<String>> cacheImageUrls;
 
@@ -34,6 +36,7 @@ public enum DataSingleton {
         INSTANCE.cachedImage = new HashMap<>();
         INSTANCE.cacheImageUrls = new HashMap<>();
         INSTANCE.agenda = new HashMap<>();
+        INSTANCE.journee = new HashMap<>();
     	
     }
 
@@ -87,6 +90,10 @@ public enum DataSingleton {
     public static List<AgendaLineVO> getAgenda(String date) { return INSTANCE.agenda.get(date); }
 
     public static void setAgenda(String date,List<AgendaLineVO> list) { INSTANCE.agenda.put(date,list); }
+
+    public static List<MatchVO> getJournee(String journeeId) { return INSTANCE.journee.get(journeeId); }
+
+    public static void setJournee(String journeeId,List<MatchVO> list) { INSTANCE.journee.put(journeeId,list); }
 
     public static boolean isSynchroCalendrierNeeded() {
     	GregorianCalendar calendar = (GregorianCalendar) GregorianCalendar.getInstance();

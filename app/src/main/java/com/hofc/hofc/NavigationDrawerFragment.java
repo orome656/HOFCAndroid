@@ -113,6 +113,7 @@ public class NavigationDrawerFragment extends Fragment {
         listDrawerItems.add(new NavigationDrawerItem(getString(R.string.title_classement), R.drawable.classement_icon));
         listDrawerItems.add(new NavigationDrawerItem(getString(R.string.title_calendrier), R.drawable.calendar_icon));
         listDrawerItems.add(new NavigationDrawerItem(getString(R.string.title_agenda), R.drawable.calendar_icon));
+        listDrawerItems.add(new NavigationDrawerItem(getString(R.string.title_journee), R.drawable.calendar_icon));
         mDrawerListView.setAdapter(new NavigationDrawerAdapter(
                 getActivity(),
                 R.layout.navigation_drawer_item,

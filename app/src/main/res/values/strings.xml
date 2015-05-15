@@ -37,5 +37,7 @@
     <string name="close_popup_button">Fermer</string>
     <string name="dialog_lieu_titre">Adresse</string>
     <string name="dialog_arbitre_titre">Arbitres</string>
+    <string name="journee_image">image journee</string>
+    <string name="title_journee">Agenda Excellence</string>
 
 </resources>
