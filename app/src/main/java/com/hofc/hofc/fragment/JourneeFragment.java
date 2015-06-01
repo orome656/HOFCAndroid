@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.hofc.hofc.R;
 import com.hofc.hofc.constant.AppConstant;
+import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.utils.HOFCUtils;
 
 public class JourneeFragment extends Fragment {
@@ -30,7 +31,7 @@ public class JourneeFragment extends Fragment {
         ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.journee_pager);
         viewPager.setAdapter(customPagerAdapter);
         viewPager.setOffscreenPageLimit(3);
-        viewPager.setCurrentItem(AppConstant.AGENDA_WEEK_NUMBER);
+        viewPager.setCurrentItem(1);
 
         return rootView;
     }
@@ -48,7 +49,7 @@ public class JourneeFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return AppConstant.AGENDA_WEEK_NUMBER * 2 + 1;
+            return DataSingleton.getParams().getSeasonMatchCount();
         }
 
         @Override

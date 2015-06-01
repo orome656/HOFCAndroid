@@ -27,17 +27,15 @@ public enum DataSingleton {
     private Date lastSynchroActus;
     private Map<String,List<AgendaLineVO>> agenda;
     private Map<String,List<MatchVO>> journee;
+    private Params params;
 
     private HashMap<String, List<String>> cacheImageUrls;
 
-    private Map<String, Bitmap> cachedImage;
-
     public static void initialize() {
-        INSTANCE.cachedImage = new HashMap<>();
         INSTANCE.cacheImageUrls = new HashMap<>();
         INSTANCE.agenda = new HashMap<>();
         INSTANCE.journee = new HashMap<>();
-    	
+        INSTANCE.params = new Params();
     }
 
     public static void initializeCalendrier(Context c) {
@@ -93,7 +91,7 @@ public enum DataSingleton {
 
     public static List<MatchVO> getJournee(String journeeId) { return INSTANCE.journee.get(journeeId); }
 
-    public static void setJournee(String journeeId,List<MatchVO> list) { INSTANCE.journee.put(journeeId,list); }
+    public static void setJournee(String journeeId,List<MatchVO> list) { INSTANCE.journee.put(journeeId, list); }
 
     public static boolean isSynchroCalendrierNeeded() {
     	GregorianCalendar calendar = (GregorianCalendar) GregorianCalendar.getInstance();
@@ -128,18 +126,6 @@ public enum DataSingleton {
         INSTANCE.lastSynchroActus = date;
     }
 
-    public static void insertImageCache(String url, Bitmap image) {
-        INSTANCE.cachedImage.put(url, image);
-    }
-
-    public static Bitmap getCachedImage(String url) {
-        if(INSTANCE.cachedImage.containsKey(url)) {
-            return INSTANCE.cachedImage.get(url);
-        } else {
-            return null;
-        }
-    }
-
     public static void insertImageCacheUrls(String url, List<String> urls) {
         INSTANCE.cacheImageUrls.put(url, urls);
     }
@@ -150,5 +136,9 @@ public enum DataSingleton {
         } else {
             return null;
         }
+    }
+
+    public static Params getParams() {
+        return INSTANCE.params;
     }
 }

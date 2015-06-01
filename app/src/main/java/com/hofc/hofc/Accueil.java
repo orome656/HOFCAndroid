@@ -16,6 +16,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.hofc.hofc.constant.AppConstant;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.data.download.ParamsDownloader;
 import com.hofc.hofc.fragment.ActusFragment;
 import com.hofc.hofc.fragment.AgendaFragment;
 import com.hofc.hofc.fragment.CalendrierFragment;
@@ -76,6 +77,7 @@ public class Accueil extends ActionBarActivity
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
 
+        ParamsDownloader.update(((HOFCApplication)getApplication()).getRequestQueue());
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
