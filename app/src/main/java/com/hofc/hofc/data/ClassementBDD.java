@@ -129,6 +129,8 @@ public class ClassementBDD {
     
     public static void insertList(List<ClassementLineVO> list) {
     	openWritable();
+		// On supprime avant d'insérer pour mettre a jour les données si il y a eu des suppressions
+		hofcDatabase.delete(ClassementEntry.CLASSEMENT_TABLE_NAME, null, null);
     	for(ClassementLineVO line : list) {
     		Cursor cursor = hofcDatabase.query(ClassementEntry.CLASSEMENT_TABLE_NAME, null, ClassementEntry.COLUMN_NOM + " ='"+ line.getNom() + "'", null, null, null, null);
 			ContentValues values = new ContentValues();
