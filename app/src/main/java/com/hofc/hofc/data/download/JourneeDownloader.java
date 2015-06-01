@@ -76,6 +76,7 @@ public class JourneeDownloader {
                             }
                             return 0;
                         } catch (JSONException e) {
+                            Log.e(JourneeDownloader.class.getName(), "Error while deserialize",e);
                             return -1;
                         }
                     }

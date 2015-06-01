@@ -62,6 +62,7 @@ public class ActusDownloader {
                             ActusBDD.updateDateSynchro(new Date());
                             return 0;
                         } catch (JSONException e) {
+                            Log.e(ActusDownloader.class.getName(), "Error while deserialize",e);
                             return -1;
                         }
                     }

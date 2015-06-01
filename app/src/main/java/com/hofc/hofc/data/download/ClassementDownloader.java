@@ -60,7 +60,7 @@ public class ClassementDownloader {
                             ClassementBDD.updateDateSynchro(new Date());
                             return 0;
                         } catch (JSONException e) {
-                            Log.e(ClassementDownloader.class.getName(), e.getMessage());
+                            Log.e(ClassementDownloader.class.getName(), "Error while deserialize",e);
                             return -1;
                         }
                     }
