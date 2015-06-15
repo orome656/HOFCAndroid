@@ -78,7 +78,7 @@ public class ClassementDownloader {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                callback.onError(R.string.internal_error);
+                HOFCUtils.handleDownloadError(error, callback);
             }
         });
 

@@ -8,6 +8,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.fragment.FragmentCallback;
 import com.hofc.hofc.utils.HOFCUtils;
 
 import org.json.JSONException;
@@ -33,6 +34,9 @@ public class ParamsDownloader {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                //HOFCUtils.handleDownloadError(error, callback);
+                // TODO ajouter l'affichage d'un message d'erreur lors d'un probleme de recuperation des parametres
+                Log.e(ParamsDownloader.class.getName(), "Error while getting parameter", error);
             }
         });
         requestQueue.add(jsonRequest);

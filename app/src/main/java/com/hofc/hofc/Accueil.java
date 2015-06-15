@@ -7,7 +7,7 @@ import android.provider.Settings;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -42,7 +42,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Accueil extends ActionBarActivity
+public class Accueil extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
@@ -81,9 +81,10 @@ public class Accueil extends ActionBarActivity
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mTitle = getText(R.string.title_accueil);
-        getSupportActionBar().setTitle(mTitle);
-
+        if(getSupportActionBar() != null) {
+            mTitle = getText(R.string.title_accueil);
+            getSupportActionBar().setTitle(mTitle);
+        }
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,

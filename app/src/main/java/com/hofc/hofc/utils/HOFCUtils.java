@@ -1,6 +1,13 @@
 package com.hofc.hofc.utils;
 
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.hofc.hofc.R;
 import com.hofc.hofc.constant.ServerConstant;
+import com.hofc.hofc.fragment.FragmentCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -40,5 +47,21 @@ public class HOFCUtils {
             }
         }
         return stringBuilder.toString();
+    }
+
+    public static void handleDownloadError(VolleyError error, FragmentCallback callback) {
+        if(callback != null) {
+            if (error instanceof TimeoutError) {
+                callback.onError(R.string.timeout_error);
+            } else if (error instanceof NoConnectionError) {
+                callback.onError(R.string.connexion_error);
+            } else if (error instanceof ServerError) {
+                callback.onError(R.string.server_error);
+            } else if (error instanceof NetworkError) {
+                callback.onError(R.string.connexion_error);
+            } else {
+                callback.onError(R.string.internal_error);
+            }
+        }
     }
 }
