@@ -39,5 +39,6 @@
     <string name="dialog_arbitre_titre">Arbitres</string>
     <string name="journee_image">image journee</string>
     <string name="title_journee">Agenda Excellence</string>
+    <string name="param_error">"Les paramètres n'ont pas été récupérés. L'écran n'est donc pas accessible."</string>
 
 </resources>
