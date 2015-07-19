@@ -24,7 +24,7 @@ import com.hofc.hofc.fragment.ClassementFragment;
 import com.hofc.hofc.fragment.JourneeFragment;
 import com.hofc.hofc.notification.GcmPreference;
 import com.hofc.hofc.utils.HOFCUtils;
-import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -114,7 +114,7 @@ public class Accueil extends AppCompatActivity
                     .build();
 
             ImageLoaderConfiguration loaderConfiguration = new ImageLoaderConfiguration.Builder(this)
-                    .diskCache(new UnlimitedDiscCache(cacheDir))
+                    .diskCache(new UnlimitedDiskCache(cacheDir))
                     .defaultDisplayImageOptions(displayImageOptions)
                     .build();
 
