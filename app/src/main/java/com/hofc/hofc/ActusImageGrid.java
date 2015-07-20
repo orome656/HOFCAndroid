@@ -2,6 +2,7 @@ package com.hofc.hofc;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Display;
@@ -34,9 +35,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Anthony on 01/03/2015.
+ * Created by Anthony on 01/03/2015
+ * Affichage de la liste des images en grille.
  */
-public class ActusImageGrid extends ActionBarActivity {
+public class ActusImageGrid extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
@@ -57,10 +59,12 @@ public class ActusImageGrid extends ActionBarActivity {
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.grid_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("HOFC");
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("HOFC");
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
 

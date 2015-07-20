@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,7 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 
-public class ActusDetail extends ActionBarActivity {
+public class ActusDetail extends AppCompatActivity {
 
     private TextView titleTextView = null;
     private TextView dateTextView = null;
@@ -59,11 +60,12 @@ public class ActusDetail extends ActionBarActivity {
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle("HOFC");
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("HOFC");
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
         Intent i = getIntent();
         String url = (String)i.getExtras().get("URL");
 

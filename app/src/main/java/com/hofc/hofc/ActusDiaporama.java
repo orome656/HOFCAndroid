@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +17,7 @@ import com.hofc.hofc.adapter.DiaporamaAdapter;
 import com.hofc.hofc.data.DataSingleton;
 
 
-public class ActusDiaporama extends ActionBarActivity {
+public class ActusDiaporama extends AppCompatActivity {
 
     private String url;
     private int initialPosition;
@@ -33,11 +34,12 @@ public class ActusDiaporama extends ActionBarActivity {
         dialog.show();
         Toolbar toolbar = (Toolbar)findViewById(R.id.diaporama_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("HOFC");
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("HOFC");
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
         this.url = (String)getIntent().getExtras().get("URL");
         this.initialPosition = (int)getIntent().getExtras().get("position");
         initAdapter();
