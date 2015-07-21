@@ -3,6 +3,7 @@ package com.hofc.hofc.vo;
 import java.util.Date;
 
 /**
+ * Value Object représentant un match
  * Created by maladota on 15/05/2015.
  */
 public class MatchVO {

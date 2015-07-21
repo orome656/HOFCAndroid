@@ -15,6 +15,7 @@ import com.hofc.hofc.vo.NavigationDrawerItem;
 import java.util.List;
 
 /**
+ * Adapter pour le navigation Drawer
  * Created by Fixe on 28/02/2015.
  */
 public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItem> {

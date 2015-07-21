@@ -64,7 +64,7 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
         return rootView;
     }
 
-	public void refreshView(){
+	void refreshView(){
         this.isLoading = true;
         super.refreshView();
         if(actusListView.getAdapter() == null) {

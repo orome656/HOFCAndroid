@@ -73,7 +73,7 @@ public class JourneeWeekFragment extends CommonFragment  implements FragmentCall
         }
     }
 
-    public void refreshView(){
+    void refreshView(){
         this.isLoading = true;
         super.refreshView();
         if(journeeListView.getAdapter() == null) {

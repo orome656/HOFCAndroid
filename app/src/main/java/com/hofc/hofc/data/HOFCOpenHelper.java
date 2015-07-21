@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class HOFCOpenHelper extends SQLiteOpenHelper {
+class HOFCOpenHelper extends SQLiteOpenHelper {
 	   // Version de la base de données
     private static final int DATABASE_VERSION = 1;
  
@@ -20,7 +20,7 @@ public class HOFCOpenHelper extends SQLiteOpenHelper {
 
     // Description des colonnes commun
     private static final String COLUMN_ID = "ID";
-    public static final int NUM_COLUMN_ID = 0;
+    //public static final int NUM_COLUMN_ID = 0;
     
     // Description des colonnes Classement
     private static final String COLUMN_NOM = "NOM";
@@ -35,13 +35,13 @@ public class HOFCOpenHelper extends SQLiteOpenHelper {
  
     // Description des colonnes calendrier
     private static final String COLUMN_EQUIPE_1 = "EQUIPE_1";
-    public static final int NUM_COLUMN_EQUIPE_1 = 1;
+    //public static final int NUM_COLUMN_EQUIPE_1 = 1;
     private static final String COLUMN_SCORE_1 = "SCORE_1";
-    public static final int NUM_COLUMN_SCORE_1 = 2;
+    //public static final int NUM_COLUMN_SCORE_1 = 2;
     private static final String COLUMN_SCORE_2 = "SCORE_2";
-    public static final int NUM_COLUMN_SCORE_2 = 3;
+    //public static final int NUM_COLUMN_SCORE_2 = 3;
     private static final String COLUMN_EQUIPE_2 = "EQUIPE_2";
-    public static final int NUM_COLUMN_EQUIPE_2 = 4;
+    //public static final int NUM_COLUMN_EQUIPE_2 = 4;
  
     // Description des colonnes actus
     private static final String COLUMN_TITLE = "TITRE";
@@ -54,9 +54,9 @@ public class HOFCOpenHelper extends SQLiteOpenHelper {
     
     // Synchro
     private static final String COLUMN_NOM_SYNCHRO = "NOM";
-    public static final int NUM_COLUMN_NOM_SYNCHRO = 1;
+    //public static final int NUM_COLUMN_NOM_SYNCHRO = 1;
     private static final String COLUMN_DATE = "date";
-    public static final int NUM_DATE = 2;
+    //public static final int NUM_DATE = 2;
     
     
     // Requéte SQL pour la création da la base Calendrier

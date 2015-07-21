@@ -1,7 +1,5 @@
 package com.hofc.hofc.vo;
 
-import java.util.Date;
-
 public class AgendaLineVO extends MatchVO {
     private String title;
 

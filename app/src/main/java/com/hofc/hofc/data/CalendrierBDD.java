@@ -25,8 +25,8 @@ public class CalendrierBDD {
     private static Context context = null;
     
 	public static abstract class CalendrierEntry implements BaseColumns {
-	    public static final String COLUMN_ID = "ID";
-	    public static final int NUM_COLUMN_ID = 0;
+	    //public static final String COLUMN_ID = "ID";
+	    //public static final int NUM_COLUMN_ID = 0;
 	    public static final String CALENDRIER_TABLE_NAME = "calendrier";
 	    public static final String COLUMN_EQUIPE_1 = "EQUIPE_1";
 	    public static final int NUM_COLUMN_EQUIPE_1 = 1;
@@ -125,10 +125,7 @@ public class CalendrierBDD {
         cursor.close();
     	return list;
     }
-    
-    public static Cursor getAllInCursor(){
-    	return hofcDatabase.query(CalendrierEntry.CALENDRIER_TABLE_NAME, null, null, null, null, null, CalendrierEntry.COLUMN_DATE);
-    }
+
     public static void insertList(List<CalendrierLineVO> list) {
     	openWritable();
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
@@ -154,11 +151,6 @@ public class CalendrierBDD {
             cursor.close();
     	}
     }
-
-	public static boolean isSynchroNeeded() {
-		openReadable();
-		return CommonBDD.isSynchroNeeded(hofcDatabase, "calendrier");
-	}
 
 	public static Date getDateSynchro() {
 		openReadable();

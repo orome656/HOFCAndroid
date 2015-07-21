@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -40,9 +39,6 @@ public class ActusDetail extends AppCompatActivity {
     private ProgressBar progressBar = null;
 
     private SimpleDateFormat sdf = null;
-
-    private final String HTML_PREFIX = "<html><body style=\"text-align:justify\">";
-    private final String HTML_SUFIX = "</body></Html>";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +91,10 @@ public class ActusDetail extends AppCompatActivity {
     private void refreshView(ActusDetailsVO actusDetails) {
         titleTextView.setText(actusDetails.getTitle());
         dateTextView.setText(sdf.format(actusDetails.getDate()));
+
+        final String HTML_PREFIX = "<html><body style=\"text-align:justify\">";
+        final String HTML_SUFIX = "</body></Html>";
+
         contentTextView.loadDataWithBaseURL(null, HTML_PREFIX + actusDetails.getContent() + HTML_SUFIX, "text/html", "utf-8", null);
         contentTextView.setBackgroundColor(Color.TRANSPARENT);
         progressBar.setVisibility(View.GONE);

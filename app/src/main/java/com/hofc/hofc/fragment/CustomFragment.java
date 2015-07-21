@@ -3,6 +3,6 @@ package com.hofc.hofc.fragment;
 /**
  * Common interface for fragment
  */
-public interface CustomFragment {
+interface CustomFragment {
 	void refreshDataAndView();
 }

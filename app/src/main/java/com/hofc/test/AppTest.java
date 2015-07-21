@@ -19,6 +19,7 @@ import com.squareup.okhttp.mockwebserver.MockWebServer;
 import java.util.concurrent.CountDownLatch;
 
 /**
+ * Classe de test de l'application
  * Created by maladota on 25/02/2015.
  */
 public class AppTest extends AndroidTestCase {

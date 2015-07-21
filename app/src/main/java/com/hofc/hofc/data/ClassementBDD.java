@@ -21,8 +21,8 @@ public class ClassementBDD {
     private static Context context = null;
     
 	public static abstract class ClassementEntry implements BaseColumns {
-	    public static final String COLUMN_ID = "ID";
-	    public static final int NUM_COLUMN_ID = 0;
+	    //public static final String COLUMN_ID = "ID";
+	    //public static final int NUM_COLUMN_ID = 0;
 	    public static final String CLASSEMENT_TABLE_NAME = "classement";
 	    public static final String COLUMN_NOM = "NOM";
 	    public static final int NUM_COLUMN_NOM = 1;
@@ -123,10 +123,6 @@ public class ClassementBDD {
     	return list;
     }
     
-    public static Cursor getAllInCursor(){
-    	return hofcDatabase.query(ClassementEntry.CLASSEMENT_TABLE_NAME, null, null, null, null, null, ClassementEntry.COLUMN_POINTS + " DESC");
-    }
-    
     public static void insertList(List<ClassementLineVO> list) {
     	openWritable();
 		// On supprime avant d'insérer pour mettre a jour les données si il y a eu des suppressions
@@ -153,11 +149,6 @@ public class ClassementBDD {
             cursor.close();
     	}
     }
-
-	public static boolean isSynchroNeeded() {
-		openReadable();
-		return CommonBDD.isSynchroNeeded(hofcDatabase, "classement");
-	}
 
 	public static Date getDateSynchro() {
 		openReadable();

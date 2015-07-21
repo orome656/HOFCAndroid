@@ -19,7 +19,6 @@ import com.hofc.hofc.R;
 public class GcmIntentService extends IntentService {
 
     private static int NOTIFICATION_ID = 1;
-    private NotificationManager mNotificationManager;
 
 
     private static final String MESSAGE_TITLE = "title";
@@ -56,7 +55,7 @@ public class GcmIntentService extends IntentService {
         if(extras != null && !extras.isEmpty()) {
             String title = extras.getString(MESSAGE_TITLE);
             String message = extras.getString(MESSAGE_CONTENT);
-            mNotificationManager = (NotificationManager)
+            NotificationManager mNotificationManager = (NotificationManager)
                     this.getSystemService(Context.NOTIFICATION_SERVICE);
             PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                     new Intent(this, Accueil.class), 0);

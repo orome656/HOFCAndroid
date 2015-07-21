@@ -8,13 +8,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
-import com.hofc.hofc.fragment.FragmentCallback;
 import com.hofc.hofc.utils.HOFCUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
+ * Classe de téléchargement des paramètees de l'application
  * Created by maladota on 18/05/2015.
  */
 public class ParamsDownloader {

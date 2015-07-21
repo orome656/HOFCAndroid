@@ -3,7 +3,6 @@ package com.hofc.hofc.fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import com.hofc.hofc.R;
 import com.hofc.hofc.adapter.AgendaAdapter;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.data.download.AgendaDownloader;
-import com.hofc.hofc.utils.HOFCUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -87,7 +85,7 @@ public class AgendaWeekFragment extends CommonFragment  implements FragmentCallb
         }
     }
 
-    public void refreshView(){
+    void refreshView(){
         this.isLoading = true;
         super.refreshView();
         if(agendaListView.getAdapter() == null) {

@@ -57,7 +57,7 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
         }
     }
 
-    public void refreshView(){
+    void refreshView(){
         super.refreshView();
         if(classementListView.getAdapter() == null) {
             ClassementAdapter adapter = new ClassementAdapter(getActivity());

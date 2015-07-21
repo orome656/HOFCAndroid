@@ -1,7 +1,6 @@
 package com.hofc.hofc.data;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.vo.ActuVO;

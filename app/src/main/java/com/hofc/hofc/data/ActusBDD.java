@@ -28,8 +28,8 @@ public class ActusBDD {
     private static Context context = null;
     
     private static abstract class ActusEntry implements BaseColumns {
-	    public static final String COLUMN_ID = "ID";
-	    public static final int NUM_COLUMN_ID = 0;
+	    //public static final String COLUMN_ID = "ID";
+	    //public static final int NUM_COLUMN_ID = 0;
 	    public static final String ACTUS_TABLE_NAME = "actus";
 	    public static final String COLUMN_TITLE = "TITRE";
 	    public static final int NUM_COLUMN_TITLE = 1;
@@ -132,10 +132,6 @@ public class ActusBDD {
     	return list;
     }
     
-    public static Cursor getAllInCursor(){
-    	return hofcDatabase.query(ActusEntry.ACTUS_TABLE_NAME, null, null, null, null, null, ActusEntry.COLUMN_DATE + " DESC");
-    }
-    
     public static void insertList(List<ActuVO> list) {
     	openWritable();
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
@@ -164,27 +160,6 @@ public class ActusBDD {
     	}
 
     }
-    
-    public static void updateImageBitmap(int postId, Bitmap img) {
-    	if(img != null) {
-            openWritable();
-            Cursor cursor = hofcDatabase.query(ActusEntry.ACTUS_TABLE_NAME, null, ActusEntry.COLUMN_POST_ID + " = " + postId, null, null, null, null);
-            if (cursor.getCount() > 0) {
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                img.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                ContentValues values = new ContentValues();
-                values.put(ActusEntry.COLUMN_IMG, stream.toByteArray());
-                // UPDATE
-                hofcDatabase.update(ActusEntry.ACTUS_TABLE_NAME, values, ActusEntry.COLUMN_POST_ID + " =" + postId, null);
-            }
-            cursor.close();
-        }
-    }
-
-	public static boolean isSynchroNeeded() {
-		openReadable();
-		return CommonBDD.isSynchroNeeded(hofcDatabase, "actus");
-	}
 
 	public static Date getDateSynchro() {
 		openReadable();

@@ -1,6 +1,7 @@
 package com.hofc.hofc.vo;
 
 /**
+ * Représentation d'un élément du Navigation Drawer
  * Created by Fixe on 28/02/2015.
  */
 public class NavigationDrawerItem {

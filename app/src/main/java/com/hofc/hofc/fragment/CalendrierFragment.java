@@ -46,7 +46,7 @@ public class CalendrierFragment extends CommonFragment  implements FragmentCallb
         return rootView;
     }
 
-    public void refreshView() {
+    void refreshView() {
         super.refreshView();
         if(calendrierListView.getAdapter() == null) {
             CalendrierAdapter adapter = new CalendrierAdapter(getActivity());

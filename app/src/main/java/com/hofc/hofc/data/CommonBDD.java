@@ -13,7 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class CommonBDD {
+class CommonBDD {
 
     
 	public static boolean isSynchroNeeded(SQLiteDatabase hofcDatabase, String bddName) {
