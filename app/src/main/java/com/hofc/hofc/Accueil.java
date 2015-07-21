@@ -123,6 +123,12 @@ public class Accueil extends AppCompatActivity
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        DataSingleton.closeAll();
+    }
+
+    @Override
     public void onNavigationDrawerItemSelected(int position) {
         if(position == 1) {
             position = 0;

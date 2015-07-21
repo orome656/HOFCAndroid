@@ -59,6 +59,12 @@ public enum DataSingleton {
         INSTANCE.lastSynchroActus = ActusBDD.getDateSynchro();
 
     }
+
+    public static void closeAll() {
+        CalendrierBDD.close();
+        ClassementBDD.close();
+        ActusBDD.close();
+    }
     
     public static List<CalendrierLineVO> getCalendrier() {
     	return INSTANCE.calendrier;
