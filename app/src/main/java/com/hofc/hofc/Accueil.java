@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,8 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.utils.StorageUtils;
+import android.support.design.widget.NavigationView;
+import android.view.MenuItem;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -42,14 +45,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Accueil extends AppCompatActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+public class Accueil extends AppCompatActivity {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
-    private NavigationDrawerFragment mNavigationDrawerFragment;
-
+    private DrawerLayout mDrawerLayout;
     private FragmentManager fragmentManager = null;
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -74,8 +75,13 @@ public class Accueil extends AppCompatActivity
         setContentView(R.layout.activity_accueil);
         DataSingleton.initialize();
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+
+        NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);
+
+        if (navigationView != null) {
+            setupDrawerContent(navigationView);
+        }
 
         ParamsDownloader.update(((HOFCApplication)getApplication()).getRequestQueue());
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
@@ -85,10 +91,6 @@ public class Accueil extends AppCompatActivity
             mTitle = getText(R.string.title_accueil);
             getSupportActionBar().setTitle(mTitle);
         }
-        // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
 
         /**
          * Gestion des notifications, enregistrement auprès du serveur
@@ -128,6 +130,30 @@ public class Accueil extends AppCompatActivity
         DataSingleton.closeAll();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        menuItem.setChecked(true);
+                        mDrawerLayout.closeDrawers();
+                        // TODO implements fragment changes
+                        return true;
+                    }
+                });
+    }
+
+/*
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         if(position == 1) {
@@ -191,7 +217,7 @@ public class Accueil extends AppCompatActivity
         if(getSupportActionBar() != null)
             getSupportActionBar().setTitle(mTitle);
     }
-
+*/
     private void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
@@ -203,14 +229,7 @@ public class Accueil extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            // Only show items in the action bar relevant to this screen
-            // if the drawer is not showing. Otherwise, let the drawer
-            // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.accueil, menu);
-            restoreActionBar();
-            return true;
-        }
+
         return super.onCreateOptionsMenu(menu);
     }
 
