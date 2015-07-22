@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -147,77 +148,56 @@ public class Accueil extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
-                        // TODO implements fragment changes
+                        handleMenuItemClick(menuItem);
                         return true;
                     }
                 });
     }
 
-/*
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        if(position == 1) {
-            position = 0;
+    private void handleMenuItemClick(MenuItem menuItem) {
+        Class fragmentClass = null;
+        Fragment fragment;
+        if(this.fragmentManager == null)
+            fragmentManager = getSupportFragmentManager();
+        switch (menuItem.getItemId()) {
+            case R.id.navigation_item_accueil:
+                fragmentClass = ActusFragment.class;
+                mTitle = getText(R.string.title_accueil);
+                break;
+            case R.id.navigation_item_classement:
+                fragmentClass = ClassementFragment.class;
+                mTitle = getText(R.string.title_classement);
+                break;
+            case R.id.navigation_item_calendrier:
+                fragmentClass = CalendrierFragment.class;
+                mTitle = getText(R.string.title_calendrier);
+                break;
+            case R.id.navigation_item_agenda:
+                fragmentClass = AgendaFragment.class;
+                mTitle = getText(R.string.title_agenda);
+                break;
+            case R.id.navigation_item_journee:
+                fragmentClass = JourneeFragment.class;
+                mTitle = getText(R.string.title_journee);
+                break;
         }
-        if(position == this.position) {
-            return;
-        }
-        // update the main content by replacing fragments
-        this.position = position;
-    	if(this.fragmentManager == null)
-    		fragmentManager = getSupportFragmentManager();
-        if(position == 0) {
-        	if(this.actusFragment == null) {
-        		this.actusFragment = ActusFragment.newInstance();
-        	}
-        	// Actus
-        	fragmentManager.beginTransaction()
-            .replace(R.id.container, this.actusFragment)
-            .commit();
-        	mTitle = getText(R.string.title_accueil);
-        } else if(position == 2) {
-        	if(this.classementFragment == null) {
-        		this.classementFragment = ClassementFragment.newInstance();
-        	}
-        	// Classement
-        	fragmentManager.beginTransaction()
-            .replace(R.id.container, this.classementFragment)
-            .commit();
-        	mTitle = getText(R.string.title_classement);
-        } else if (position == 3) {
-        	if(this.calendrierFragment == null) {
-        		this.calendrierFragment = CalendrierFragment.newInstance();
-        	}
-        	// Calendrier
-        	fragmentManager.beginTransaction()
-            .replace(R.id.container, this.calendrierFragment)
-            .commit();
-        	mTitle = getText(R.string.title_calendrier);
-        } else if (position == 4) {
-            if(this.agendaFragment == null) {
-                this.agendaFragment = AgendaFragment.newInstance();
+        if(fragmentClass != null) {
+            try {
+                fragment = (Fragment)fragmentClass.newInstance();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, fragment)
+                        .commit();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
             }
-            // Agenda
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container, this.agendaFragment)
-                    .commit();
-            mTitle = getText(R.string.title_agenda);
-        } else if (position == 5) {
-            if(this.journeeFragment == null) {
-                this.journeeFragment = JourneeFragment.newInstance();
-            }
-            // Agenda Excellence
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container, this.journeeFragment)
-                    .commit();
-            mTitle = getText(R.string.title_journee);
-        } else {
-        	Log.e("Accueil", "NavigationDrawer number click unknown ");
+
         }
         if(getSupportActionBar() != null)
             getSupportActionBar().setTitle(mTitle);
     }
-*/
+
     private void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
