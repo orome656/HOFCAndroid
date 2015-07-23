@@ -1,14 +1,17 @@
 package com.hofc.hofc;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -53,6 +56,8 @@ public class Accueil extends AppCompatActivity {
      */
     private DrawerLayout mDrawerLayout;
     private FragmentManager fragmentManager = null;
+    private ActionBarDrawerToggle drawerToggle;
+    private Toolbar toolbar;
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
@@ -66,8 +71,6 @@ public class Accueil extends AppCompatActivity {
     private Context context;
     private GoogleCloudMessaging gcm;
     private String regId;
-
-    private int position = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,14 +88,26 @@ public class Accueil extends AppCompatActivity {
         }
 
         ParamsDownloader.update(((HOFCApplication)getApplication()).getRequestQueue());
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         if(getSupportActionBar() != null) {
             mTitle = getText(R.string.title_accueil);
             getSupportActionBar().setTitle(mTitle);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        drawerToggle = setupDrawerToggle();
+        mDrawerLayout.setDrawerListener(drawerToggle);
+
+        if(savedInstanceState == null) {
+            // Démarrage de l'application, mise en place du fragment Accueil
+            if(this.fragmentManager == null)
+                fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, ActusFragment.newInstance())
+                    .commit();
+        }
         /**
          * Gestion des notifications, enregistrement auprès du serveur
          */
@@ -138,7 +153,19 @@ public class Accueil extends AppCompatActivity {
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
         }
-        return super.onOptionsItemSelected(item);
+        return drawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -198,6 +225,10 @@ public class Accueil extends AppCompatActivity {
             getSupportActionBar().setTitle(mTitle);
     }
 
+    private ActionBarDrawerToggle setupDrawerToggle() {
+        return new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.navigation_drawer_open,  R.string.navigation_drawer_close);
+    }
+
     private void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
@@ -209,7 +240,6 @@ public class Accueil extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         return super.onCreateOptionsMenu(menu);
     }
 

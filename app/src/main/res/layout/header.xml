@@ -2,9 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="178dp"
-    android:background="@color/hofc_blue"
+    android:background="?attr/colorPrimary"
+    android:padding="16dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:gravity="bottom">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
