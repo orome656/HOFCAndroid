@@ -32,7 +32,6 @@
     <string name="title_agenda">Agenda</string>
     <string name="server_error">Le serveur a rencontré une erreur lors de la récupération des informations</string>
     <string name="diaporama_image_recycle">diaporama image</string>
-    <string name="navigation_drawer_icon">Navigation Drawer Icon</string>
     <string name="loading_popup">Récupération des informations...</string>
     <string name="close_popup_button">Fermer</string>
     <string name="dialog_lieu_titre">Adresse</string>

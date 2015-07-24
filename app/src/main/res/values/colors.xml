@@ -2,13 +2,8 @@
 <resources>
 
     <color name="hofc_blue">#08589D</color>
-    <color name="hofc_blue_transparent">#3308589D</color>
 
     <color name="primary_text">#212121</color>
-    <color name="material_drawer_primary_text">@color/primary_text</color>
-
-    <!-- Material Design Theme Color-->
-    <color name="navigation_list_divider">#D3D3D3</color>
 
     <color name="dialog_content_text">#000000</color>
 </resources>
