@@ -64,11 +64,17 @@ public class ActusBDD {
     }
 
 	private static void openReadable() {
+        if(hofcOpenHelper == null)
+            hofcOpenHelper = new HOFCOpenHelper(context, null);
+
     	if(hofcDatabase == null) 
     		hofcDatabase = hofcOpenHelper.getReadableDatabase();
     }
 
 	private static void openWritable() throws SQLException{
+        if(hofcOpenHelper == null)
+            hofcOpenHelper = new HOFCOpenHelper(context, null);
+
         if ((hofcDatabase == null)|| hofcDatabase.isReadOnly()) {
             openWritable(true);
         }

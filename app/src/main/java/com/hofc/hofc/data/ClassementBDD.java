@@ -61,11 +61,17 @@ public class ClassementBDD {
     }
 
 	private static void openReadable() {
+		if (hofcOpenHelper == null){
+			hofcOpenHelper = new HOFCOpenHelper(context, null);
+		}
     	if(hofcDatabase == null) 
     		hofcDatabase = hofcOpenHelper.getReadableDatabase();
     }
 
 	private static void openWritable() throws SQLException{
+		if (hofcOpenHelper == null){
+			hofcOpenHelper = new HOFCOpenHelper(context, null);
+		}
         if ((hofcDatabase == null) || hofcDatabase.isReadOnly()) {
             openWritable(true);
         }
@@ -84,7 +90,7 @@ public class ClassementBDD {
         	hofcDatabase.execSQL("PRAGMA foreign_keys = OFF;");
         }
     }
-    
+
     /**
      * Closes the database
      */

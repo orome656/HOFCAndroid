@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.hofc.hofc.ActusImageGrid"
-    android:fitsSystemWindows="true">
+    tools:context="com.hofc.hofc.ActusImageGrid">
     <include layout="@layout/toolbar"
         android:id="@+id/grid_toolbar"/>
     <android.support.v7.widget.RecyclerView
