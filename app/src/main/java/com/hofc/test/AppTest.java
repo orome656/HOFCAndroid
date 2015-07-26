@@ -326,6 +326,7 @@ public class AppTest extends AndroidTestCase {
     public void testActusDatabase() throws Exception {
         DataSingleton.initialize();
         DataSingleton.initializeActus(getContext());
+        final ActusBDD actusBDD = new ActusBDD(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         MockWebServer server = new MockWebServer();
@@ -339,7 +340,7 @@ public class AppTest extends AndroidTestCase {
         ActusDownloader.updateActus(requestQueue, new FragmentCallback() {
             @Override
             public void onTaskDone() {
-                assertEquals(ActusBDD.getAll().size(), 2);
+                assertEquals(actusBDD.getAll().size(), 2);
                 lock.countDown();
             }
 
@@ -408,6 +409,7 @@ public class AppTest extends AndroidTestCase {
     public void testCalendrierDatabase() throws Exception {
         DataSingleton.initialize();
         DataSingleton.initializeCalendrier(getContext());
+        final CalendrierBDD calendrierBDD = new CalendrierBDD(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         MockWebServer server = new MockWebServer();
@@ -421,7 +423,7 @@ public class AppTest extends AndroidTestCase {
         CalendrierDownloader.update(requestQueue, new FragmentCallback() {
             @Override
             public void onTaskDone() {
-                assertEquals(CalendrierBDD.getAll().size(), 3);
+                assertEquals(calendrierBDD.getAll().size(), 3);
                 lock.countDown();
             }
 
@@ -490,6 +492,8 @@ public class AppTest extends AndroidTestCase {
     public void testClassementDatabase() throws Exception {
         DataSingleton.initialize();
         DataSingleton.initializeClassement(getContext());
+        final ClassementBDD classementBDD = new ClassementBDD(getContext());
+
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         MockWebServer server = new MockWebServer();
@@ -503,7 +507,7 @@ public class AppTest extends AndroidTestCase {
         ClassementDownloader.update(requestQueue, new FragmentCallback() {
             @Override
             public void onTaskDone() {
-                assertEquals(ClassementBDD.getAll().size(),3);
+                assertEquals(classementBDD.getAll().size(),3);
                 lock.countDown();
             }
 

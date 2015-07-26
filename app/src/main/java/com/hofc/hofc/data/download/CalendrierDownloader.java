@@ -65,9 +65,7 @@ public class CalendrierDownloader {
                                 calendrierList.add(calendrier);
                             }
                             DataSingleton.setCalendrier(calendrierList);
-                            // Sauvegarde en base
-                            CalendrierBDD.insertList(calendrierList);
-                            CalendrierBDD.updateDateSynchro(new Date());
+                            DataSingleton.updateDateSynchroCalendrier(new Date());
                             return 0;
                         } catch (JSONException e) {
                             Log.e(CalendrierDownloader.class.getName(), "Error while deserialize",e);

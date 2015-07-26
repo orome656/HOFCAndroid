@@ -57,9 +57,7 @@ public class ActusDownloader {
                                 actusList.add(actu);
                             }
                             DataSingleton.setActus(actusList);
-                            // Sauvegarde en base
-                            ActusBDD.insertList(actusList);
-                            ActusBDD.updateDateSynchro(new Date());
+                            DataSingleton.updateDateSynchroActus(new Date());
                             return 0;
                         } catch (JSONException e) {
                             Log.e(ActusDownloader.class.getName(), "Error while deserialize",e);

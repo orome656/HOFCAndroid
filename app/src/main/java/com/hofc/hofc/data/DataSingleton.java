@@ -28,6 +28,10 @@ public enum DataSingleton {
     private Map<String,List<MatchVO>> journee;
     private Params params;
 
+    private ActusBDD actusBDD;
+    private CalendrierBDD calendrierBDD;
+    private ClassementBDD classementBDD;
+
     private HashMap<String, List<String>> cacheImageUrls;
 
     public static void initialize() {
@@ -38,32 +42,32 @@ public enum DataSingleton {
     }
 
     public static void initializeCalendrier(Context c) {
-        CalendrierBDD.initiate(c);
-        INSTANCE.calendrier = CalendrierBDD.getAll();
-        INSTANCE.lastSynchroCalendrier = CalendrierBDD.getDateSynchro();
+        INSTANCE.calendrierBDD = new CalendrierBDD(c);
+        INSTANCE.calendrier = INSTANCE.calendrierBDD.getAll();
+        INSTANCE.lastSynchroCalendrier = INSTANCE.calendrierBDD.getDateSynchro();
 
     }
 
 
     public static void initializeClassement(Context c) {
-        ClassementBDD.initiate(c);
-        INSTANCE.classement = ClassementBDD.getAll();
-        INSTANCE.lastSynchroClassement = ClassementBDD.getDateSynchro();
+        INSTANCE.classementBDD = new ClassementBDD(c);
+        INSTANCE.classement = INSTANCE.classementBDD.getAll();
+        INSTANCE.lastSynchroClassement = INSTANCE.classementBDD.getDateSynchro();
 
     }
 
 
     public static void initializeActus(Context c) {
-        ActusBDD.initiate(c);
-        INSTANCE.actus = ActusBDD.getAll();
-        INSTANCE.lastSynchroActus = ActusBDD.getDateSynchro();
+        INSTANCE.actusBDD = new ActusBDD(c);
+        INSTANCE.actus = INSTANCE.actusBDD.getAll();
+        INSTANCE.lastSynchroActus = INSTANCE.actusBDD.getDateSynchro();
 
     }
 
     public static void closeAll() {
-        CalendrierBDD.close();
-        ClassementBDD.close();
-        ActusBDD.close();
+        INSTANCE.actusBDD.close();
+        INSTANCE.classementBDD.close();
+        INSTANCE.actusBDD.close();
     }
     
     public static List<CalendrierLineVO> getCalendrier() {
@@ -72,6 +76,7 @@ public enum DataSingleton {
     
     public static void setCalendrier(List<CalendrierLineVO> pCalendrier) {
     	INSTANCE.calendrier = pCalendrier;
+        INSTANCE.calendrierBDD.insertList(pCalendrier);
     }
     
     public static List<ClassementLineVO> getClassement() {
@@ -80,6 +85,7 @@ public enum DataSingleton {
 
     public static void setClassement(List<ClassementLineVO> pClassement) {
     	INSTANCE.classement = pClassement;
+        INSTANCE.classementBDD.insertList(pClassement);
     }
     
     public static List<ActuVO> getActus() {
@@ -88,6 +94,7 @@ public enum DataSingleton {
 
     public static void setActus(List<ActuVO> pActus) {
     	INSTANCE.actus = pActus;
+        INSTANCE.actusBDD.insertList(pActus);
     }
 
     public static List<AgendaLineVO> getAgenda(String date) { return INSTANCE.agenda.get(date); }
@@ -121,14 +128,17 @@ public enum DataSingleton {
 
     public static void updateDateSynchroClassement(Date date) {
         INSTANCE.lastSynchroClassement = date;
+        INSTANCE.classementBDD.updateDateSynchro(date);
     }
 
     public static void updateDateSynchroCalendrier(Date date) {
         INSTANCE.lastSynchroCalendrier = date;
+        INSTANCE.calendrierBDD.updateDateSynchro(date);
     }
 
     public static void updateDateSynchroActus(Date date) {
         INSTANCE.lastSynchroActus = date;
+        INSTANCE.actusBDD.updateDateSynchro(date);
     }
 
     public static void insertImageCacheUrls(String url, List<String> urls) {
