@@ -65,9 +65,12 @@ public enum DataSingleton {
     }
 
     public static void closeAll() {
-        INSTANCE.actusBDD.close();
-        INSTANCE.classementBDD.close();
-        INSTANCE.actusBDD.close();
+        if(INSTANCE.actusBDD != null)
+            INSTANCE.actusBDD.close();
+        if(INSTANCE.classementBDD != null)
+            INSTANCE.classementBDD.close();
+        if(INSTANCE.calendrierBDD != null)
+            INSTANCE.calendrierBDD.close();
     }
     
     public static List<CalendrierLineVO> getCalendrier() {
