@@ -20,13 +20,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class ActusBDD {
+public class ActusBDD extends CommonBDD {
 
-	// Base de données
-	private static SQLiteDatabase hofcDatabase;
-	private static HOFCOpenHelper hofcOpenHelper;
-    private static Context context = null;
-    
+	public ActusBDD(Context c) {
+		super(c);
+		this.tableName = ActusEntry.ACTUS_TABLE_NAME;
+	}
+
     private static abstract class ActusEntry implements BaseColumns {
 	    //public static final String COLUMN_ID = "ID";
 	    //public static final int NUM_COLUMN_ID = 0;
@@ -47,68 +47,8 @@ public class ActusBDD {
 	    public static final int NUM_COLUMN_IMAGE_URL = 7;
     	
     }
-	/**
-	 * Constructeur
-	 */
-	private ActusBDD(){}
 
-    /**
-     * Constructeur par défaut
-     */
-    public static void initiate(Context context) {
-    	if(hofcOpenHelper == null)
-    		hofcOpenHelper = new HOFCOpenHelper(context, null);
-    	
-    	if(ActusBDD.context == null) 
-    		ActusBDD.context = context;
-    }
-
-	private static void openReadable() {
-        if(hofcOpenHelper == null)
-            hofcOpenHelper = new HOFCOpenHelper(context, null);
-
-    	if(hofcDatabase == null) 
-    		hofcDatabase = hofcOpenHelper.getReadableDatabase();
-    }
-
-	private static void openWritable() throws SQLException{
-        if(hofcOpenHelper == null)
-            hofcOpenHelper = new HOFCOpenHelper(context, null);
-
-        if ((hofcDatabase == null)|| hofcDatabase.isReadOnly()) {
-            openWritable(true);
-        }
-    }
-    
-    /**
-     * Opens the database for writing
-     * @param foreignKeys State of Foreign Keys Constraint, true = ON, false = OFF
-     * @throws SQLException if the database cannot be opened for writing
-     */
-	private static void openWritable(boolean foreignKeys) throws SQLException{
-    	hofcDatabase = hofcOpenHelper.getWritableDatabase();
-        if (foreignKeys) {
-        	hofcDatabase.execSQL("PRAGMA foreign_keys = ON;");
-        } else {
-        	hofcDatabase.execSQL("PRAGMA foreign_keys = OFF;");
-        }
-    }
-    
-    /**
-     * Closes the database
-     */
-    public static void close(){
-        if (hofcDatabase != null){
-        	hofcDatabase.close();
-        	hofcDatabase = null;
-        }
-        if (hofcOpenHelper != null){
-        	hofcOpenHelper.close();
-        	hofcOpenHelper = null;
-        }
-    }
-    
-    public static List<ActuVO> getAll() {
+    public List<ActuVO> getAll() {
     	openReadable();
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
     	ArrayList<ActuVO> list = null;
@@ -138,7 +78,7 @@ public class ActusBDD {
     	return list;
     }
     
-    public static void insertList(List<ActuVO> list) {
+    public void insertList(List<ActuVO> list) {
     	openWritable();
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
     	for(ActuVO line : list) {
@@ -166,15 +106,4 @@ public class ActusBDD {
     	}
 
     }
-
-	public static Date getDateSynchro() {
-		openReadable();
-		return CommonBDD.getDateSynchro(hofcDatabase, "actus");
-	}
-	
-	public static void updateDateSynchro(Date date) {
-		openWritable();
-		CommonBDD.updateDateSynchro(hofcDatabase, "actus", date);
-        DataSingleton.updateDateSynchroActus(date);
-	}
 }

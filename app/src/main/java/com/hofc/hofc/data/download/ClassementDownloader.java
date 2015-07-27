@@ -55,9 +55,7 @@ public class ClassementDownloader {
                                 classementList.add(classement);
                             }
                             DataSingleton.setClassement(classementList);
-                            // Sauvegarde en base
-                            ClassementBDD.insertList(classementList);
-                            ClassementBDD.updateDateSynchro(new Date());
+                            DataSingleton.updateDateSynchroClassement(new Date());
                             return 0;
                         } catch (JSONException e) {
                             Log.e(ClassementDownloader.class.getName(), "Error while deserialize",e);

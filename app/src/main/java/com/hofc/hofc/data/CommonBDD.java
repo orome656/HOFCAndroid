@@ -1,7 +1,9 @@
 package com.hofc.hofc.data;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -15,21 +17,69 @@ import java.util.GregorianCalendar;
 
 class CommonBDD {
 
-    
-	public static boolean isSynchroNeeded(SQLiteDatabase hofcDatabase, String bddName) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    	GregorianCalendar calendar = (GregorianCalendar) GregorianCalendar.getInstance();
-    	calendar.setTime(new Date());
-    	calendar.add(Calendar.DATE, -ServerConstant.NOMBRE_JOUR_SYNCHRO);
-		Cursor cursor = hofcDatabase.query("date_synchro", null, "nom='"+bddName+"' and date > "+sdf.format(calendar.getTime()), null, null, null, null);
-        boolean synchroNeeded = cursor.getCount() <=0;
-        cursor.close();
-		return synchroNeeded;
+	private Context context;
+	protected HOFCOpenHelper hofcOpenHelper;
+	protected SQLiteDatabase hofcDatabase;
+    protected String tableName;
+
+	public CommonBDD() {}
+
+	public CommonBDD(Context c) {
+		if(hofcOpenHelper == null)
+			hofcOpenHelper = new HOFCOpenHelper(c, null);
+
+		this.context = c;
 	}
 
-	public static Date getDateSynchro(SQLiteDatabase hofcDatabase, String bddName) {
+	protected void openReadable() {
+		if(hofcOpenHelper == null)
+			hofcOpenHelper = new HOFCOpenHelper(context, null);
+
+		if(hofcDatabase == null)
+			hofcDatabase = hofcOpenHelper.getReadableDatabase();
+	}
+
+	protected void openWritable() throws SQLException {
+		if(hofcOpenHelper == null)
+			hofcOpenHelper = new HOFCOpenHelper(context, null);
+
+		if ((hofcDatabase == null)|| hofcDatabase.isReadOnly()) {
+			openWritable(true);
+		}
+	}
+
+	/**
+	 * Opens the database for writing
+	 * @param foreignKeys State of Foreign Keys Constraint, true = ON, false = OFF
+	 * @throws SQLException if the database cannot be opened for writing
+	 */
+	private void openWritable(boolean foreignKeys) throws SQLException{
+		hofcDatabase = hofcOpenHelper.getWritableDatabase();
+		if (foreignKeys) {
+			hofcDatabase.execSQL("PRAGMA foreign_keys = ON;");
+		} else {
+			hofcDatabase.execSQL("PRAGMA foreign_keys = OFF;");
+		}
+	}
+
+	/**
+	 * Closes the database
+	 */
+	public void close() {
+		if (hofcDatabase != null){
+			hofcDatabase.close();
+			hofcDatabase = null;
+		}
+		if (hofcOpenHelper != null){
+			hofcOpenHelper.close();
+			hofcOpenHelper = null;
+		}
+	}
+
+	public Date getDateSynchro() {
+        openReadable();
 		Date result = null;
-		Cursor cursor = hofcDatabase.query("date_synchro", null, "nom='"+bddName+"'", null, null, null, null);
+		Cursor cursor = hofcDatabase.query("date_synchro", null, "nom='"+tableName+"'", null, null, null, null);
 		if(cursor.moveToFirst()){
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			try {
@@ -45,15 +95,16 @@ class CommonBDD {
 		}
 	}
 	
-	public static void updateDateSynchro(SQLiteDatabase hofcDatabase, String bddName, Date date) {
+	public void updateDateSynchro(Date date) {
+        openWritable();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		Cursor cursor = hofcDatabase.query("date_synchro", null, "nom='"+bddName+"'", null, null, null, null);
+		Cursor cursor = hofcDatabase.query("date_synchro", null, "nom='"+tableName+"'", null, null, null, null);
 		ContentValues values = new ContentValues();
 		values.put("date", sdf.format(date));
 		if(cursor.getCount() > 0) {
-			hofcDatabase.update("date_synchro", values, "nom='"+bddName+"'", null);
+			hofcDatabase.update("date_synchro", values, "nom='"+tableName+"'", null);
 		} else {
-			values.put("nom", bddName);
+			values.put("nom", tableName);
 			hofcDatabase.insert("date_synchro", null, values);
 		}
         cursor.close();

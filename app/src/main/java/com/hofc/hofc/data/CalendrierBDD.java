@@ -17,12 +17,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class CalendrierBDD {
-	
-	// Base de données
-	private static SQLiteDatabase hofcDatabase;
-	private static HOFCOpenHelper hofcOpenHelper;
-    private static Context context = null;
+public class CalendrierBDD extends CommonBDD {
+
+	public CalendrierBDD(Context c) {
+		super(c);
+        this.tableName = CalendrierEntry.CALENDRIER_TABLE_NAME;
+	}
     
 	public static abstract class CalendrierEntry implements BaseColumns {
 	    //public static final String COLUMN_ID = "ID";
@@ -40,66 +40,8 @@ public class CalendrierBDD {
 	    public static final int NUM_COLUMN_DATE = 5;
 		
 	}
-	/**
-	 * Constructeur
-	 */
-	private CalendrierBDD(){}
-	
-    /**
-     * Constructeur par défaut
-     */
-    public static void initiate(Context context) {
-    	if(hofcOpenHelper == null)
-    		hofcOpenHelper = new HOFCOpenHelper(context, null);
-    	
-    	if(CalendrierBDD.context == null) 
-    		CalendrierBDD.context = context;
-    }
-
-	private static void openReadable() {
-		if(hofcOpenHelper == null)
-			hofcOpenHelper = new HOFCOpenHelper(context, null);
-    	if(hofcDatabase == null) 
-    		hofcDatabase = hofcOpenHelper.getReadableDatabase();
-    }
-
-	private static void openWritable() throws SQLException{
-		if(hofcOpenHelper == null)
-			hofcOpenHelper = new HOFCOpenHelper(context, null);
-        if ((hofcDatabase == null) || hofcDatabase.isReadOnly()) {
-            openWritable(true);
-        }
-    }
     
-    /**
-     * Opens the database for writing
-     * @param foreignKeys State of Foreign Keys Constraint, true = ON, false = OFF
-     * @throws SQLException if the database cannot be opened for writing
-     */
-	private static void openWritable(boolean foreignKeys) throws SQLException{
-    	hofcDatabase = hofcOpenHelper.getWritableDatabase();
-        if (foreignKeys) {
-        	hofcDatabase.execSQL("PRAGMA foreign_keys = ON;");
-        } else {
-        	hofcDatabase.execSQL("PRAGMA foreign_keys = OFF;");
-        }
-    }
-    
-    /**
-     * Closes the database
-     */
-    public static void close(){
-        if (hofcDatabase != null){
-        	hofcDatabase.close();
-        	hofcDatabase = null;
-        }
-        if (hofcOpenHelper != null){
-        	hofcOpenHelper.close();
-        	hofcOpenHelper = null;
-        }
-    }
-    
-    public static List<CalendrierLineVO> getAll() {
+    public List<CalendrierLineVO> getAll() {
     	openReadable();
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
     	ArrayList<CalendrierLineVO> list = null;
@@ -130,7 +72,7 @@ public class CalendrierBDD {
     	return list;
     }
 
-    public static void insertList(List<CalendrierLineVO> list) {
+    public void insertList(List<CalendrierLineVO> list) {
     	openWritable();
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 		// On supprime avant d'insérer pour mettre a jour les données si il y a eu des suppressions
@@ -155,15 +97,4 @@ public class CalendrierBDD {
             cursor.close();
     	}
     }
-
-	public static Date getDateSynchro() {
-		openReadable();
-		return CommonBDD.getDateSynchro(hofcDatabase, "calendrier");
-	}
-	
-	public static void updateDateSynchro(Date date) {
-		openWritable();
-		CommonBDD.updateDateSynchro(hofcDatabase, "calendrier", date);
-        DataSingleton.updateDateSynchroCalendrier(date);
-	}
 }
