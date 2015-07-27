@@ -50,9 +50,6 @@ public class DataDownloader {
                             ArrayList<ActuVO> actusList = mapper.readValue(response.toString(), mapper.getTypeFactory().constructCollectionType(List.class, classToBind));
 
                             DataSingleton.setActus(actusList);
-                            // Sauvegarde en base
-                            ActusBDD.insertList(actusList);
-                            ActusBDD.updateDateSynchro(new Date());
                             return 0;
                         } catch (JsonMappingException e) {
                             e.printStackTrace();
