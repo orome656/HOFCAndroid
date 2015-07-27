@@ -38,6 +38,11 @@ android {
             buildConfigField "int", "SERVER_PORT", "0"
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
 }
 
 dependencies {
@@ -52,5 +57,8 @@ dependencies {
     compile 'com.afollestad:material-dialogs:0.7.6.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
     provided 'com.squareup.okhttp:mockwebserver:2.2.0'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.5.+'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.5.+'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.5.+'
     androidTestCompile 'com.squareup.okhttp:mockwebserver:2.1.0'
 }

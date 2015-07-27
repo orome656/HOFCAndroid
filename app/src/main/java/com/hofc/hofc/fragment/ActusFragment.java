@@ -18,8 +18,11 @@ import com.hofc.hofc.ActusImageGrid;
 import com.hofc.hofc.HOFCApplication;
 import com.hofc.hofc.R;
 import com.hofc.hofc.adapter.ActusAdapter;
+import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.data.download.ActusDownloader;
+import com.hofc.hofc.data.download.DataDownloader;
+import com.hofc.hofc.vo.ActuVO;
 
 public class ActusFragment extends CommonFragment  implements FragmentCallback, CustomFragment, SwipeRefreshLayout.OnRefreshListener {
 
@@ -89,7 +92,7 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
         });
         super.refreshDataAndView();
         RequestQueue requestQueue = ((HOFCApplication) getActivity().getApplication()).getRequestQueue();
-		ActusDownloader.updateActus(requestQueue, this);
+		DataDownloader.download(requestQueue, ServerConstant.ACTUS_CONTEXT, null, this, ActuVO.class);
 	}
 
     @Override

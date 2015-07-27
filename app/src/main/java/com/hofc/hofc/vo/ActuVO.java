@@ -2,12 +2,15 @@ package com.hofc.hofc.vo;
 
 import android.graphics.Bitmap;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 
 public class ActuVO {
 	/**
 	 * Attributes
 	 */
+
 	private int postId;
 	private String titre;
 	private String texte;
@@ -22,6 +25,7 @@ public class ActuVO {
 	public int getPostId() {
 		return postId;
 	}
+	@JsonProperty("postid")
 	public void setPostId(int postId) {
 		this.postId = postId;
 	}
@@ -46,6 +50,7 @@ public class ActuVO {
 	public String getImageUrl() {
 		return imageUrl;
 	}
+	@JsonProperty("image")
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
