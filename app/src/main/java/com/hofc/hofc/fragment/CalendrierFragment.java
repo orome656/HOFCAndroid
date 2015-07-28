@@ -12,8 +12,11 @@ import com.android.volley.RequestQueue;
 import com.hofc.hofc.HOFCApplication;
 import com.hofc.hofc.R;
 import com.hofc.hofc.adapter.CalendrierAdapter;
+import com.hofc.hofc.constant.ServerConstant;
+import com.hofc.hofc.data.CalendrierBDD;
 import com.hofc.hofc.data.DataSingleton;
-import com.hofc.hofc.data.download.CalendrierDownloader;
+import com.hofc.hofc.data.download.DataDownloader;
+import com.hofc.hofc.vo.CalendrierLineVO;
 
 public class CalendrierFragment extends CommonFragment  implements FragmentCallback, CustomFragment, SwipeRefreshLayout.OnRefreshListener {
 
@@ -28,8 +31,8 @@ public class CalendrierFragment extends CommonFragment  implements FragmentCallb
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        if(DataSingleton.getCalendrier() == null)
-            DataSingleton.initializeCalendrier(getActivity());
+        if(DataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).get() == null)
+            DataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).initialize(getActivity());
 
         View rootView = inflater.inflate(R.layout.fragment_calendrier, container, false);
         calendrierListView = (ListView) rootView.findViewById(R.id.calendrier_listView);
@@ -38,7 +41,7 @@ public class CalendrierFragment extends CommonFragment  implements FragmentCallb
         swipeCalendrier.setOnRefreshListener(this);
         swipeCalendrier.setColorSchemeColors(Color.BLACK, getResources().getColor(R.color.hofc_blue));
 
-        if(DataSingleton.isSynchroCalendrierNeeded()) {
+        if(DataSingleton.getInstance(CalendrierLineVO.class,CalendrierBDD.class).isSynchroNeeded()) {
         	this.refreshDataAndView();
 		} else {
 			refreshView();
@@ -68,7 +71,7 @@ public class CalendrierFragment extends CommonFragment  implements FragmentCallb
         });
         super.refreshDataAndView();
         RequestQueue requestQueue = ((HOFCApplication) getActivity().getApplication()).getRequestQueue();
-        CalendrierDownloader.update(requestQueue, this);
+        DataDownloader.download(requestQueue, ServerConstant.CALENDRIER_CONTEXT, null, this, CalendrierLineVO.class, CalendrierBDD.class);
 	}
 
 

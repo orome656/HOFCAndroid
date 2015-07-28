@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class CalendrierBDD extends CommonBDD {
+public class CalendrierBDD extends CommonBDD<CalendrierLineVO> {
 
 	public CalendrierBDD(Context c) {
 		super(c);
@@ -72,6 +72,7 @@ public class CalendrierBDD extends CommonBDD {
     	return list;
     }
 
+	@Override
     public void insertList(List<CalendrierLineVO> list) {
     	openWritable();
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());

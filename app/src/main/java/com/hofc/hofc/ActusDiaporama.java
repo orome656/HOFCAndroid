@@ -13,6 +13,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.hofc.hofc.adapter.DiaporamaAdapter;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.data.LocalDataSingleton;
 
 
 public class ActusDiaporama extends AppCompatActivity {
@@ -63,7 +64,7 @@ public class ActusDiaporama extends AppCompatActivity {
     }
     private void initAdapter() {
         ViewPager pager = (ViewPager)findViewById(R.id.view_pager);
-        DiaporamaAdapter adapter = new DiaporamaAdapter(this, DataSingleton.getCachedImageUrls(this.url));
+        DiaporamaAdapter adapter = new DiaporamaAdapter(this, LocalDataSingleton.getCachedImageUrls(this.url));
         pager.setAdapter(adapter);
         pager.setCurrentItem(initialPosition);
         dialog.dismiss();

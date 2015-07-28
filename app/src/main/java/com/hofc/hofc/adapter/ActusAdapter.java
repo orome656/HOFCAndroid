@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hofc.hofc.R;
+import com.hofc.hofc.data.ActusBDD;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.vo.ActuVO;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -28,8 +29,8 @@ public class ActusAdapter extends BaseAdapter {
 	}	
 	@Override
 	public int getCount() {
-		if(DataSingleton.getActus() != null) {
-			return DataSingleton.getActus().size();
+		if(DataSingleton.getInstance(ActuVO.class, ActusBDD.class).get() != null) {
+			return DataSingleton.getInstance(ActuVO.class, ActusBDD.class).get().size();
 		} else {
 			return 0;
 		}
@@ -37,7 +38,7 @@ public class ActusAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		return DataSingleton.getActus().get(position);
+		return DataSingleton.getInstance(ActuVO.class, ActusBDD.class).get().get(position);
 	}
 
 	@Override
@@ -61,8 +62,8 @@ public class ActusAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		ActuVO line = DataSingleton.getActus().get(position);
-        imageLoader.displayImage(DataSingleton.getActus().get(position).getImageUrl(), holder.imageActu);
+		ActuVO line = DataSingleton.getInstance(ActuVO.class, ActusBDD.class).get().get(position);
+        imageLoader.displayImage(DataSingleton.getInstance(ActuVO.class, ActusBDD.class).get().get(position).getImageUrl(), holder.imageActu);
 		holder.titleText.setText(line.getTitre());
 		holder.texte.setText(line.getTexte());
         if(line.getDate() != null)

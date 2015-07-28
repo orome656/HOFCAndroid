@@ -9,10 +9,11 @@ import com.hofc.hofc.data.ActusBDD;
 import com.hofc.hofc.data.CalendrierBDD;
 import com.hofc.hofc.data.ClassementBDD;
 import com.hofc.hofc.data.DataSingleton;
-import com.hofc.hofc.data.download.ActusDownloader;
-import com.hofc.hofc.data.download.CalendrierDownloader;
-import com.hofc.hofc.data.download.ClassementDownloader;
+import com.hofc.hofc.data.download.DataDownloader;
 import com.hofc.hofc.fragment.FragmentCallback;
+import com.hofc.hofc.vo.ActuVO;
+import com.hofc.hofc.vo.CalendrierLineVO;
+import com.hofc.hofc.vo.ClassementLineVO;
 import com.squareup.okhttp.mockwebserver.MockResponse;
 import com.squareup.okhttp.mockwebserver.MockWebServer;
 
@@ -30,8 +31,7 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testActusOK() throws Exception {
-        DataSingleton.initialize();
-        DataSingleton.initializeActus(getContext());
+        DataSingleton.getInstance(ActuVO.class, ActusBDD.class).initialize(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         MockWebServer server = new MockWebServer();
@@ -42,7 +42,7 @@ public class AppTest extends AndroidTestCase {
         ServerConstant.SERVER_URL = server.getUrl("").getHost();
         ServerConstant.SERVER_PORT = 3000;
 
-        ActusDownloader.updateActus(requestQueue, new FragmentCallback() {
+        DataDownloader.download(requestQueue, ServerConstant.ACTUS_CONTEXT, null, new FragmentCallback() {
             @Override
             public void onTaskDone() {
                 assertTrue(true);
@@ -60,7 +60,7 @@ public class AppTest extends AndroidTestCase {
                 assertTrue(false);
                 lock.countDown();
             }
-        });
+        }, ActuVO.class, ActusBDD.class);
         lock.await();
         server.shutdown();
 
@@ -72,8 +72,7 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testCalendrierOK() throws Exception {
-        DataSingleton.initialize();
-        DataSingleton.initializeCalendrier(getContext());
+        DataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).initialize(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         MockWebServer server = new MockWebServer();
@@ -84,7 +83,7 @@ public class AppTest extends AndroidTestCase {
         ServerConstant.SERVER_URL = server.getUrl("").getHost();
         ServerConstant.SERVER_PORT = 3000;
 
-        CalendrierDownloader.update(requestQueue, new FragmentCallback() {
+        DataDownloader.download(requestQueue, ServerConstant.CALENDRIER_CONTEXT, null, new FragmentCallback() {
             @Override
             public void onTaskDone() {
                 assertTrue(true);
@@ -102,7 +101,7 @@ public class AppTest extends AndroidTestCase {
                 assertTrue(false);
                 lock.countDown();
             }
-        });
+        }, CalendrierLineVO.class, CalendrierBDD.class);
         lock.await();
         server.shutdown();
         getContext().deleteDatabase("hofc.db");
@@ -114,8 +113,7 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testClassementOK() throws Exception {
-        DataSingleton.initialize();
-        DataSingleton.initializeClassement(getContext());
+        DataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).initialize(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         MockWebServer server = new MockWebServer();
@@ -126,7 +124,7 @@ public class AppTest extends AndroidTestCase {
         ServerConstant.SERVER_URL = server.getUrl("").getHost();
         ServerConstant.SERVER_PORT = 3000;
 
-        ClassementDownloader.update(requestQueue, new FragmentCallback() {
+        DataDownloader.download(requestQueue, ServerConstant.CLASSEMENT_CONTEXT, null, new FragmentCallback() {
             @Override
             public void onTaskDone() {
                 assertTrue(true);
@@ -144,7 +142,7 @@ public class AppTest extends AndroidTestCase {
                 assertTrue(false);
                 lock.countDown();
             }
-        });
+        }, ClassementLineVO.class, ClassementBDD.class);
         lock.await();
         server.shutdown();
         getContext().deleteDatabase("hofc.db");
@@ -156,8 +154,7 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testActusKO() throws Exception {
-        DataSingleton.initialize();
-        DataSingleton.initializeActus(getContext());
+        DataSingleton.getInstance(ActuVO.class, ActusBDD.class).initialize(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         MockWebServer server = new MockWebServer();
@@ -169,7 +166,7 @@ public class AppTest extends AndroidTestCase {
         ServerConstant.SERVER_URL = server.getUrl("").getHost();
         ServerConstant.SERVER_PORT = 3000;
 
-        ActusDownloader.updateActus(requestQueue, new FragmentCallback() {
+        DataDownloader.download(requestQueue, ServerConstant.ACTUS_CONTEXT, null, new FragmentCallback() {
             @Override
             public void onTaskDone() {
                 assertTrue(false);
@@ -187,7 +184,7 @@ public class AppTest extends AndroidTestCase {
                 assertTrue(true);
                 lock.countDown();
             }
-        });
+        }, ActuVO.class, ActusBDD.class);
         lock.await();
         server.shutdown();
         getContext().deleteDatabase("hofc.db");
@@ -199,8 +196,7 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testCalendrierKO() throws Exception {
-        DataSingleton.initialize();
-        DataSingleton.initializeActus(getContext());
+        DataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).initialize(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         MockWebServer server = new MockWebServer();
@@ -211,7 +207,7 @@ public class AppTest extends AndroidTestCase {
         ServerConstant.SERVER_URL = server.getUrl("").getHost();
         ServerConstant.SERVER_PORT = 3000;
 
-        CalendrierDownloader.update(requestQueue, new FragmentCallback() {
+        DataDownloader.download(requestQueue, ServerConstant.CALENDRIER_CONTEXT, null, new FragmentCallback() {
             @Override
             public void onTaskDone() {
                 assertTrue(false);
@@ -229,7 +225,7 @@ public class AppTest extends AndroidTestCase {
                 assertTrue(true);
                 lock.countDown();
             }
-        });
+        }, CalendrierLineVO.class, CalendrierBDD.class);
         lock.await();
         server.shutdown();
         getContext().deleteDatabase("hofc.db");
@@ -241,8 +237,7 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testClassementKO() throws Exception {
-        DataSingleton.initialize();
-        DataSingleton.initializeActus(getContext());
+        DataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).initialize(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         MockWebServer server = new MockWebServer();
@@ -253,7 +248,7 @@ public class AppTest extends AndroidTestCase {
         ServerConstant.SERVER_URL = server.getUrl("").getHost();
         ServerConstant.SERVER_PORT = 3000;
 
-        ActusDownloader.updateActus(requestQueue, new FragmentCallback() {
+        DataDownloader.download(requestQueue, ServerConstant.CLASSEMENT_CONTEXT, null, new FragmentCallback() {
             @Override
             public void onTaskDone() {
                 assertTrue(false);
@@ -271,7 +266,7 @@ public class AppTest extends AndroidTestCase {
                 assertTrue(true);
                 lock.countDown();
             }
-        });
+        }, ClassementLineVO.class, ClassementBDD.class);
         lock.await();
         server.shutdown();
         getContext().deleteDatabase("hofc.db");
@@ -283,8 +278,7 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testActusDataSingleton() throws Exception {
-        DataSingleton.initialize();
-        DataSingleton.initializeActus(getContext());
+        DataSingleton.getInstance(ActuVO.class, ActusBDD.class).initialize(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         MockWebServer server = new MockWebServer();
@@ -295,10 +289,10 @@ public class AppTest extends AndroidTestCase {
         ServerConstant.SERVER_URL = server.getUrl("").getHost();
         ServerConstant.SERVER_PORT = 3000;
 
-        ActusDownloader.updateActus(requestQueue, new FragmentCallback() {
+        DataDownloader.download(requestQueue, ServerConstant.ACTUS_CONTEXT, null, new FragmentCallback() {
             @Override
             public void onTaskDone() {
-                assertEquals(DataSingleton.getActus().size(), 2);
+                assertEquals(DataSingleton.getInstance(ActuVO.class, ActusBDD.class).get().size(), 2);
                 lock.countDown();
             }
 
@@ -313,7 +307,7 @@ public class AppTest extends AndroidTestCase {
                 assertTrue(false);
                 lock.countDown();
             }
-        });
+        }, ActuVO.class, ActusBDD.class);
         lock.await();
         server.shutdown();
         getContext().deleteDatabase("hofc.db");
@@ -324,8 +318,7 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testActusDatabase() throws Exception {
-        DataSingleton.initialize();
-        DataSingleton.initializeActus(getContext());
+        DataSingleton.getInstance(ActuVO.class, ActusBDD.class).initialize(getContext());
         final ActusBDD actusBDD = new ActusBDD(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -337,7 +330,7 @@ public class AppTest extends AndroidTestCase {
         ServerConstant.SERVER_URL = server.getUrl("").getHost();
         ServerConstant.SERVER_PORT = 3000;
 
-        ActusDownloader.updateActus(requestQueue, new FragmentCallback() {
+        DataDownloader.download(requestQueue, ServerConstant.ACTUS_CONTEXT, null, new FragmentCallback() {
             @Override
             public void onTaskDone() {
                 assertEquals(actusBDD.getAll().size(), 2);
@@ -355,7 +348,7 @@ public class AppTest extends AndroidTestCase {
                 assertTrue(false);
                 lock.countDown();
             }
-        });
+        }, ActuVO.class, ActusBDD.class);
         lock.await();
         server.shutdown();
         getContext().deleteDatabase("hofc.db");
@@ -366,8 +359,8 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testCalendrierDataSingleton() throws Exception {
-        DataSingleton.initialize();
-        DataSingleton.initializeCalendrier(getContext());
+        DataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).initialize(getContext());
+        final CalendrierBDD calendrierBDD = new CalendrierBDD(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         MockWebServer server = new MockWebServer();
@@ -378,10 +371,10 @@ public class AppTest extends AndroidTestCase {
         ServerConstant.SERVER_URL = server.getUrl("").getHost();
         ServerConstant.SERVER_PORT = 3000;
 
-        CalendrierDownloader.update(requestQueue, new FragmentCallback() {
+        DataDownloader.download(requestQueue, ServerConstant.CALENDRIER_CONTEXT, null, new FragmentCallback() {
             @Override
             public void onTaskDone() {
-                assertEquals(DataSingleton.getCalendrier().size(),3);
+                assertEquals(calendrierBDD.getAll().size(),3);
                 lock.countDown();
             }
 
@@ -396,7 +389,7 @@ public class AppTest extends AndroidTestCase {
                 assertTrue(false);
                 lock.countDown();
             }
-        });
+        }, CalendrierLineVO.class, CalendrierBDD.class);
         lock.await();
         server.shutdown();
 
@@ -407,8 +400,7 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testCalendrierDatabase() throws Exception {
-        DataSingleton.initialize();
-        DataSingleton.initializeCalendrier(getContext());
+        DataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).initialize(getContext());
         final CalendrierBDD calendrierBDD = new CalendrierBDD(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -420,7 +412,7 @@ public class AppTest extends AndroidTestCase {
         ServerConstant.SERVER_URL = server.getUrl("").getHost();
         ServerConstant.SERVER_PORT = 3000;
 
-        CalendrierDownloader.update(requestQueue, new FragmentCallback() {
+        DataDownloader.download(requestQueue, ServerConstant.CALENDRIER_CONTEXT, null, new FragmentCallback() {
             @Override
             public void onTaskDone() {
                 assertEquals(calendrierBDD.getAll().size(), 3);
@@ -438,7 +430,7 @@ public class AppTest extends AndroidTestCase {
                 assertTrue(false);
                 lock.countDown();
             }
-        });
+        }, CalendrierLineVO.class, CalendrierBDD.class);
         lock.await();
         server.shutdown();
         getContext().deleteDatabase("hofc.db");
@@ -449,52 +441,8 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testClassementDataSingleton() throws Exception {
-        DataSingleton.initialize();
-        DataSingleton.initializeClassement(getContext());
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        MockWebServer server = new MockWebServer();
-        server.enqueue(new MockResponse().setBody("[{\"id\":1,\"nom\":\"GUIZERIX\",\"points\":\"41\",\"joue\":\"12\",\"gagne\":\"9\",\"nul\":\"2\",\"perdu\":\"1\",\"bp\":\"32\",\"bc\":\"11\",\"diff\":\"21\"},{\"id\":2,\"nom\":\"BOUT D  OR GER\",\"points\":\"39\",\"joue\":\"12\",\"gagne\":\"8\",\"nul\":\"3\",\"perdu\":\"1\",\"bp\":\"20\",\"bc\":\"7\",\"diff\":\"13\"},{\"id\":3,\"nom\":\"HORGUES ODOS F.C.\",\"points\":\"36\",\"joue\":\"12\",\"gagne\":\"7\",\"nul\":\"3\",\"perdu\":\"2\",\"bp\":\"17\",\"bc\":\"9\",\"diff\":\"8\"}]"));
-        server.play(3000);
-
-        ServerConstant.SERVER_URL_PREFIX = server.getUrl("").getProtocol() + "://";
-        ServerConstant.SERVER_URL = server.getUrl("").getHost();
-        ServerConstant.SERVER_PORT = 3000;
-
-        ClassementDownloader.update(requestQueue, new FragmentCallback() {
-            @Override
-            public void onTaskDone() {
-                assertEquals(DataSingleton.getClassement().size(),3);
-                lock.countDown();
-            }
-
-            @Override
-            public void onError() {
-                assertTrue(false);
-                lock.countDown();
-            }
-
-            @Override
-            public void onError(int messageId) {
-                assertTrue(false);
-                lock.countDown();
-            }
-        });
-        lock.await();
-        server.shutdown();
-        getContext().deleteDatabase("hofc.db");
-    }
-
-    /**
-     * Test d'appel réseau pour Calendrier sans vérification d'insertion dans la base ou dans DataSingleton
-     * @throws Exception
-     */
-    public void testClassementDatabase() throws Exception {
-        DataSingleton.initialize();
-        DataSingleton.initializeClassement(getContext());
+        DataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).initialize(getContext());
         final ClassementBDD classementBDD = new ClassementBDD(getContext());
-
-
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         MockWebServer server = new MockWebServer();
         server.enqueue(new MockResponse().setBody("[{\"id\":1,\"nom\":\"GUIZERIX\",\"points\":\"41\",\"joue\":\"12\",\"gagne\":\"9\",\"nul\":\"2\",\"perdu\":\"1\",\"bp\":\"32\",\"bc\":\"11\",\"diff\":\"21\"},{\"id\":2,\"nom\":\"BOUT D  OR GER\",\"points\":\"39\",\"joue\":\"12\",\"gagne\":\"8\",\"nul\":\"3\",\"perdu\":\"1\",\"bp\":\"20\",\"bc\":\"7\",\"diff\":\"13\"},{\"id\":3,\"nom\":\"HORGUES ODOS F.C.\",\"points\":\"36\",\"joue\":\"12\",\"gagne\":\"7\",\"nul\":\"3\",\"perdu\":\"2\",\"bp\":\"17\",\"bc\":\"9\",\"diff\":\"8\"}]"));
@@ -504,7 +452,7 @@ public class AppTest extends AndroidTestCase {
         ServerConstant.SERVER_URL = server.getUrl("").getHost();
         ServerConstant.SERVER_PORT = 3000;
 
-        ClassementDownloader.update(requestQueue, new FragmentCallback() {
+        DataDownloader.download(requestQueue, ServerConstant.CLASSEMENT_CONTEXT, null, new FragmentCallback() {
             @Override
             public void onTaskDone() {
                 assertEquals(classementBDD.getAll().size(),3);
@@ -522,7 +470,49 @@ public class AppTest extends AndroidTestCase {
                 assertTrue(false);
                 lock.countDown();
             }
-        });
+        }, ClassementLineVO.class, ClassementBDD.class);
+        lock.await();
+        server.shutdown();
+        getContext().deleteDatabase("hofc.db");
+    }
+
+    /**
+     * Test d'appel réseau pour Calendrier sans vérification d'insertion dans la base ou dans DataSingleton
+     * @throws Exception
+     */
+    public void testClassementDatabase() throws Exception {
+        DataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).initialize(getContext());
+        final ClassementBDD classementBDD = new ClassementBDD(getContext());
+
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        MockWebServer server = new MockWebServer();
+        server.enqueue(new MockResponse().setBody("[{\"id\":1,\"nom\":\"GUIZERIX\",\"points\":\"41\",\"joue\":\"12\",\"gagne\":\"9\",\"nul\":\"2\",\"perdu\":\"1\",\"bp\":\"32\",\"bc\":\"11\",\"diff\":\"21\"},{\"id\":2,\"nom\":\"BOUT D  OR GER\",\"points\":\"39\",\"joue\":\"12\",\"gagne\":\"8\",\"nul\":\"3\",\"perdu\":\"1\",\"bp\":\"20\",\"bc\":\"7\",\"diff\":\"13\"},{\"id\":3,\"nom\":\"HORGUES ODOS F.C.\",\"points\":\"36\",\"joue\":\"12\",\"gagne\":\"7\",\"nul\":\"3\",\"perdu\":\"2\",\"bp\":\"17\",\"bc\":\"9\",\"diff\":\"8\"}]"));
+        server.play(3000);
+
+        ServerConstant.SERVER_URL_PREFIX = server.getUrl("").getProtocol() + "://";
+        ServerConstant.SERVER_URL = server.getUrl("").getHost();
+        ServerConstant.SERVER_PORT = 3000;
+
+        DataDownloader.download(requestQueue, ServerConstant.CLASSEMENT_CONTEXT, null, new FragmentCallback() {
+            @Override
+            public void onTaskDone() {
+                assertEquals(classementBDD.getAll().size(), 3);
+                lock.countDown();
+            }
+
+            @Override
+            public void onError() {
+                assertTrue(false);
+                lock.countDown();
+            }
+
+            @Override
+            public void onError(int messageId) {
+                assertTrue(false);
+                lock.countDown();
+            }
+        }, ClassementLineVO.class, ClassementBDD.class);
         lock.await();
         server.shutdown();
         getContext().deleteDatabase("hofc.db");

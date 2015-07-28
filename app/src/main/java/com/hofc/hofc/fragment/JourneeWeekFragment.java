@@ -13,6 +13,7 @@ import com.hofc.hofc.HOFCApplication;
 import com.hofc.hofc.R;
 import com.hofc.hofc.adapter.JourneeAdapter;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.data.LocalDataSingleton;
 import com.hofc.hofc.data.download.JourneeDownloader;
 
 /**
@@ -51,7 +52,7 @@ public class JourneeWeekFragment extends CommonFragment  implements FragmentCall
         swipeJournee.setOnRefreshListener(this);
         swipeJournee.setColorSchemeColors(Color.BLACK, getResources().getColor(R.color.hofc_blue));
         if(getUserVisibleHint()) {
-            if (DataSingleton.getJournee(journee) == null) {
+            if (LocalDataSingleton.getJournee(journee) == null) {
                 this.refreshDataAndView();
             } else {
                 this.refreshView();
@@ -65,7 +66,7 @@ public class JourneeWeekFragment extends CommonFragment  implements FragmentCall
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(getView() != null) {
-            if (DataSingleton.getJournee(journee) == null) {
+            if (LocalDataSingleton.getJournee(journee) == null) {
                 this.refreshDataAndView();
             } else {
                 this.refreshView();

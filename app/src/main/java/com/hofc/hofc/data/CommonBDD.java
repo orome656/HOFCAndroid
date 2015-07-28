@@ -14,8 +14,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
-class CommonBDD {
+public class CommonBDD<T> {
 
 	private Context context;
 	protected HOFCOpenHelper hofcOpenHelper;
@@ -109,4 +110,6 @@ class CommonBDD {
 		}
         cursor.close();
 	}
+
+	public void insertList(List<T> list){}
 }

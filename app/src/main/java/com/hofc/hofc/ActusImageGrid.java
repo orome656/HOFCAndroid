@@ -21,6 +21,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.hofc.hofc.adapter.GridImageAdapter;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.data.LocalDataSingleton;
 import com.hofc.hofc.utils.HOFCUtils;
 import com.hofc.hofc.utils.PreCachingLayoutManager;
 
@@ -74,15 +75,15 @@ public class ActusImageGrid extends AppCompatActivity {
 
         this.url = (String) getIntent().getExtras().get("URL");
         RequestQueue requestQueue = ((HOFCApplication) getApplication()).getRequestQueue();
-        if(DataSingleton.getCachedImageUrls(url) == null) {
+        if(LocalDataSingleton.getCachedImageUrls(url) == null) {
             this.downloadListImage(requestQueue, this.url);
         } else {
-            downloadDone(DataSingleton.getCachedImageUrls(url));
+            downloadDone(LocalDataSingleton.getCachedImageUrls(url));
         }
     }
 
     private void downloadDone(List<String> imageUrls) {
-        DataSingleton.insertImageCacheUrls(this.url, imageUrls);
+        LocalDataSingleton.insertImageCacheUrls(this.url, imageUrls);
         dialog.dismiss();
         recyclerView.setVisibility(View.VISIBLE);
         recyclerView.setAdapter(new GridImageAdapter(this, imageUrls, this.url));

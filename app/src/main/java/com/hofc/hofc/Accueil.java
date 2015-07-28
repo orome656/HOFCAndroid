@@ -21,6 +21,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.hofc.hofc.constant.AppConstant;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.data.LocalDataSingleton;
 import com.hofc.hofc.data.download.ParamsDownloader;
 import com.hofc.hofc.fragment.ActusFragment;
 import com.hofc.hofc.fragment.AgendaFragment;
@@ -77,7 +78,8 @@ public class Accueil extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_accueil);
-        DataSingleton.initialize();
+
+        LocalDataSingleton.initialize();
 
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
@@ -143,7 +145,6 @@ public class Accueil extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        DataSingleton.closeAll();
     }
 
     @Override

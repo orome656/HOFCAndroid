@@ -13,6 +13,7 @@ import com.hofc.hofc.HOFCApplication;
 import com.hofc.hofc.R;
 import com.hofc.hofc.adapter.AgendaAdapter;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.data.LocalDataSingleton;
 import com.hofc.hofc.data.download.AgendaDownloader;
 
 import java.text.ParseException;
@@ -63,7 +64,7 @@ public class AgendaWeekFragment extends CommonFragment  implements FragmentCallb
         swipeAgenda.setOnRefreshListener(this);
         swipeAgenda.setColorSchemeColors(Color.BLACK, getResources().getColor(R.color.hofc_blue));
         if(getUserVisibleHint()) {
-            if (DataSingleton.getAgenda(semaine) == null) {
+            if (LocalDataSingleton.getAgenda(semaine) == null) {
                 this.refreshDataAndView();
             } else {
                 this.refreshView();
@@ -77,7 +78,7 @@ public class AgendaWeekFragment extends CommonFragment  implements FragmentCallb
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(getView() != null) {
-            if (DataSingleton.getAgenda(semaine) == null) {
+            if (LocalDataSingleton.getAgenda(semaine) == null) {
                 this.refreshDataAndView();
             } else {
                 this.refreshView();

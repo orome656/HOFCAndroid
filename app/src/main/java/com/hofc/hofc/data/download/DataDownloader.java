@@ -1,32 +1,27 @@
 package com.hofc.hofc.data.download;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hofc.hofc.R;
-import com.hofc.hofc.constant.ServerConstant;
-import com.hofc.hofc.data.ActusBDD;
+import com.hofc.hofc.data.CommonBDD;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.fragment.FragmentCallback;
 import com.hofc.hofc.utils.HOFCUtils;
-import com.hofc.hofc.vo.ActuVO;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -34,7 +29,7 @@ import java.util.Locale;
  * Generic class to download data
  */
 public class DataDownloader {
-    public static <T> void download(RequestQueue requestQueue, String context, String[] params, final FragmentCallback callback, final Class<T> classToBind) {
+    public static <T,V extends CommonBDD> void download(RequestQueue requestQueue, String context, String[] params, final FragmentCallback callback, final Class<T> classToBind, final Class<V> databaseClass) {
         String url = HOFCUtils.buildUrl(context, params);
 
         JsonArrayRequest jsonRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
@@ -47,9 +42,11 @@ public class DataDownloader {
                         try {
                             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
                             ObjectMapper mapper = new ObjectMapper();
-                            ArrayList<ActuVO> actusList = mapper.readValue(response.toString(), mapper.getTypeFactory().constructCollectionType(List.class, classToBind));
+                            mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+                            String json = response.toString();
+                            ArrayList<T> actusList = mapper.readValue(json, mapper.getTypeFactory().constructCollectionType(List.class, classToBind));
 
-                            DataSingleton.setActus(actusList);
+                            DataSingleton.getInstance(classToBind,databaseClass).set(actusList);
                             return 0;
                         } catch (JsonMappingException e) {
                             e.printStackTrace();

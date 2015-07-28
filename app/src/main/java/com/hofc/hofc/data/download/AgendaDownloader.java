@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.hofc.hofc.R;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.data.LocalDataSingleton;
 import com.hofc.hofc.fragment.FragmentCallback;
 import com.hofc.hofc.utils.HOFCUtils;
 import com.hofc.hofc.vo.AgendaLineVO;
@@ -70,9 +71,9 @@ public class AgendaDownloader {
                                 agendaList.add(agenda);
                             }
                             if(dateArgument != null && !dateArgument.isEmpty()) {
-                                DataSingleton.setAgenda(dateArgument, agendaList);
+                                LocalDataSingleton.setAgenda(dateArgument, agendaList);
                             } else {
-                                DataSingleton.setAgenda(HOFCUtils.getCurrentWeekMonday(),agendaList);
+                                LocalDataSingleton.setAgenda(HOFCUtils.getCurrentWeekMonday(),agendaList);
                             }
                             return 0;
                         } catch (JSONException e) {

@@ -13,6 +13,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.hofc.hofc.R;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.data.LocalDataSingleton;
 
 public class JourneeFragment extends Fragment {
 
@@ -24,7 +25,7 @@ public class JourneeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_journee, container, false);
-        if(DataSingleton.getParams() == null || DataSingleton.getParams().getSeasonMatchCount() == 0) {
+        if(LocalDataSingleton.getParams() == null || LocalDataSingleton.getParams().getSeasonMatchCount() == 0) {
             MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
                     .content(R.string.param_error)
                     .positiveText(R.string.close_popup_button)
@@ -55,7 +56,7 @@ public class JourneeFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return DataSingleton.getParams().getSeasonMatchCount();
+            return LocalDataSingleton.getParams().getSeasonMatchCount();
         }
 
         @Override

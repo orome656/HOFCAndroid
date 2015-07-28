@@ -8,6 +8,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.data.LocalDataSingleton;
 import com.hofc.hofc.utils.HOFCUtils;
 
 import org.json.JSONException;
@@ -26,7 +27,7 @@ public class ParamsDownloader {
             @Override
             public void onResponse(final JSONObject response) {
                 try {
-                    DataSingleton.getParams().setSeasonMatchCount(response.getInt("SEASON_MATCHS_COUNT"));
+                    LocalDataSingleton.getParams().setSeasonMatchCount(response.getInt("SEASON_MATCHS_COUNT"));
                 } catch (JSONException e) {
                     Log.e(ParamsDownloader.class.getName(), "Deserialization error", e);
                 }

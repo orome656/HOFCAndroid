@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class ActusBDD extends CommonBDD {
+public class ActusBDD extends CommonBDD<ActuVO> {
 
 	public ActusBDD(Context c) {
 		super(c);
@@ -77,7 +77,8 @@ public class ActusBDD extends CommonBDD {
         cursor.close();
     	return list;
     }
-    
+
+	@Override
     public void insertList(List<ActuVO> list) {
     	openWritable();
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());

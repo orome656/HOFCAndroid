@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.hofc.hofc.R;
 import com.hofc.hofc.constant.AppConstant;
+import com.hofc.hofc.data.CalendrierBDD;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.vo.CalendrierLineVO;
 
@@ -32,8 +33,8 @@ public class CalendrierAdapter extends BaseAdapter {
 	}	
 	@Override
 	public int getCount() {
-		if(DataSingleton.getCalendrier() != null) {
-			return DataSingleton.getCalendrier().size();
+		if(DataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).get() != null) {
+			return DataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).get().size();
 		} else {
 			return 0;
 		}
@@ -41,7 +42,7 @@ public class CalendrierAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		return DataSingleton.getCalendrier().get(position);
+		return DataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).get().get(position);
 	}
 
 	@Override
@@ -67,7 +68,7 @@ public class CalendrierAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		CalendrierLineVO line = DataSingleton.getCalendrier().get(position);
+		CalendrierLineVO line = DataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).get().get(position);
 		if(AppConstant.hofcName.equalsIgnoreCase(line.getEquipe1())) {
 			holder.imageEquipe1.setImageResource(R.drawable.ic_launcher);
 			holder.imageEquipe2.setImageResource(android.R.color.transparent);

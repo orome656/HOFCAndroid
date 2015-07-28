@@ -14,8 +14,11 @@ import com.android.volley.RequestQueue;
 import com.hofc.hofc.HOFCApplication;
 import com.hofc.hofc.R;
 import com.hofc.hofc.adapter.ClassementAdapter;
+import com.hofc.hofc.constant.ServerConstant;
+import com.hofc.hofc.data.ClassementBDD;
 import com.hofc.hofc.data.DataSingleton;
-import com.hofc.hofc.data.download.ClassementDownloader;
+import com.hofc.hofc.data.download.DataDownloader;
+import com.hofc.hofc.vo.ClassementLineVO;
 
 public class ClassementFragment extends CommonFragment implements FragmentCallback, CustomFragment, SwipeRefreshLayout.OnRefreshListener {
 
@@ -30,8 +33,8 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        if(DataSingleton.getClassement() == null)
-            DataSingleton.initializeClassement(getActivity());
+        if(DataSingleton.getInstance(ClassementLineVO.class,ClassementBDD.class).get() == null)
+            DataSingleton.getInstance(ClassementLineVO.class,ClassementBDD.class).initialize(getActivity());
 
         View rootView = inflater.inflate(R.layout.fragment_classement, container, false);
         classementListView = (ListView) rootView.findViewById(R.id.classement_listView);
@@ -50,7 +53,7 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if(DataSingleton.isSynchroClassementNeeded()) {
+        if(DataSingleton.getInstance(ClassementLineVO.class,ClassementBDD.class).isSynchroNeeded()) {
             this.refreshDataAndView();
         } else {
             this.refreshView();
@@ -79,7 +82,7 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
         });
         super.refreshDataAndView();
         RequestQueue requestQueue = ((HOFCApplication) getActivity().getApplication()).getRequestQueue();
-        ClassementDownloader.update(requestQueue, this);
+        DataDownloader.download(requestQueue, ServerConstant.CLASSEMENT_CONTEXT, null, this, ClassementLineVO.class, ClassementBDD.class);
 	}
 
 

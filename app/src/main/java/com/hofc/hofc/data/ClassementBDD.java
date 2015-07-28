@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ClassementBDD extends CommonBDD {
+public class ClassementBDD extends CommonBDD<ClassementLineVO> {
 
 	public ClassementBDD(Context c) {
         super(c);
@@ -69,7 +69,8 @@ public class ClassementBDD extends CommonBDD {
         cursor.close();
     	return list;
     }
-    
+
+	@Override
     public void insertList(List<ClassementLineVO> list) {
     	openWritable();
 		// On supprime avant d'insérer pour mettre a jour les données si il y a eu des suppressions

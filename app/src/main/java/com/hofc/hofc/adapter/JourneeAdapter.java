@@ -24,6 +24,7 @@ import com.hofc.hofc.R;
 import com.hofc.hofc.constant.AppConstant;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.data.LocalDataSingleton;
 import com.hofc.hofc.utils.HOFCUtils;
 import com.hofc.hofc.vo.MatchVO;
 
@@ -52,8 +53,8 @@ public class JourneeAdapter extends BaseAdapter {
 	}	
 	@Override
 	public int getCount() {
-		if(DataSingleton.getJournee(journeeId) != null) {
-			return DataSingleton.getJournee(journeeId).size();
+		if(LocalDataSingleton.getJournee(journeeId) != null) {
+			return LocalDataSingleton.getJournee(journeeId).size();
 		} else {
 			return 0;
 		}
@@ -61,7 +62,7 @@ public class JourneeAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		return DataSingleton.getJournee(journeeId).get(position);
+		return LocalDataSingleton.getJournee(journeeId).get(position);
 	}
 
 	@Override
@@ -88,7 +89,7 @@ public class JourneeAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		final MatchVO line = DataSingleton.getJournee(journeeId).get(position);
+		final MatchVO line = LocalDataSingleton.getJournee(journeeId).get(position);
 		if(line.getEquipe1() != null && line.getEquipe1().contains(AppConstant.hofcName)) {
 			holder.imageEquipe1.setImageResource(R.drawable.ic_launcher);
 			holder.imageEquipe2.setImageResource(android.R.color.transparent);

@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.hofc.hofc.R;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.data.LocalDataSingleton;
 import com.hofc.hofc.fragment.FragmentCallback;
 import com.hofc.hofc.utils.HOFCUtils;
 import com.hofc.hofc.vo.AgendaLineVO;
@@ -70,7 +71,7 @@ public class JourneeDownloader {
                                 journeeList.add(agenda);
                             }
                             if(journeeId != null && !journeeId.isEmpty()) {
-                                DataSingleton.setJournee(journeeId, journeeList);
+                                LocalDataSingleton.setJournee(journeeId, journeeList);
                             } else {
                                 Log.e(JourneeDownloader.class.getName(), "Error while caching journee");
                             }

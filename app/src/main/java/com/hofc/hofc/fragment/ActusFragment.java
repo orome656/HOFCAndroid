@@ -19,8 +19,8 @@ import com.hofc.hofc.HOFCApplication;
 import com.hofc.hofc.R;
 import com.hofc.hofc.adapter.ActusAdapter;
 import com.hofc.hofc.constant.ServerConstant;
+import com.hofc.hofc.data.ActusBDD;
 import com.hofc.hofc.data.DataSingleton;
-import com.hofc.hofc.data.download.ActusDownloader;
 import com.hofc.hofc.data.download.DataDownloader;
 import com.hofc.hofc.vo.ActuVO;
 
@@ -36,8 +36,8 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        if(DataSingleton.getActus() == null)
-            DataSingleton.initializeActus(getActivity());
+        if(DataSingleton.getInstance(ActuVO.class, ActusBDD.class).get() == null)
+            DataSingleton.getInstance(ActuVO.class, ActusBDD.class).initialize(getActivity());
         View rootView = inflater.inflate(R.layout.fragment_accueil, container, false);
         actusListView = (ListView) rootView.findViewById(R.id.actus_listview);
         actusListView.setOnItemClickListener(new OnItemClickListener() {
@@ -59,7 +59,7 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
         swipeActus.setOnRefreshListener(this);
         swipeActus.setColorSchemeColors(Color.BLACK, getResources().getColor(R.color.hofc_blue));
 
-        if(DataSingleton.isSynchroActuNeeded()) {
+        if(DataSingleton.getInstance(ActuVO.class, ActusBDD.class).isSynchroNeeded()) {
         	this.refreshDataAndView();
 		} else {
 			refreshView();
@@ -92,7 +92,7 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
         });
         super.refreshDataAndView();
         RequestQueue requestQueue = ((HOFCApplication) getActivity().getApplication()).getRequestQueue();
-		DataDownloader.download(requestQueue, ServerConstant.ACTUS_CONTEXT, null, this, ActuVO.class);
+		DataDownloader.download(requestQueue, ServerConstant.ACTUS_CONTEXT, null, this, ActuVO.class, ActusBDD.class);
 	}
 
     @Override

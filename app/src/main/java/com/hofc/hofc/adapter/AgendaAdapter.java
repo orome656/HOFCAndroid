@@ -24,6 +24,7 @@ import com.hofc.hofc.R;
 import com.hofc.hofc.constant.AppConstant;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.data.LocalDataSingleton;
 import com.hofc.hofc.utils.HOFCUtils;
 import com.hofc.hofc.vo.AgendaLineVO;
 
@@ -52,8 +53,8 @@ public class AgendaAdapter extends BaseAdapter {
 	}	
 	@Override
 	public int getCount() {
-		if(DataSingleton.getAgenda(semaine) != null) {
-			return DataSingleton.getAgenda(semaine).size();
+		if(LocalDataSingleton.getAgenda(semaine) != null) {
+			return LocalDataSingleton.getAgenda(semaine).size();
 		} else {
 			return 0;
 		}
@@ -61,7 +62,7 @@ public class AgendaAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		return DataSingleton.getAgenda(semaine).get(position);
+		return LocalDataSingleton.getAgenda(semaine).get(position);
 	}
 
 	@Override
@@ -89,7 +90,7 @@ public class AgendaAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		final AgendaLineVO line = DataSingleton.getAgenda(semaine).get(position);
+		final AgendaLineVO line = LocalDataSingleton.getAgenda(semaine).get(position);
 		if(line.getEquipe1() != null && line.getEquipe1().contains(AppConstant.hofcName)) {
 			holder.imageEquipe1.setImageResource(R.drawable.ic_launcher);
 			holder.imageEquipe2.setImageResource(android.R.color.transparent);

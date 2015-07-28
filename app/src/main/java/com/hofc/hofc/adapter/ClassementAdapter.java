@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.hofc.hofc.R;
 import com.hofc.hofc.constant.AppConstant;
+import com.hofc.hofc.data.ClassementBDD;
 import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.vo.ClassementLineVO;
 
@@ -28,8 +29,8 @@ public class ClassementAdapter extends BaseAdapter {
 	
 	@Override
 	public int getCount() {
-		if(DataSingleton.getClassement() != null) {
-			return DataSingleton.getClassement().size();
+		if(DataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).get() != null) {
+			return DataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).get().size();
 		} else {
 			return 0;
 		}
@@ -37,7 +38,7 @@ public class ClassementAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		return DataSingleton.getClassement().get(position);
+		return DataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).get().get(position);
 	}
 
 	@Override
@@ -68,7 +69,7 @@ public class ClassementAdapter extends BaseAdapter {
 		}
 		
 		
-		ClassementLineVO line = DataSingleton.getClassement().get(position);
+		ClassementLineVO line = DataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).get().get(position);
 		
 		if(AppConstant.hofcName.equalsIgnoreCase(line.getNom())) {
 			this.setLineColor(holder, context.getResources().getColor(R.color.hofc_blue));
