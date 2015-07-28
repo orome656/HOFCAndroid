@@ -16,7 +16,7 @@ public class DataSingleton<T, V extends CommonBDD> {
     private V bdd;
     private Context c;
 
-    public static <T,V extends CommonBDD> DataSingleton<T,V> getInstance(Class<T> tClass,Class<V> vClass) {
+    public static <T,V extends CommonBDD> DataSingleton<T,V> getInstance(Class<T> valueClass,Class<V> databaseClass) {
         if(INSTANCE == null) {
             INSTANCE = new DataSingleton<T,V>();
         }

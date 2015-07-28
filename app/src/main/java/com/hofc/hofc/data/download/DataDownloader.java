@@ -1,6 +1,7 @@
 package com.hofc.hofc.data.download;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -29,7 +30,7 @@ import java.util.Locale;
  * Generic class to download data
  */
 public class DataDownloader {
-    public static <T,V extends CommonBDD> void download(RequestQueue requestQueue, String context, String[] params, final FragmentCallback callback, final Class<T> classToBind, final Class<V> databaseClass) {
+    public static <T,V extends CommonBDD> void download(RequestQueue requestQueue, String context, String[] params, final FragmentCallback callback, final Class<T> valueClass, final Class<V> databaseClass) {
         String url = HOFCUtils.buildUrl(context, params);
 
         JsonArrayRequest jsonRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
@@ -44,18 +45,18 @@ public class DataDownloader {
                             ObjectMapper mapper = new ObjectMapper();
                             mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
                             String json = response.toString();
-                            ArrayList<T> actusList = mapper.readValue(json, mapper.getTypeFactory().constructCollectionType(List.class, classToBind));
+                            ArrayList<T> actusList = mapper.readValue(json, mapper.getTypeFactory().constructCollectionType(List.class, valueClass));
 
-                            DataSingleton.getInstance(classToBind,databaseClass).set(actusList);
+                            DataSingleton.getInstance(valueClass,databaseClass).set(actusList);
                             return 0;
                         } catch (JsonMappingException e) {
-                            e.printStackTrace();
+                            Log.e(DataDownloader.class.getName(), "Error while deserialize", e);
                             return -1;
                         } catch (JsonParseException e) {
-                            e.printStackTrace();
+                            Log.e(DataDownloader.class.getName(), "Error while deserialize", e);
                             return -1;
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            Log.e(DataDownloader.class.getName(), "Error while deserialize", e);
                             return -1;
                         }
                     }
