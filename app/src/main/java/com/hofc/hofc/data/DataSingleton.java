@@ -2,35 +2,46 @@ package com.hofc.hofc.data;
 
 import android.content.Context;
 
+import com.hofc.hofc.HOFCApplication;
 import com.hofc.hofc.constant.ServerConstant;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DataSingleton<T, V extends CommonBDD> {
-	private static DataSingleton INSTANCE = new DataSingleton();
+    private static Map<Class<?>, DataSingleton> INSTANCE_MAP = new HashMap<>();
     private List<T> list;
     private Date lastSynchro;
     private V bdd;
-    private Context c;
 
     public static <T,V extends CommonBDD> DataSingleton<T,V> getInstance(Class<T> valueClass,Class<V> databaseClass) {
-        if(INSTANCE == null) {
-            INSTANCE = new DataSingleton<T,V>();
+        DataSingleton<T,V> instance = null;
+        if(INSTANCE_MAP.containsKey(valueClass)) {
+            instance = (DataSingleton<T,V>) INSTANCE_MAP.get(valueClass);
+        } else {
+            instance = new DataSingleton<T,V>();
+            INSTANCE_MAP.put(valueClass, instance);
+            return instance;
         }
-        return INSTANCE;
-    }
-
-    public void initialize(Context c) {
-        try {
-            bdd = (V)bdd.getClass().newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        if(instance.bdd == null) {
+            try {
+                instance.bdd = databaseClass.getDeclaredConstructor(Context.class).newInstance(HOFCApplication.get());
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
         }
+        return instance;
     }
 
     public void closeAll() {

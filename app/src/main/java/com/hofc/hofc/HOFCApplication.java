@@ -13,10 +13,16 @@ import com.android.volley.toolbox.Volley;
  */
 public class HOFCApplication extends Application {
     private RequestQueue requestQueue;
+    private static HOFCApplication app;
+
+    public static HOFCApplication get() {
+        return app;
+    }
     @Override
     public void onCreate() {
         super.onCreate();
         init();
+        app = this;
     }
 
     @Override

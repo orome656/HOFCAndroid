@@ -31,9 +31,6 @@ public class CalendrierFragment extends CommonFragment  implements FragmentCallb
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        if(DataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).get() == null)
-            DataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).initialize(getActivity());
-
         View rootView = inflater.inflate(R.layout.fragment_calendrier, container, false);
         calendrierListView = (ListView) rootView.findViewById(R.id.calendrier_listView);
 

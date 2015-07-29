@@ -33,9 +33,6 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        if(DataSingleton.getInstance(ClassementLineVO.class,ClassementBDD.class).get() == null)
-            DataSingleton.getInstance(ClassementLineVO.class,ClassementBDD.class).initialize(getActivity());
-
         View rootView = inflater.inflate(R.layout.fragment_classement, container, false);
         classementListView = (ListView) rootView.findViewById(R.id.classement_listView);
 

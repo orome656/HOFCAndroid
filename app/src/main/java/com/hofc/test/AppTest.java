@@ -31,7 +31,6 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testActusOK() throws Exception {
-        DataSingleton.getInstance(ActuVO.class, ActusBDD.class).initialize(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         MockWebServer server = new MockWebServer();
@@ -72,7 +71,6 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testCalendrierOK() throws Exception {
-        DataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).initialize(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         MockWebServer server = new MockWebServer();
@@ -113,7 +111,6 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testClassementOK() throws Exception {
-        DataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).initialize(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         MockWebServer server = new MockWebServer();
@@ -154,7 +151,6 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testActusKO() throws Exception {
-        DataSingleton.getInstance(ActuVO.class, ActusBDD.class).initialize(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         MockWebServer server = new MockWebServer();
@@ -196,7 +192,6 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testCalendrierKO() throws Exception {
-        DataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).initialize(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         MockWebServer server = new MockWebServer();
@@ -237,7 +232,6 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testClassementKO() throws Exception {
-        DataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).initialize(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         MockWebServer server = new MockWebServer();
@@ -278,7 +272,6 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testActusDataSingleton() throws Exception {
-        DataSingleton.getInstance(ActuVO.class, ActusBDD.class).initialize(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         MockWebServer server = new MockWebServer();
@@ -318,7 +311,6 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testActusDatabase() throws Exception {
-        DataSingleton.getInstance(ActuVO.class, ActusBDD.class).initialize(getContext());
         final ActusBDD actusBDD = new ActusBDD(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -359,7 +351,6 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testCalendrierDataSingleton() throws Exception {
-        DataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).initialize(getContext());
         final CalendrierBDD calendrierBDD = new CalendrierBDD(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -400,7 +391,6 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testCalendrierDatabase() throws Exception {
-        DataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).initialize(getContext());
         final CalendrierBDD calendrierBDD = new CalendrierBDD(getContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -441,7 +431,6 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testClassementDataSingleton() throws Exception {
-        DataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).initialize(getContext());
         final ClassementBDD classementBDD = new ClassementBDD(getContext());
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         MockWebServer server = new MockWebServer();
@@ -481,7 +470,6 @@ public class AppTest extends AndroidTestCase {
      * @throws Exception
      */
     public void testClassementDatabase() throws Exception {
-        DataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).initialize(getContext());
         final ClassementBDD classementBDD = new ClassementBDD(getContext());
 
 
