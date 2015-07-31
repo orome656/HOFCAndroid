@@ -47,7 +47,7 @@ public class DataDownloader {
                             String json = response.toString();
                             ArrayList<T> actusList = mapper.readValue(json, mapper.getTypeFactory().constructCollectionType(List.class, valueClass));
 
-                            DataSingleton.getInstance(valueClass,databaseClass).set(actusList);
+                            DataSingleton.getInstance(valueClass,databaseClass).handleDownload(actusList);
                             return 0;
                         } catch (JsonMappingException e) {
                             Log.e(DataDownloader.class.getName(), "Error while deserialize", e);

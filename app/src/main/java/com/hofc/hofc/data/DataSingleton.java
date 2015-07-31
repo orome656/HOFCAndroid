@@ -58,6 +58,11 @@ public class DataSingleton<T, V extends CommonBDD> {
         bdd.insertList(pList);
     }
 
+    public void handleDownload(List<T> list) {
+        this.set(list);
+        this.updateDateSynchro(new Date());
+    }
+
     public boolean isSynchroNeeded() {
     	GregorianCalendar calendar = (GregorianCalendar) GregorianCalendar.getInstance();
     	calendar.setTime(new Date());
