@@ -1,6 +1,7 @@
 package com.hofc.hofc.data;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.hofc.hofc.HOFCApplication;
 import com.hofc.hofc.constant.ServerConstant;
@@ -20,7 +21,7 @@ public class DataSingleton<T, V extends CommonBDD> {
     private V bdd;
 
     public static <T,V extends CommonBDD> DataSingleton<T,V> getInstance(Class<T> valueClass,Class<V> databaseClass) {
-        DataSingleton<T,V> instance = null;
+        DataSingleton<T,V> instance;
         if(INSTANCE_MAP.containsKey(valueClass)) {
             instance = (DataSingleton<T,V>) INSTANCE_MAP.get(valueClass);
         } else {
@@ -32,21 +33,16 @@ public class DataSingleton<T, V extends CommonBDD> {
             try {
                 instance.bdd = databaseClass.getDeclaredConstructor(Context.class).newInstance(HOFCApplication.get());
             } catch (InstantiationException e) {
-                e.printStackTrace();
+                Log.e(DataSingleton.class.getName(), "Error while creating database instance", e);
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                Log.e(DataSingleton.class.getName(), "Error while creating database instance", e);
             } catch (NoSuchMethodException e) {
-                e.printStackTrace();
+                Log.e(DataSingleton.class.getName(), "Error while creating database instance", e);
             } catch (InvocationTargetException e) {
-                e.printStackTrace();
+                Log.e(DataSingleton.class.getName(), "Error while creating database instance", e);
             }
         }
         return instance;
-    }
-
-    public void closeAll() {
-        if(bdd != null)
-            bdd.close();
     }
 
     public List<T> get() {

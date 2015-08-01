@@ -20,7 +20,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.hofc.hofc.adapter.GridImageAdapter;
 import com.hofc.hofc.constant.ServerConstant;
-import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.data.LocalDataSingleton;
 import com.hofc.hofc.utils.HOFCUtils;
 import com.hofc.hofc.utils.PreCachingLayoutManager;

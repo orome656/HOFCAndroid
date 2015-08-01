@@ -12,7 +12,6 @@ import android.view.View;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.hofc.hofc.adapter.DiaporamaAdapter;
-import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.data.LocalDataSingleton;
 
 

@@ -10,7 +10,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.hofc.hofc.R;
 import com.hofc.hofc.constant.ServerConstant;
-import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.data.LocalDataSingleton;
 import com.hofc.hofc.fragment.FragmentCallback;
 import com.hofc.hofc.utils.HOFCUtils;

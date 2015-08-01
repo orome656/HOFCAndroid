@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.hofc.hofc.R;
-import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.data.LocalDataSingleton;
 
 public class JourneeFragment extends Fragment {

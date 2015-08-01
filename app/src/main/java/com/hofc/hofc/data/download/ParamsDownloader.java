@@ -7,7 +7,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.hofc.hofc.constant.ServerConstant;
-import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.data.LocalDataSingleton;
 import com.hofc.hofc.utils.HOFCUtils;
 

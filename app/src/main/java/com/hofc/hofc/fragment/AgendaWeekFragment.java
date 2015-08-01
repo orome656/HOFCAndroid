@@ -12,7 +12,6 @@ import com.android.volley.RequestQueue;
 import com.hofc.hofc.HOFCApplication;
 import com.hofc.hofc.R;
 import com.hofc.hofc.adapter.AgendaAdapter;
-import com.hofc.hofc.data.DataSingleton;
 import com.hofc.hofc.data.LocalDataSingleton;
 import com.hofc.hofc.data.download.AgendaDownloader;
 
