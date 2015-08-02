@@ -16,6 +16,7 @@ class HOFCOpenHelper extends SQLiteOpenHelper {
     private static final String CLASSEMENT_TABLE_NAME = "classement";
     private static final String CALENDRIER_TABLE_NAME = "calendrier";
     private static final String ACTUS_TABLE_NAME = "actus";
+    private static final String AGENDA_TABLE_NAME = "agenda";
     private static final String DATE_SYNCHRO_TABLE_NAME= "date_synchro";
 
     // Description des colonnes commun
@@ -51,7 +52,11 @@ class HOFCOpenHelper extends SQLiteOpenHelper {
     private static final String COLUMN_POST_ID = "POST_ID";
     private static final String COLUMN_URL = "URL";
     private static final String COLUMN_IMAGE_URL = "IMAGE_URL";
-    
+
+    // Description des colonnes agenda
+    private static final String COLUMN_ID_INFORMATION = "ID_INFOS";
+    private static final String COLUMN_ID_DATE = "ID_DATE";
+
     // Synchro
     private static final String COLUMN_NOM_SYNCHRO = "NOM";
     //public static final int NUM_COLUMN_NOM_SYNCHRO = 1;
@@ -93,8 +98,17 @@ class HOFCOpenHelper extends SQLiteOpenHelper {
             + COLUMN_DATE_ACTUS + " DATE, "
             + COLUMN_IMG + " BLOB, "
             + COLUMN_IMAGE_URL + " TEXT);";
-    
-	public HOFCOpenHelper(Context context, CursorFactory factory) {
+
+    private static final String REQUETE_CREATION_BDD_AGENDA = "CREATE TABLE IF NOT EXISTS "
+            + AGENDA_TABLE_NAME + " (" + COLUMN_ID
+            + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_EQUIPE_1
+            + " TEXT NOT NULL, " + COLUMN_SCORE_1 + " INTEGER, "
+            + COLUMN_SCORE_2 + " INTEGER, "
+            + COLUMN_EQUIPE_2 + " TEXT NOT NULL, "
+            + COLUMN_DATE + " DATE, "+ COLUMN_ID_INFORMATION + " TEXT, "
+            + COLUMN_ID_DATE + " TEXT);";
+
+    public HOFCOpenHelper(Context context, CursorFactory factory) {
 		super(context, HOFC_BASE_NAME, factory, DATABASE_VERSION);
 	}
 
@@ -104,6 +118,7 @@ class HOFCOpenHelper extends SQLiteOpenHelper {
 		db.execSQL(REQUETE_CREATION_BDD_CLASSEMENT);
 		db.execSQL(REQUETE_CREATION_BDD_ACTUS);
 		db.execSQL(REQUETE_CREATION_BDD_DATE);
+        //db.execSQL(REQUETE_CREATION_BDD_AGENDA);
 	}
 
 	@Override
@@ -112,6 +127,7 @@ class HOFCOpenHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + CLASSEMENT_TABLE_NAME);
 		db.execSQL("DROP TABLE IF EXISTS " + ACTUS_TABLE_NAME);
 		db.execSQL("DROP TABLE IF EXISTS " + DATE_SYNCHRO_TABLE_NAME);
+        //db.execSQL("DROP TABLE IF EXISTS " + AGENDA_TABLE_NAME);
 		onCreate(db);
 
 	}
