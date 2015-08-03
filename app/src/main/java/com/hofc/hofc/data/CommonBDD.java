@@ -107,5 +107,6 @@ public class CommonBDD<T> {
         cursor.close();
 	}
 
+	public List<T> getAll(){return null;};
 	public void insertList(List<T> list){}
 }

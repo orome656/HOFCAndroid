@@ -1,6 +1,7 @@
 package com.hofc.hofc.data;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.provider.BaseColumns;
 import android.util.Log;
@@ -18,6 +19,10 @@ import java.util.Locale;
  */
 public class AgendaBDD extends CommonBDD<AgendaLineVO> {
 
+    public AgendaBDD(Context c) {
+        super(c);
+        this.tableName = AgendaEntry.AGENDA_TABLE_NAME;
+    }
     private static abstract class AgendaEntry implements BaseColumns {
         //public static final String COLUMN_ID = "ID";
         //public static final int NUM_COLUMN_ID = 0;
@@ -25,27 +30,27 @@ public class AgendaBDD extends CommonBDD<AgendaLineVO> {
         public static final String COLUMN_TITLE = "TITRE";
         public static final int NUM_COLUMN_TITLE = 1;
         public static final String COLUMN_EQUIPE_1 = "EQUIPE_1";
-        public static final int NUM_COLUMN_EQUIPE_1 = 1;
+        public static final int NUM_COLUMN_EQUIPE_1 = 2;
         public static final String COLUMN_SCORE_1 = "SCORE_1";
-        public static final int NUM_COLUMN_SCORE_1 = 2;
+        public static final int NUM_COLUMN_SCORE_1 = 3;
         public static final String COLUMN_SCORE_2 = "SCORE_2";
-        public static final int NUM_COLUMN_SCORE_2 = 3;
+        public static final int NUM_COLUMN_SCORE_2 = 4;
         public static final String COLUMN_EQUIPE_2 = "EQUIPE_2";
-        public static final int NUM_COLUMN_EQUIPE_2 = 4;
+        public static final int NUM_COLUMN_EQUIPE_2 = 5;
         public static final String COLUMN_DATE = "DATE";
-        public static final int NUM_COLUMN_DATE = 5;
+        public static final int NUM_COLUMN_DATE = 6;
         public static final String COLUMN_IDENTIFIANT_DATE = "ID_DATE";
-        public static final int NUM_COLUMN_IDENTIFIANT_DATE = 6;
+        public static final int NUM_COLUMN_IDENTIFIANT_DATE = 7;
         public static final String COLUMN_IDENTIFIANT_INFOS = "ID_INFOS";
-        public static final int NUM_COLUMN_IDENTIFIANT_INFOS = 7;
+        public static final int NUM_COLUMN_IDENTIFIANT_INFOS = 8;
 
     }
 
-    public List<AgendaLineVO> getAll() {
+    public List<AgendaLineVO> getAll(String date) {
         openReadable();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         ArrayList<AgendaLineVO> list = null;
-        Cursor cursor = hofcDatabase.query(AgendaEntry.AGENDA_TABLE_NAME, null, null, null, null, null, AgendaEntry.COLUMN_DATE);
+        Cursor cursor = hofcDatabase.query(AgendaEntry.AGENDA_TABLE_NAME, null, AgendaEntry.COLUMN_IDENTIFIANT_DATE + "=?", new String[]{date}, null, null, AgendaEntry.COLUMN_DATE);
         if(cursor.getCount() > 0){
             list = new ArrayList<>();
             while(cursor.moveToNext()) {

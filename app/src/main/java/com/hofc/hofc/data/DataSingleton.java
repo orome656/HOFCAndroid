@@ -32,6 +32,8 @@ public class DataSingleton<T, V extends CommonBDD> {
         if(instance.bdd == null) {
             try {
                 instance.bdd = databaseClass.getDeclaredConstructor(Context.class).newInstance(HOFCApplication.get());
+                instance.list = instance.bdd.getAll();
+                instance.lastSynchro = instance.bdd.getDateSynchro();
             } catch (InstantiationException e) {
                 Log.e(DataSingleton.class.getName(), "Error while creating database instance", e);
             } catch (IllegalAccessException e) {
