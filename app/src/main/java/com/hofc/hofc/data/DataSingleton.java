@@ -27,7 +27,6 @@ public class DataSingleton<T, V extends CommonBDD> {
         } else {
             instance = new DataSingleton<T,V>();
             INSTANCE_MAP.put(valueClass, instance);
-            return instance;
         }
         if(instance.bdd == null) {
             try {
