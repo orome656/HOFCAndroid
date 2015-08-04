@@ -27,6 +27,7 @@ public class ParamsDownloader {
             public void onResponse(final JSONObject response) {
                 try {
                     LocalDataSingleton.getParams().setSeasonMatchCount(response.getInt("SEASON_MATCHS_COUNT"));
+                    LocalDataSingleton.addParam("seasonMatchCount", response.getInt("SEASON_MATCHS_COUNT") + "");
                 } catch (JSONException e) {
                     Log.e(ParamsDownloader.class.getName(), "Deserialization error", e);
                 }

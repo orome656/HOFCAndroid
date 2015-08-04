@@ -15,11 +15,11 @@ public class ParamsBDD extends CommonBDD<Params> {
         this.tableName = ParamsEntry.TABLE_NAME;
     }
     private static abstract class ParamsEntry implements BaseColumns {
-        public static final String TABLE_NAME = "NOM";
+        public static final String TABLE_NAME = "params";
         public static final String COLUMN_NOM = "NOM";
-        public static final int NUM_COLUMN_NOM = 1;
+        public static final int NUM_COLUMN_NOM = 0;
         public static final String COLUMN_VALEUR = "VALEUR";
-        public static final int NUM_COLUMN_VALEUR = 2;
+        public static final int NUM_COLUMN_VALEUR = 1;
     }
 
 
@@ -45,6 +45,7 @@ public class ParamsBDD extends CommonBDD<Params> {
             hofcDatabase.update(ParamsEntry.TABLE_NAME, values, ParamsEntry.COLUMN_NOM + " =?", new String[]{name});
         } else {
             // INSERT
+            values.put(ParamsEntry.COLUMN_NOM, name);
             hofcDatabase.insert(ParamsEntry.TABLE_NAME, null, values);
         }
     }

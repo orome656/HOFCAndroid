@@ -19,6 +19,7 @@ class HOFCOpenHelper extends SQLiteOpenHelper {
     private static final String AGENDA_TABLE_NAME = "agenda";
     private static final String DATE_SYNCHRO_TABLE_NAME= "date_synchro";
     private static final String JOURNEE_TABLE_NAME= "journee";
+    private static final String PARAMS_TABLE_NAME= "params";
 
     // Description des colonnes commun
     private static final String COLUMN_ID = "ID";
@@ -60,6 +61,9 @@ class HOFCOpenHelper extends SQLiteOpenHelper {
 
     // Description des colonnes journee
     private static final String COLUMN_ID_JOURNEE = "ID_JOURNEE";
+
+    // Description des colonnes params
+    private static final String COLUMN_VALEUR = "VALEUR";
 
     // Synchro
     private static final String COLUMN_NOM_SYNCHRO = "NOM";
@@ -121,6 +125,12 @@ class HOFCOpenHelper extends SQLiteOpenHelper {
             + COLUMN_DATE + " DATE, "+ COLUMN_ID_JOURNEE + " TEXT, "
             + COLUMN_ID_INFORMATION + " TEXT);";
 
+
+    private static final String REQUETE_CREATION_BDD_PARAMS = "CREATE TABLE IF NOT EXISTS "
+            + PARAMS_TABLE_NAME + " (" + COLUMN_NOM
+            + " TEXT PRIMARY KEY , " + COLUMN_VALEUR
+            + " TEXT NOT NULL);";
+
     public HOFCOpenHelper(Context context, CursorFactory factory) {
 		super(context, HOFC_BASE_NAME, factory, DATABASE_VERSION);
 	}
@@ -133,6 +143,7 @@ class HOFCOpenHelper extends SQLiteOpenHelper {
 		db.execSQL(REQUETE_CREATION_BDD_DATE);
         db.execSQL(REQUETE_CREATION_BDD_AGENDA);
         db.execSQL(REQUETE_CREATION_BDD_JOURNEE);
+        db.execSQL(REQUETE_CREATION_BDD_PARAMS);
 	}
 
 	@Override
@@ -143,6 +154,7 @@ class HOFCOpenHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + DATE_SYNCHRO_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + AGENDA_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + JOURNEE_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + PARAMS_TABLE_NAME);
 		onCreate(db);
 
 	}

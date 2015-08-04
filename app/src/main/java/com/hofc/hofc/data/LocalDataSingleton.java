@@ -27,11 +27,11 @@ public enum LocalDataSingleton {
         INSTANCE.cacheImageUrls = new HashMap<>();
         INSTANCE.agenda = new HashMap<>();
         INSTANCE.journee = new HashMap<>();
-        INSTANCE.params = new Params();
 
         INSTANCE.agendaBdd = new AgendaBDD(HOFCApplication.get());
         INSTANCE.journeeBdd = new JourneeBdd(HOFCApplication.get());
-
+        INSTANCE.paramsBdd = new ParamsBDD(HOFCApplication.get());
+        INSTANCE.params = INSTANCE.paramsBdd.getParams();
     }
 
     public static List<AgendaLineVO> getAgenda(String date) {
@@ -73,6 +73,10 @@ public enum LocalDataSingleton {
 
     public static Params getParams() {
         return INSTANCE.params;
+    }
+
+    public static void addParam(String name, String value) {
+        INSTANCE.paramsBdd.saveParam(name, value);
     }
 
 }
