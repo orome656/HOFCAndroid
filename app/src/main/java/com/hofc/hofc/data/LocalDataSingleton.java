@@ -18,6 +18,7 @@ public enum LocalDataSingleton {
     private JourneeBdd journeeBdd;
     private AgendaBDD agendaBdd;
 
+    private ParamsBDD paramsBdd;
     private Params params;
 
     private Map<String, List<String>> cacheImageUrls;
