@@ -82,7 +82,7 @@ public class JourneeBdd extends CommonBDD<MatchVO> {
         openWritable();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         // On supprime avant d'insérer pour mettre a jour les données si il y a eu des suppressions
-        hofcDatabase.delete(JourneeEntry.JOURNEE_TABLE_NAME, null, null);
+        hofcDatabase.delete(JourneeEntry.JOURNEE_TABLE_NAME, JourneeEntry.COLUMN_IDENTIFIANT_JOURNEE + "=?", new String[]{idJournee});
         for(MatchVO line : list) {
             Cursor cursor = hofcDatabase.query(JourneeEntry.JOURNEE_TABLE_NAME, null, JourneeEntry.COLUMN_EQUIPE_1 + " ='"+ line.getEquipe1() +"' and " + JourneeEntry.COLUMN_EQUIPE_2 + " ='"+line.getEquipe2()+"'", null, null, null, null);
             ContentValues values = new ContentValues();
