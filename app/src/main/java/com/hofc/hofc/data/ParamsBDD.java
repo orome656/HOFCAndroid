@@ -32,7 +32,7 @@ public class ParamsBDD extends CommonBDD<Params> {
             result.setSeasonMatchCount(seasonMatchCount);
         }
         cursor.close();
-        return new Params();
+        return result;
     }
 
     public void saveParam(String name, String value) {
