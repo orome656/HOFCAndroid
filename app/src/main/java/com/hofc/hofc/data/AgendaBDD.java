@@ -84,7 +84,7 @@ public class AgendaBDD extends CommonBDD<AgendaLineVO> {
         openWritable();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         // On supprime avant d'insérer pour mettre a jour les données si il y a eu des suppressions
-        hofcDatabase.delete(AgendaEntry.AGENDA_TABLE_NAME, null, null);
+        hofcDatabase.delete(AgendaEntry.AGENDA_TABLE_NAME, AgendaEntry.COLUMN_IDENTIFIANT_DATE + "=?", new String[]{date});
         for(AgendaLineVO line : list) {
             Cursor cursor = hofcDatabase.query(AgendaEntry.AGENDA_TABLE_NAME, null, AgendaEntry.COLUMN_EQUIPE_1 + " ='"+ line.getEquipe1() +"' and " + AgendaEntry.COLUMN_EQUIPE_2 + " ='"+line.getEquipe2()+"'", null, null, null, null);
             ContentValues values = new ContentValues();
