@@ -61,11 +61,6 @@ public class Accueil extends AppCompatActivity {
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
-    private ActusFragment actusFragment = null;
-    private CalendrierFragment calendrierFragment = null;
-    private ClassementFragment classementFragment = null;
-    private AgendaFragment agendaFragment = null;
-    private JourneeFragment journeeFragment = null;
 
     private Context context;
     private GoogleCloudMessaging gcm;
@@ -100,7 +95,11 @@ public class Accueil extends AppCompatActivity {
         drawerToggle = setupDrawerToggle();
         mDrawerLayout.setDrawerListener(drawerToggle);
 
-        if(savedInstanceState == null) {
+        if(getIntent() != null && getIntent().getAction() != null && "OPEN_CALENDRIER".equals(getIntent().getAction())) {
+            handleMenuItemClick(R.id.navigation_item_calendrier, true);
+        } else if(getIntent() != null && getIntent().getAction() != null && "OPEN_ACTUS".equals(getIntent().getAction())) {
+            handleMenuItemClick(R.id.navigation_item_accueil, true);
+        } else if(savedInstanceState == null) {
             // Démarrage de l'application, mise en place du fragment Accueil
             if(this.fragmentManager == null)
                 fragmentManager = getSupportFragmentManager();
@@ -174,18 +173,18 @@ public class Accueil extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
-                        handleMenuItemClick(menuItem);
+                        handleMenuItemClick(menuItem.getItemId(), false);
                         return true;
                     }
                 });
     }
 
-    private void handleMenuItemClick(MenuItem menuItem) {
+    private void handleMenuItemClick(int menuItemId, boolean forceRefresh) {
         Class fragmentClass = null;
         Fragment fragment;
         if(this.fragmentManager == null)
             fragmentManager = getSupportFragmentManager();
-        switch (menuItem.getItemId()) {
+        switch (menuItemId) {
             case R.id.navigation_item_accueil:
                 fragmentClass = ActusFragment.class;
                 mTitle = getText(R.string.title_accueil);
@@ -210,6 +209,9 @@ public class Accueil extends AppCompatActivity {
         if(fragmentClass != null) {
             try {
                 fragment = (Fragment)fragmentClass.newInstance();
+                Bundle args = new Bundle();
+                args.putBoolean("forceRefresh", forceRefresh);
+                fragment.setArguments(args);
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, fragment)
                         .commit();

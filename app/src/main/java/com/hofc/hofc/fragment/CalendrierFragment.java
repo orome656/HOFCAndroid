@@ -33,12 +33,12 @@ public class CalendrierFragment extends CommonFragment  implements FragmentCallb
 
         View rootView = inflater.inflate(R.layout.fragment_calendrier, container, false);
         calendrierListView = (ListView) rootView.findViewById(R.id.calendrier_listView);
-
+        Bundle args = getArguments();
         swipeCalendrier = (SwipeRefreshLayout)rootView.findViewById(R.id.swipe_calendrier);
         swipeCalendrier.setOnRefreshListener(this);
         swipeCalendrier.setColorSchemeColors(Color.BLACK, getResources().getColor(R.color.hofc_blue));
 
-        if(DataSingleton.getInstance(CalendrierLineVO.class,CalendrierBDD.class).isSynchroNeeded()) {
+        if(DataSingleton.getInstance(CalendrierLineVO.class,CalendrierBDD.class).isSynchroNeeded() || (args != null && args.getBoolean("forceRefresh"))) {
         	this.refreshDataAndView();
 		} else {
 			refreshView();

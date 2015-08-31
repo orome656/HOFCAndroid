@@ -12,12 +12,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class CommonBDD<T> {
+public abstract class CommonBDD<T> {
 
 	private Context context;
 	protected HOFCOpenHelper hofcOpenHelper;
 	protected SQLiteDatabase hofcDatabase;
     protected String tableName;
+	protected String whereCondition;
+	protected String orderByValue;
+
 
 	public CommonBDD() {}
 
@@ -107,6 +110,11 @@ public class CommonBDD<T> {
         cursor.close();
 	}
 
-	public List<T> getAll(){return null;};
+	public List<T> getAll(){
+		return null;
+	}
+
+	public void insertElement(T element){}
+
 	public void insertList(List<T> list){}
 }

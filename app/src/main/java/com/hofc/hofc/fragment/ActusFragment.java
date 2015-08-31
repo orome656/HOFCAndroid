@@ -38,6 +38,8 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_accueil, container, false);
         actusListView = (ListView) rootView.findViewById(R.id.actus_listview);
+        Bundle args = getArguments();
+
         actusListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v,
@@ -57,7 +59,7 @@ public class ActusFragment extends CommonFragment  implements FragmentCallback, 
         swipeActus.setOnRefreshListener(this);
         swipeActus.setColorSchemeColors(Color.BLACK, getResources().getColor(R.color.hofc_blue));
 
-        if(DataSingleton.getInstance(ActuVO.class, ActusBDD.class).isSynchroNeeded()) {
+        if(DataSingleton.getInstance(ActuVO.class, ActusBDD.class).isSynchroNeeded() || (args != null && args.getBoolean("forceRefresh"))) {
         	this.refreshDataAndView();
 		} else {
 			refreshView();

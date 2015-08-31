@@ -80,7 +80,7 @@ public class ActusBDD extends CommonBDD<ActuVO> {
     	openWritable();
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
     	for(ActuVO line : list) {
-    		Cursor cursor = hofcDatabase.query(ActusEntry.ACTUS_TABLE_NAME, null, ActusEntry.COLUMN_POST_ID + " ="+ line.getPostId(), null, null, null, null);
+			Cursor cursor = hofcDatabase.query(ActusEntry.ACTUS_TABLE_NAME, null, ActusEntry.COLUMN_POST_ID + " ="+ line.getPostId(), null, null, null, null);
 			ContentValues values = new ContentValues();
 			values.put(ActusEntry.COLUMN_DATE, sdf.format(line.getDate()));
 			values.put(ActusEntry.COLUMN_DESCRIPTION, line.getTexte());
@@ -92,16 +92,43 @@ public class ActusBDD extends CommonBDD<ActuVO> {
 				line.getBitmapImage().compress(Bitmap.CompressFormat.PNG, 100, stream);
 				values.put(ActusEntry.COLUMN_IMG, stream.toByteArray());
 			}
-    		if(cursor.getCount() > 0) {
-    			// UPDATE
-    			hofcDatabase.update(ActusEntry.ACTUS_TABLE_NAME, values, ActusEntry.COLUMN_POST_ID + " ='"+ line.getPostId() + "'", null);
-    		} else {
-    			// INSERT
-    			values.put(ActusEntry.COLUMN_POST_ID, line.getPostId());
-    			hofcDatabase.insert(ActusEntry.ACTUS_TABLE_NAME, null, values);
-    		}
-            cursor.close();
+			if(cursor.getCount() > 0) {
+				// UPDATE
+				hofcDatabase.update(ActusEntry.ACTUS_TABLE_NAME, values, ActusEntry.COLUMN_POST_ID + " ='"+ line.getPostId() + "'", null);
+			} else {
+				// INSERT
+				values.put(ActusEntry.COLUMN_POST_ID, line.getPostId());
+				hofcDatabase.insert(ActusEntry.ACTUS_TABLE_NAME, null, values);
+			}
+			cursor.close();
     	}
 
     }
+
+	@Override
+	public void insertElement(ActuVO actu) {
+		openWritable();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+		Cursor cursor = hofcDatabase.query(ActusEntry.ACTUS_TABLE_NAME, null, ActusEntry.COLUMN_POST_ID + " ="+ actu.getPostId(), null, null, null, null);
+		ContentValues values = new ContentValues();
+		values.put(ActusEntry.COLUMN_DATE, sdf.format(actu.getDate()));
+		values.put(ActusEntry.COLUMN_DESCRIPTION, actu.getTexte());
+		values.put(ActusEntry.COLUMN_TITLE, actu.getTitre());
+		values.put(ActusEntry.COLUMN_URL, actu.getUrl());
+		values.put(ActusEntry.COLUMN_IMAGE_URL, actu.getImageUrl());
+		if(actu.getBitmapImage() != null) {
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			actu.getBitmapImage().compress(Bitmap.CompressFormat.PNG, 100, stream);
+			values.put(ActusEntry.COLUMN_IMG, stream.toByteArray());
+		}
+		if(cursor.getCount() > 0) {
+			// UPDATE
+			hofcDatabase.update(ActusEntry.ACTUS_TABLE_NAME, values, ActusEntry.COLUMN_POST_ID + " ='"+ actu.getPostId() + "'", null);
+		} else {
+			// INSERT
+			values.put(ActusEntry.COLUMN_POST_ID, actu.getPostId());
+			hofcDatabase.insert(ActusEntry.ACTUS_TABLE_NAME, null, values);
+		}
+		cursor.close();
+	}
 }

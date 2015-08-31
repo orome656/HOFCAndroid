@@ -46,7 +46,7 @@ public class JourneeDownloader {
                     @Override
                     protected Integer doInBackground(Void... params) {
                         try {
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
                             ArrayList<MatchVO> journeeList = new ArrayList<>();
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject object = response.getJSONObject(i);

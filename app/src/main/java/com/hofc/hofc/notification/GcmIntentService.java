@@ -10,6 +10,7 @@ import android.support.v4.app.NotificationCompat;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.hofc.hofc.Accueil;
+import com.hofc.hofc.ActusDetail;
 import com.hofc.hofc.R;
 
 /**
@@ -57,8 +58,18 @@ public class GcmIntentService extends IntentService {
             String message = extras.getString(MESSAGE_CONTENT);
             NotificationManager mNotificationManager = (NotificationManager)
                     this.getSystemService(Context.NOTIFICATION_SERVICE);
-            PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                    new Intent(this, Accueil.class), 0);
+            PendingIntent contentIntent = null;
+            Intent intent = null;
+            if("Calendrier".equalsIgnoreCase(extras.getString("TYPE"))) {
+                intent = new Intent(this, Accueil.class);
+                intent.setAction("OPEN_CALENDRIER");
+            } else if("Actu".equalsIgnoreCase(extras.getString("TYPE"))) {
+                intent = new Intent(this, ActusDetail.class);
+                intent.putExtra("URL", extras.getString("URL"));
+            } else {
+                intent = new Intent(this, Accueil.class);
+            }
+            contentIntent = PendingIntent.getActivity(this, 0, intent, 0);
             NotificationCompat.Builder mBuilder =
                     new NotificationCompat.Builder(this)
                             .setSmallIcon(R.drawable.ic_launcher)
