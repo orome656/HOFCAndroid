@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 class HOFCOpenHelper extends SQLiteOpenHelper {
 	   // Version de la base de données
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
  
     // Nom de la base
     private static final String HOFC_BASE_NAME = "hofc.db";
