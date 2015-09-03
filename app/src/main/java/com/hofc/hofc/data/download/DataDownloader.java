@@ -41,7 +41,9 @@ public class DataDownloader {
                     @Override
                     protected Integer doInBackground(Void... params) {
                         try {
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
                             ObjectMapper mapper = new ObjectMapper();
+                            mapper.setDateFormat(sdf);
                             mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
                             String json = response.toString();
                             ArrayList<T> actusList = mapper.readValue(json, mapper.getTypeFactory().constructCollectionType(List.class, valueClass));

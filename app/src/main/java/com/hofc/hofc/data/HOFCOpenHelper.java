@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 class HOFCOpenHelper extends SQLiteOpenHelper {
 	   // Version de la base de données
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
  
     // Nom de la base
     private static final String HOFC_BASE_NAME = "hofc.db";
@@ -109,7 +109,7 @@ class HOFCOpenHelper extends SQLiteOpenHelper {
 
     private static final String REQUETE_CREATION_BDD_AGENDA = "CREATE TABLE IF NOT EXISTS "
             + AGENDA_TABLE_NAME + " (" + COLUMN_ID
-            + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_EQUIPE_1
+            + " INTEGER PRIMARY KEY AUTOINCREMENT, "+ COLUMN_TITLE + " TEXT, " + COLUMN_EQUIPE_1
             + " TEXT NOT NULL, " + COLUMN_SCORE_1 + " INTEGER, "
             + COLUMN_SCORE_2 + " INTEGER, "
             + COLUMN_EQUIPE_2 + " TEXT NOT NULL, "
