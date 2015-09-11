@@ -81,7 +81,7 @@ public class AppTest extends AndroidTestCase {
         ServerConstant.SERVER_URL = server.getUrl("").getHost();
         ServerConstant.SERVER_PORT = 3000;
 
-        DataDownloader.download(requestQueue, ServerConstant.CALENDRIER_CONTEXT, null, new FragmentCallback() {
+        DataDownloader.download(requestQueue, ServerConstant.CALENDRIER_CONTEXT[0], null, new FragmentCallback() {
             @Override
             public void onTaskDone() {
                 assertTrue(true);
@@ -121,7 +121,7 @@ public class AppTest extends AndroidTestCase {
         ServerConstant.SERVER_URL = server.getUrl("").getHost();
         ServerConstant.SERVER_PORT = 3000;
 
-        DataDownloader.download(requestQueue, ServerConstant.CLASSEMENT_CONTEXT, null, new FragmentCallback() {
+        DataDownloader.download(requestQueue, ServerConstant.CLASSEMENT_CONTEXT[0], null, new FragmentCallback() {
             @Override
             public void onTaskDone() {
                 assertTrue(true);
@@ -202,7 +202,7 @@ public class AppTest extends AndroidTestCase {
         ServerConstant.SERVER_URL = server.getUrl("").getHost();
         ServerConstant.SERVER_PORT = 3000;
 
-        DataDownloader.download(requestQueue, ServerConstant.CALENDRIER_CONTEXT, null, new FragmentCallback() {
+        DataDownloader.download(requestQueue, ServerConstant.CALENDRIER_CONTEXT[0], null, new FragmentCallback() {
             @Override
             public void onTaskDone() {
                 assertTrue(false);
@@ -242,7 +242,7 @@ public class AppTest extends AndroidTestCase {
         ServerConstant.SERVER_URL = server.getUrl("").getHost();
         ServerConstant.SERVER_PORT = 3000;
 
-        DataDownloader.download(requestQueue, ServerConstant.CLASSEMENT_CONTEXT, null, new FragmentCallback() {
+        DataDownloader.download(requestQueue, ServerConstant.CLASSEMENT_CONTEXT[0], null, new FragmentCallback() {
             @Override
             public void onTaskDone() {
                 assertTrue(false);
@@ -362,7 +362,7 @@ public class AppTest extends AndroidTestCase {
         ServerConstant.SERVER_URL = server.getUrl("").getHost();
         ServerConstant.SERVER_PORT = 3000;
 
-        DataDownloader.download(requestQueue, ServerConstant.CALENDRIER_CONTEXT, null, new FragmentCallback() {
+        DataDownloader.download(requestQueue, ServerConstant.CALENDRIER_CONTEXT[0], null, new FragmentCallback() {
             @Override
             public void onTaskDone() {
                 assertEquals(calendrierBDD.getAll().size(),3);
@@ -402,7 +402,7 @@ public class AppTest extends AndroidTestCase {
         ServerConstant.SERVER_URL = server.getUrl("").getHost();
         ServerConstant.SERVER_PORT = 3000;
 
-        DataDownloader.download(requestQueue, ServerConstant.CALENDRIER_CONTEXT, null, new FragmentCallback() {
+        DataDownloader.download(requestQueue, ServerConstant.CALENDRIER_CONTEXT[0], null, new FragmentCallback() {
             @Override
             public void onTaskDone() {
                 assertEquals(calendrierBDD.getAll().size(), 3);
@@ -441,7 +441,7 @@ public class AppTest extends AndroidTestCase {
         ServerConstant.SERVER_URL = server.getUrl("").getHost();
         ServerConstant.SERVER_PORT = 3000;
 
-        DataDownloader.download(requestQueue, ServerConstant.CLASSEMENT_CONTEXT, null, new FragmentCallback() {
+        DataDownloader.download(requestQueue, ServerConstant.CLASSEMENT_CONTEXT[0], null, new FragmentCallback() {
             @Override
             public void onTaskDone() {
                 assertEquals(classementBDD.getAll().size(),3);
@@ -482,7 +482,7 @@ public class AppTest extends AndroidTestCase {
         ServerConstant.SERVER_URL = server.getUrl("").getHost();
         ServerConstant.SERVER_PORT = 3000;
 
-        DataDownloader.download(requestQueue, ServerConstant.CLASSEMENT_CONTEXT, null, new FragmentCallback() {
+        DataDownloader.download(requestQueue, ServerConstant.CLASSEMENT_CONTEXT[0], null, new FragmentCallback() {
             @Override
             public void onTaskDone() {
                 assertEquals(classementBDD.getAll().size(), 3);

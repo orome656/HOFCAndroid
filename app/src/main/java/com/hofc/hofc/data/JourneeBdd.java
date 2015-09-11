@@ -42,14 +42,16 @@ public class JourneeBdd extends CommonBDD<MatchVO> {
         public static final int NUM_COLUMN_IDENTIFIANT_JOURNEE = 6;
         public static final String COLUMN_IDENTIFIANT_INFOS = "ID_INFOS";
         public static final int NUM_COLUMN_IDENTIFIANT_INFOS = 7;
+        public static final String COLUMN_CATEGORIE = "CATEGORIE";
+        public static final int NUM_COLUMN_CATEGORIE = 8;
 
     }
 
-    public List<MatchVO> getAll(String idJournee) {
+    public List<MatchVO> getAll(String idJournee, String equipe) {
         openReadable();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         ArrayList<MatchVO> list = null;
-        Cursor cursor = hofcDatabase.query(JourneeEntry.JOURNEE_TABLE_NAME, null, JourneeEntry.COLUMN_IDENTIFIANT_JOURNEE + "=?", new String[]{idJournee}, null, null, JourneeEntry.COLUMN_DATE);
+        Cursor cursor = hofcDatabase.query(JourneeEntry.JOURNEE_TABLE_NAME, null, JourneeEntry.COLUMN_IDENTIFIANT_JOURNEE + "=? and " + JourneeEntry.COLUMN_CATEGORIE + "=?", new String[]{idJournee, equipe}, null, null, JourneeEntry.COLUMN_DATE);
         if(cursor.getCount() > 0){
             list = new ArrayList<>();
             while(cursor.moveToNext()) {
@@ -78,13 +80,12 @@ public class JourneeBdd extends CommonBDD<MatchVO> {
     }
 
 
-    public void insertList(String idJournee, List<MatchVO> list) {
+    public void insertList(String idJournee, String equipe, List<MatchVO> list) {
         openWritable();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         // On supprime avant d'insérer pour mettre a jour les données si il y a eu des suppressions
-        hofcDatabase.delete(JourneeEntry.JOURNEE_TABLE_NAME, JourneeEntry.COLUMN_IDENTIFIANT_JOURNEE + "=?", new String[]{idJournee});
+        hofcDatabase.delete(JourneeEntry.JOURNEE_TABLE_NAME, JourneeEntry.COLUMN_IDENTIFIANT_JOURNEE + "=? and " + JourneeEntry.COLUMN_CATEGORIE + "=?", new String[]{idJournee, equipe});
         for(MatchVO line : list) {
-            Cursor cursor = hofcDatabase.query(JourneeEntry.JOURNEE_TABLE_NAME, null, JourneeEntry.COLUMN_EQUIPE_1 + " ='"+ line.getEquipe1() +"' and " + JourneeEntry.COLUMN_EQUIPE_2 + " ='"+line.getEquipe2()+"'", null, null, null, null);
             ContentValues values = new ContentValues();
             values.put(JourneeEntry.COLUMN_SCORE_1, line.getScore1());
             values.put(JourneeEntry.COLUMN_SCORE_2, line.getScore2());
@@ -93,16 +94,11 @@ public class JourneeBdd extends CommonBDD<MatchVO> {
             if(line.getDate() != null) {
                 values.put(JourneeEntry.COLUMN_DATE, sdf.format(line.getDate()));
             }
-            if(cursor.getCount() > 0) {
-                // UPDATE
-                hofcDatabase.update(JourneeEntry.JOURNEE_TABLE_NAME, values, JourneeEntry.COLUMN_EQUIPE_1 + " ='"+ line.getEquipe1() +"' and " + JourneeEntry.COLUMN_EQUIPE_2 + " ='"+line.getEquipe2()+"' and " + JourneeEntry.COLUMN_IDENTIFIANT_JOURNEE + " ='" + idJournee + "'", null);
-            } else {
-                // INSERT
-                values.put(JourneeEntry.COLUMN_EQUIPE_1, line.getEquipe1());
-                values.put(JourneeEntry.COLUMN_EQUIPE_2, line.getEquipe2());
-                hofcDatabase.insert(JourneeEntry.JOURNEE_TABLE_NAME, null, values);
-            }
-            cursor.close();
+            // INSERT
+            values.put(JourneeEntry.COLUMN_EQUIPE_1, line.getEquipe1());
+            values.put(JourneeEntry.COLUMN_EQUIPE_2, line.getEquipe2());
+            values.put(JourneeEntry.COLUMN_CATEGORIE, equipe);
+            hofcDatabase.insert(JourneeEntry.JOURNEE_TABLE_NAME, null, values);
         }
     }
 }

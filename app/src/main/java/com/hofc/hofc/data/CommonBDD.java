@@ -102,7 +102,7 @@ public abstract class CommonBDD<T> {
 		ContentValues values = new ContentValues();
 		values.put("date", sdf.format(date));
 		if(cursor.getCount() > 0) {
-			hofcDatabase.update("date_synchro", values, "nom='"+tableName+"'", null);
+			hofcDatabase.update("date_synchro", values, "nom='" + tableName + "'", null);
 		} else {
 			values.put("nom", tableName);
 			hofcDatabase.insert("date_synchro", null, values);
@@ -114,7 +114,13 @@ public abstract class CommonBDD<T> {
 		return null;
 	}
 
+	public List<T> getWithKey(String key){
+		return null;
+	}
+
 	public void insertElement(T element){}
+
+	public void insertListWithKey(String key, List<T> list){}
 
 	public void insertList(List<T> list){}
 }

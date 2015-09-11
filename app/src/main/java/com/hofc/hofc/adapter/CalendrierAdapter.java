@@ -14,6 +14,7 @@ import com.hofc.hofc.R;
 import com.hofc.hofc.constant.AppConstant;
 import com.hofc.hofc.data.CalendrierBDD;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.data.HashMapDataSingleton;
 import com.hofc.hofc.vo.CalendrierLineVO;
 
 import java.text.SimpleDateFormat;
@@ -23,11 +24,13 @@ public class CalendrierAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
 	private final SimpleDateFormat sdf;
 	private Context context;
-	
-	public CalendrierAdapter(Context context) {
+	private String equipeName;
+
+	public CalendrierAdapter(Context context, String equipeName) {
         if (context != null) {
             inflater = LayoutInflater.from(context);
             this.context = context;
+			this.equipeName = equipeName;
         }
 		sdf = new SimpleDateFormat("EEEE dd MMMM yyyy - HH:mm");
 	}	
@@ -42,7 +45,7 @@ public class CalendrierAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		return DataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).get().get(position);
+		return HashMapDataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).get(equipeName).get(position);
 	}
 
 	@Override
@@ -68,12 +71,12 @@ public class CalendrierAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		CalendrierLineVO line = DataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).get().get(position);
-		if(AppConstant.hofcName.equalsIgnoreCase(line.getEquipe1())) {
+		CalendrierLineVO line = HashMapDataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).get(equipeName).get(position);
+		if(line.getEquipe1().contains(AppConstant.hofcName)) {
 			holder.imageEquipe1.setImageResource(R.drawable.ic_launcher);
 			holder.imageEquipe2.setImageResource(android.R.color.transparent);
             this.applyColor(holder, context.getResources().getColor(R.color.hofc_blue), Color.BLACK);
-		} else if(AppConstant.hofcName.equalsIgnoreCase(line.getEquipe2())) {
+		} else if(line.getEquipe2().contains(AppConstant.hofcName)) {
 			holder.imageEquipe2.setImageResource(R.drawable.ic_launcher);
 			holder.imageEquipe1.setImageResource(android.R.color.transparent);
             this.applyColor(holder, Color.BLACK, context.getResources().getColor(R.color.hofc_blue));

@@ -19,12 +19,23 @@ public class JourneeFragment extends Fragment {
 	public static JourneeFragment newInstance() {
 		return new JourneeFragment();
 	}
-	
+	private String equipe;
+    private int matchNumber;
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_journee, container, false);
-        if(LocalDataSingleton.getParams() == null || LocalDataSingleton.getParams().getSeasonMatchCount() == 0) {
+        equipe = getArguments().getString("equipe");
+        if(LocalDataSingleton.getParams() == null) {
+            matchNumber = 0;
+        } else if("equipe1".equalsIgnoreCase(equipe)) {
+            matchNumber = LocalDataSingleton.getParams().getSeasonMatchCount();
+        } else if ("equipe2".equalsIgnoreCase(equipe)) {
+            matchNumber = LocalDataSingleton.getParams().getSeasonMatchCountEquipe2();
+        } else if ("equipe3".equalsIgnoreCase(equipe)) {
+            matchNumber = LocalDataSingleton.getParams().getSeasonMatchCountEquipe3();
+        }
+        if(matchNumber == 0) {
             MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
                     .content(R.string.param_error)
                     .positiveText(R.string.close_popup_button)
@@ -50,12 +61,12 @@ public class JourneeFragment extends Fragment {
 
         @Override
         public Fragment getItem(int position) {
-            return JourneeWeekFragment.newInstance(getPageTitle(position).toString());
+            return JourneeWeekFragment.newInstance(getPageTitle(position).toString(), equipe);
         }
 
         @Override
         public int getCount() {
-            return LocalDataSingleton.getParams().getSeasonMatchCount();
+            return matchNumber;
         }
 
         @Override

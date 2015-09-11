@@ -13,24 +13,27 @@ import com.hofc.hofc.R;
 import com.hofc.hofc.constant.AppConstant;
 import com.hofc.hofc.data.ClassementBDD;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.data.HashMapDataSingleton;
 import com.hofc.hofc.vo.ClassementLineVO;
 
 public class ClassementAdapter extends BaseAdapter {
 
 	private LayoutInflater inflater;
 	private Context context;
+	private String equipeName;
 	
-	public ClassementAdapter(Context context) {
+	public ClassementAdapter(Context context, String equipeName) {
         if(context != null) {
             inflater = LayoutInflater.from(context);
             this.context = context;
+			this.equipeName = equipeName;
         }
 	}
 	
 	@Override
 	public int getCount() {
-		if(DataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).get() != null) {
-			return DataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).get().size();
+		if(HashMapDataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).get(equipeName) != null) {
+			return HashMapDataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).get(equipeName).size();
 		} else {
 			return 0;
 		}
@@ -38,7 +41,7 @@ public class ClassementAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		return DataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).get().get(position);
+		return HashMapDataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).get(equipeName).get(position);
 	}
 
 	@Override
@@ -69,7 +72,7 @@ public class ClassementAdapter extends BaseAdapter {
 		}
 		
 		
-		ClassementLineVO line = DataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).get().get(position);
+		ClassementLineVO line = HashMapDataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).get(equipeName).get(position);
 		
 		if(AppConstant.hofcName.equalsIgnoreCase(line.getNom())) {
 			this.setLineColor(holder, context.getResources().getColor(R.color.hofc_blue));

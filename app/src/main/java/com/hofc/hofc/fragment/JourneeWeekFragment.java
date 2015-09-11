@@ -24,15 +24,17 @@ public class JourneeWeekFragment extends CommonFragment  implements FragmentCall
     private ListView journeeListView;
     private SwipeRefreshLayout swipeJournee;
     private String journee;
+    private String equipe;
 
     public JourneeWeekFragment() {
 
     }
 
-    public static JourneeWeekFragment newInstance(String journeeId) {
+    public static JourneeWeekFragment newInstance(String journeeId, String equipe) {
         JourneeWeekFragment journeeWeekFragment = new JourneeWeekFragment();
         Bundle args = new Bundle();
         args.putString("journee", journeeId);
+        args.putString("equipe", equipe);
 
         journeeWeekFragment.setArguments(args);
 
@@ -46,12 +48,13 @@ public class JourneeWeekFragment extends CommonFragment  implements FragmentCall
                 container, false);
         journeeListView = (ListView)rootView.findViewById(R.id.journee_listView);
         journee = getArguments().getString("journee");
+        equipe = getArguments().getString("equipe");
 
         swipeJournee = (SwipeRefreshLayout)rootView.findViewById(R.id.journee_swipe);
         swipeJournee.setOnRefreshListener(this);
         swipeJournee.setColorSchemeColors(Color.BLACK, getResources().getColor(R.color.hofc_blue));
         if(getUserVisibleHint()) {
-            if (LocalDataSingleton.getJournee(journee) == null) {
+            if (LocalDataSingleton.getJournee(journee, equipe) == null) {
                 this.refreshDataAndView();
             } else {
                 this.refreshView();
@@ -65,7 +68,7 @@ public class JourneeWeekFragment extends CommonFragment  implements FragmentCall
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(getView() != null) {
-            if (LocalDataSingleton.getJournee(journee) == null) {
+            if (LocalDataSingleton.getJournee(journee, equipe) == null) {
                 this.refreshDataAndView();
             } else {
                 this.refreshView();
@@ -77,7 +80,7 @@ public class JourneeWeekFragment extends CommonFragment  implements FragmentCall
         this.isLoading = true;
         super.refreshView();
         if(journeeListView.getAdapter() == null) {
-            JourneeAdapter adapter = new JourneeAdapter(getActivity(), journee, ((HOFCApplication) getActivity().getApplication()).getRequestQueue());
+            JourneeAdapter adapter = new JourneeAdapter(getActivity(), journee, equipe, ((HOFCApplication) getActivity().getApplication()).getRequestQueue());
             journeeListView.setAdapter(adapter);
         } else {
             ((JourneeAdapter) journeeListView.getAdapter()).notifyDataSetChanged();
@@ -102,7 +105,7 @@ public class JourneeWeekFragment extends CommonFragment  implements FragmentCall
 
         super.refreshDataAndView();
         RequestQueue requestQueue = ((HOFCApplication) getActivity().getApplication()).getRequestQueue();
-        JourneeDownloader.update(requestQueue, this, journee);
+        JourneeDownloader.update(requestQueue, this, journee, equipe);
     }
 
     @Override

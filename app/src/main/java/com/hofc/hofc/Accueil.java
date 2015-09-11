@@ -23,7 +23,9 @@ import com.hofc.hofc.data.LocalDataSingleton;
 import com.hofc.hofc.data.download.ParamsDownloader;
 import com.hofc.hofc.fragment.ActusFragment;
 import com.hofc.hofc.fragment.AgendaFragment;
+import com.hofc.hofc.fragment.CalendrierEquipeFragment;
 import com.hofc.hofc.fragment.CalendrierFragment;
+import com.hofc.hofc.fragment.ClassementEquipeFragment;
 import com.hofc.hofc.fragment.ClassementFragment;
 import com.hofc.hofc.fragment.JourneeFragment;
 import com.hofc.hofc.notification.GcmPreference;
@@ -182,6 +184,7 @@ public class Accueil extends AppCompatActivity {
     private void handleMenuItemClick(int menuItemId, boolean forceRefresh) {
         Class fragmentClass = null;
         Fragment fragment;
+        Bundle args = new Bundle();
         if(this.fragmentManager == null)
             fragmentManager = getSupportFragmentManager();
         switch (menuItemId) {
@@ -190,11 +193,11 @@ public class Accueil extends AppCompatActivity {
                 mTitle = getText(R.string.title_accueil);
                 break;
             case R.id.navigation_item_classement:
-                fragmentClass = ClassementFragment.class;
+                fragmentClass = ClassementEquipeFragment.class;
                 mTitle = getText(R.string.title_classement);
                 break;
             case R.id.navigation_item_calendrier:
-                fragmentClass = CalendrierFragment.class;
+                fragmentClass = CalendrierEquipeFragment.class;
                 mTitle = getText(R.string.title_calendrier);
                 break;
             case R.id.navigation_item_agenda:
@@ -204,12 +207,22 @@ public class Accueil extends AppCompatActivity {
             case R.id.navigation_item_journee:
                 fragmentClass = JourneeFragment.class;
                 mTitle = getText(R.string.title_journee);
+                args.putString("equipe", "equipe1");
+                break;
+            case R.id.navigation_item_journee_equipe2:
+                fragmentClass = JourneeFragment.class;
+                args.putString("equipe", "equipe2");
+                mTitle = getText(R.string.title_journee_equipe2);
+                break;
+            case R.id.navigation_item_journee_equipe3:
+                fragmentClass = JourneeFragment.class;
+                args.putString("equipe", "equipe3");
+                mTitle = getText(R.string.title_journee_equipe3);
                 break;
         }
         if(fragmentClass != null) {
             try {
                 fragment = (Fragment)fragmentClass.newInstance();
-                Bundle args = new Bundle();
                 args.putBoolean("forceRefresh", forceRefresh);
                 fragment.setArguments(args);
                 fragmentManager.beginTransaction()

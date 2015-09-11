@@ -28,6 +28,10 @@ public class ParamsDownloader {
                 try {
                     LocalDataSingleton.getParams().setSeasonMatchCount(response.getInt("SEASON_MATCHS_COUNT"));
                     LocalDataSingleton.addParam("seasonMatchCount", response.getInt("SEASON_MATCHS_COUNT") + "");
+                    LocalDataSingleton.getParams().setSeasonMatchCountEquipe2(response.getInt("SEASON_MATCHS_COUNT_EQUIPE2"));
+                    LocalDataSingleton.addParam("seasonMatchCountEquipe2", response.getInt("SEASON_MATCHS_COUNT_EQUIPE2") + "");
+                    LocalDataSingleton.getParams().setSeasonMatchCountEquipe3(response.getInt("SEASON_MATCHS_COUNT_EQUIPE3"));
+                    LocalDataSingleton.addParam("seasonMatchCountEquipe3", response.getInt("SEASON_MATCHS_COUNT_EQUIPE3") + "");
                 } catch (JSONException e) {
                     Log.e(ParamsDownloader.class.getName(), "Deserialization error", e);
                 }

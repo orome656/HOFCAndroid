@@ -31,10 +31,10 @@ public class JourneeDownloader {
      * @param requestQueue The Volley request queue to add the produced request
      * @param callback Callback to call at the end of the request
      */
-    public static void update(RequestQueue requestQueue, final FragmentCallback callback, final String journeeId) {
+    public static void update(RequestQueue requestQueue, final FragmentCallback callback, final String journeeId, final String equipe) {
         String[] array = null;
         if(journeeId != null && !journeeId.isEmpty()) {
-            array = new String[]{journeeId};
+            array = new String[]{equipe, journeeId};
         }
         String url = HOFCUtils.buildUrl(ServerConstant.JOURNEE_CONTEXT, array);
 
@@ -70,7 +70,7 @@ public class JourneeDownloader {
                                 journeeList.add(agenda);
                             }
                             if(journeeId != null && !journeeId.isEmpty()) {
-                                LocalDataSingleton.setJournee(journeeId, journeeList);
+                                LocalDataSingleton.setJournee(journeeId, equipe, journeeList);
                             } else {
                                 Log.e(JourneeDownloader.class.getName(), "Error while caching journee");
                             }

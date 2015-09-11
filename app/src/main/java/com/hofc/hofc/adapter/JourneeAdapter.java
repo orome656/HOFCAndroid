@@ -39,21 +39,23 @@ public class JourneeAdapter extends BaseAdapter {
 	private final SimpleDateFormat sdf;
 	private Context context;
 	private final String journeeId;
+	private final String equipe;
 	private RequestQueue requestQueue;
 
-	public JourneeAdapter(Context context, String journeeId, RequestQueue requestQueue) {
+	public JourneeAdapter(Context context, String journeeId, String equipe, RequestQueue requestQueue) {
         if (context != null) {
             this.inflater = LayoutInflater.from(context);
             this.context = context;
 			this.requestQueue = requestQueue;
         }
 		this.journeeId = journeeId;
+		this.equipe = equipe;
 		sdf = new SimpleDateFormat("EEEE dd MMMM yyyy HH:mm");
 	}	
 	@Override
 	public int getCount() {
-		if(LocalDataSingleton.getJournee(journeeId) != null) {
-			return LocalDataSingleton.getJournee(journeeId).size();
+		if(LocalDataSingleton.getJournee(journeeId, equipe) != null) {
+			return LocalDataSingleton.getJournee(journeeId, equipe).size();
 		} else {
 			return 0;
 		}
@@ -61,7 +63,7 @@ public class JourneeAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		return LocalDataSingleton.getJournee(journeeId).get(position);
+		return LocalDataSingleton.getJournee(journeeId, equipe).get(position);
 	}
 
 	@Override
@@ -88,7 +90,7 @@ public class JourneeAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		final MatchVO line = LocalDataSingleton.getJournee(journeeId).get(position);
+		final MatchVO line = LocalDataSingleton.getJournee(journeeId, equipe).get(position);
 		if(line.getEquipe1() != null && line.getEquipe1().contains(AppConstant.hofcName)) {
 			holder.imageEquipe1.setImageResource(R.drawable.ic_launcher);
 			holder.imageEquipe2.setImageResource(android.R.color.transparent);

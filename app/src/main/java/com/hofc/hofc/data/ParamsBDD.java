@@ -32,6 +32,20 @@ public class ParamsBDD extends CommonBDD<Params> {
             result.setSeasonMatchCount(seasonMatchCount);
         }
         cursor.close();
+
+        cursor = hofcDatabase.query(ParamsEntry.TABLE_NAME, null, ParamsEntry.COLUMN_NOM +"=?" , new String[]{"seasonMatchCountEquipe2"}, null, null, null);
+        if(cursor.moveToNext()) {
+            int seasonMatchCount = cursor.getInt(ParamsEntry.NUM_COLUMN_VALEUR);
+            result.setSeasonMatchCountEquipe2(seasonMatchCount);
+        }
+        cursor.close();
+
+        cursor = hofcDatabase.query(ParamsEntry.TABLE_NAME, null, ParamsEntry.COLUMN_NOM +"=?" , new String[]{"seasonMatchCountEquipe3"}, null, null, null);
+        if(cursor.moveToNext()) {
+            int seasonMatchCount = cursor.getInt(ParamsEntry.NUM_COLUMN_VALEUR);
+            result.setSeasonMatchCountEquipe3(seasonMatchCount);
+        }
+        cursor.close();
         return result;
     }
 

@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 class HOFCOpenHelper extends SQLiteOpenHelper {
 	   // Version de la base de données
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
  
     // Nom de la base
     private static final String HOFC_BASE_NAME = "hofc.db";
@@ -45,6 +45,7 @@ class HOFCOpenHelper extends SQLiteOpenHelper {
     //public static final int NUM_COLUMN_SCORE_2 = 3;
     private static final String COLUMN_EQUIPE_2 = "EQUIPE_2";
     //public static final int NUM_COLUMN_EQUIPE_2 = 4;
+    private static final String COLUMN_CATEGORIE = "CATEGORIE";
  
     // Description des colonnes actus
     private static final String COLUMN_TITLE = "TITRE";
@@ -90,7 +91,8 @@ class HOFCOpenHelper extends SQLiteOpenHelper {
             + " TEXT NOT NULL, " + COLUMN_SCORE_1 + " INTEGER, "
             + COLUMN_SCORE_2 + " INTEGER, "
             + COLUMN_EQUIPE_2 + " TEXT NOT NULL, "
-            + COLUMN_DATE + " DATE );";
+            + COLUMN_DATE + " DATE, "
+            + COLUMN_CATEGORIE + " TEXT NOT NULL );";
     
     private static final String REQUETE_CREATION_BDD_DATE = "CREATE TABLE IF NOT EXISTS "
     		+ DATE_SYNCHRO_TABLE_NAME + "(" + COLUMN_ID
@@ -123,7 +125,8 @@ class HOFCOpenHelper extends SQLiteOpenHelper {
             + COLUMN_SCORE_2 + " INTEGER, "
             + COLUMN_EQUIPE_2 + " TEXT NOT NULL, "
             + COLUMN_DATE + " DATE, "+ COLUMN_ID_JOURNEE + " TEXT, "
-            + COLUMN_ID_INFORMATION + " TEXT);";
+            + COLUMN_ID_INFORMATION + " TEXT, "
+            + COLUMN_CATEGORIE + " TEXT NOT NULL);";
 
 
     private static final String REQUETE_CREATION_BDD_PARAMS = "CREATE TABLE IF NOT EXISTS "

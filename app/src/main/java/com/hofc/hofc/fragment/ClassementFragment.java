@@ -17,6 +17,7 @@ import com.hofc.hofc.adapter.ClassementAdapter;
 import com.hofc.hofc.constant.ServerConstant;
 import com.hofc.hofc.data.ClassementBDD;
 import com.hofc.hofc.data.DataSingleton;
+import com.hofc.hofc.data.HashMapDataSingleton;
 import com.hofc.hofc.data.download.DataDownloader;
 import com.hofc.hofc.vo.ClassementLineVO;
 
@@ -24,9 +25,16 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
 
 	private ListView classementListView;
 	private SwipeRefreshLayout swipeClassement;
+    private int equipeNumber;
 
-	public static ClassementFragment newInstance() {
-		return new ClassementFragment();
+	public static ClassementFragment newInstance(int equipeNumber) {
+        ClassementFragment classementFragment = new ClassementFragment();
+        Bundle args = new Bundle();
+        args.putInt("equipeNumber", equipeNumber);
+
+        classementFragment.setArguments(args);
+
+        return classementFragment;
 	}
 	
 	@Override
@@ -35,6 +43,8 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
 
         View rootView = inflater.inflate(R.layout.fragment_classement, container, false);
         classementListView = (ListView) rootView.findViewById(R.id.classement_listView);
+
+        equipeNumber = getArguments().getInt("equipeNumber");
 
         View header = inflater.inflate(R.layout.item_classement, null);
         this.populateHeader(header);
@@ -50,7 +60,8 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if(DataSingleton.getInstance(ClassementLineVO.class,ClassementBDD.class).isSynchroNeeded()) {
+        if(HashMapDataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).isSynchroNeeded()
+                || HashMapDataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).get("equipe"+equipeNumber) == null) {
             this.refreshDataAndView();
         } else {
             this.refreshView();
@@ -60,7 +71,7 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
     void refreshView(){
         super.refreshView();
         if(classementListView.getAdapter() == null) {
-            ClassementAdapter adapter = new ClassementAdapter(getActivity());
+            ClassementAdapter adapter = new ClassementAdapter(getActivity(), "equipe"+equipeNumber);
             classementListView.setAdapter(adapter);
         } else {
             ((ClassementAdapter)((HeaderViewListAdapter)classementListView.getAdapter()).getWrappedAdapter()).notifyDataSetChanged();
@@ -79,7 +90,7 @@ public class ClassementFragment extends CommonFragment implements FragmentCallba
         });
         super.refreshDataAndView();
         RequestQueue requestQueue = ((HOFCApplication) getActivity().getApplication()).getRequestQueue();
-        DataDownloader.download(requestQueue, ServerConstant.CLASSEMENT_CONTEXT, null, this, ClassementLineVO.class, ClassementBDD.class);
+        DataDownloader.downloadWithKey(requestQueue, ServerConstant.CLASSEMENT_CONTEXT[equipeNumber - 1], null, this, ClassementLineVO.class, ClassementBDD.class, "equipe"+equipeNumber);
 	}
 
 

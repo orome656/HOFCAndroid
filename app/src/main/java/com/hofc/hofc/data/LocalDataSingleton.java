@@ -14,7 +14,7 @@ import java.util.Map;
 public enum LocalDataSingleton {
     INSTANCE;
     private Map<String,List<AgendaLineVO>> agenda;
-    private Map<String,List<MatchVO>> journee;
+    private Map<String,Map<String,List<MatchVO>>> journee;
     private JourneeBdd journeeBdd;
     private AgendaBDD agendaBdd;
 
@@ -46,16 +46,23 @@ public enum LocalDataSingleton {
         INSTANCE.agendaBdd.insertList(date, list);
     }
 
-    public static List<MatchVO> getJournee(String journeeId) {
-        if(INSTANCE.journee.get(journeeId) == null) {
-            INSTANCE.journee.put(journeeId, INSTANCE.journeeBdd.getAll(journeeId));
+    public static List<MatchVO> getJournee(String journeeId, String equipe) {
+        if(INSTANCE.journee.get(equipe) == null) {
+            INSTANCE.journee.put(equipe, new HashMap<String, List<MatchVO>>());
         }
-        return INSTANCE.journee.get(journeeId);
+        if(INSTANCE.journee.get(equipe).get(journeeId) == null) {
+            INSTANCE.journee.get(equipe).put(journeeId, INSTANCE.journeeBdd.getAll(journeeId, equipe));
+        }
+        return INSTANCE.journee.get(equipe).get(journeeId);
     }
 
-    public static void setJournee(String journeeId,List<MatchVO> list) {
-        INSTANCE.journee.put(journeeId, list);
-        INSTANCE.journeeBdd.insertList(journeeId, list);
+    public static void setJournee(String journeeId, String equipe, List<MatchVO> list) {
+        if(INSTANCE.journee.get(equipe) == null) {
+            INSTANCE.journee.put(equipe, new HashMap<String, List<MatchVO>>());
+        }
+
+        INSTANCE.journee.get(equipe).put(journeeId, list);
+        INSTANCE.journeeBdd.insertList(journeeId, equipe, list);
     }
 
 
