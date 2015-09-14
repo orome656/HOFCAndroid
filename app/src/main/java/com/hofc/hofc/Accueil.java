@@ -16,6 +16,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.hofc.hofc.constant.AppConstant;
 import com.hofc.hofc.constant.ServerConstant;
@@ -113,10 +115,14 @@ public class Accueil extends AppCompatActivity {
          * Gestion des notifications, enregistrement auprès du serveur
          */
         context = getApplicationContext();
-        gcm = GoogleCloudMessaging.getInstance(context);
-        regId = GcmPreference.getRegistrationId(context);
-        if(regId == null || regId.isEmpty()) {
-            registerInBackground();
+        if(GooglePlayServicesUtil.isGooglePlayServicesAvailable(getBaseContext()) == ConnectionResult.SUCCESS) {
+            gcm = GoogleCloudMessaging.getInstance(context);
+            regId = GcmPreference.getRegistrationId(context);
+            if(regId == null || regId.isEmpty()) {
+                registerInBackground();
+            }
+        } else {
+            Log.w(Accueil.class.getName(), "GCM not available");
         }
 
         /**
