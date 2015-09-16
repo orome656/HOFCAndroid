@@ -39,6 +39,8 @@ public class ClassementBDD extends CommonBDD<ClassementLineVO> {
 	    public static final int NUM_COLUMN_BC = 8;
 	    public static final String COLUMN_DIFF = "DIFF";
 	    public static final int NUM_COLUMN_DIFF = 9;
+		public static final String COLUMN_CATEGORIE = "CATEGORIE";
+		public static final int NUM_COLUMN_CATEGORIE = 10;
 		
 	}
 
@@ -67,6 +69,30 @@ public class ClassementBDD extends CommonBDD<ClassementLineVO> {
     	return list;
     }
 
+	public List<ClassementLineVO> getWithKey(String key) {
+		openReadable();
+		ArrayList<ClassementLineVO> list = null;
+		Cursor cursor = hofcDatabase.query(ClassementEntry.CLASSEMENT_TABLE_NAME, null, ClassementEntry.COLUMN_CATEGORIE + "=?", new String[]{key}, null, null, ClassementEntry.COLUMN_POINTS + " DESC," + ClassementEntry.COLUMN_DIFF + " DESC");
+		if(cursor.getCount() > 0){
+			list = new ArrayList<>();
+			while(cursor.moveToNext()) {
+				ClassementLineVO line = new ClassementLineVO();
+				line.setNom(cursor.getString(ClassementEntry.NUM_COLUMN_NOM));
+				line.setPoints(cursor.getInt(ClassementEntry.NUM_COLUMN_POINTS));
+				line.setJoue(cursor.getInt(ClassementEntry.NUM_COLUMN_JOUE));
+				line.setGagne(cursor.getInt(ClassementEntry.NUM_COLUMN_GAGNE));
+				line.setNul(cursor.getInt(ClassementEntry.NUM_COLUMN_NUL));
+				line.setPerdu(cursor.getInt(ClassementEntry.NUM_COLUMN_PERDU));
+				line.setBp(cursor.getInt(ClassementEntry.NUM_COLUMN_BP));
+				line.setBc(cursor.getInt(ClassementEntry.NUM_COLUMN_BC));
+				line.setDiff(cursor.getInt(ClassementEntry.NUM_COLUMN_DIFF));
+				list.add(line);
+			}
+		}
+		cursor.close();
+		return list;
+	}
+
 	@Override
     public void insertList(List<ClassementLineVO> list) {
     	openWritable();
@@ -94,4 +120,33 @@ public class ClassementBDD extends CommonBDD<ClassementLineVO> {
             cursor.close();
     	}
     }
+
+	@Override
+	public void insertListWithKey(String key, List<ClassementLineVO> list) {
+		openWritable();
+		// On supprime avant d'insérer pour mettre a jour les données si il y a eu des suppressions
+		hofcDatabase.delete(ClassementEntry.CLASSEMENT_TABLE_NAME, ClassementEntry.COLUMN_CATEGORIE + "=?", new String[]{key});
+		for(ClassementLineVO line : list) {
+			Cursor cursor = hofcDatabase.query(ClassementEntry.CLASSEMENT_TABLE_NAME, null, ClassementEntry.COLUMN_NOM + " ='"+ line.getNom() + "'", null, null, null, null);
+			ContentValues values = new ContentValues();
+			values.put(ClassementEntry.COLUMN_POINTS, line.getPoints());
+			values.put(ClassementEntry.COLUMN_JOUE, line.getJoue());
+			values.put(ClassementEntry.COLUMN_GAGNE, line.getGagne());
+			values.put(ClassementEntry.COLUMN_NUL, line.getNul());
+			values.put(ClassementEntry.COLUMN_PERDU, line.getPerdu());
+			values.put(ClassementEntry.COLUMN_BP, line.getBp());
+			values.put(ClassementEntry.COLUMN_BC, line.getBc());
+			values.put(ClassementEntry.COLUMN_DIFF, line.getDiff());
+			if(cursor.getCount() > 0) {
+				// UPDATE
+				hofcDatabase.update(ClassementEntry.CLASSEMENT_TABLE_NAME, values, ClassementEntry.COLUMN_NOM + " ='"+ line.getNom() + "' and " + ClassementEntry.COLUMN_CATEGORIE + " ='"+key+"'", null);
+			} else {
+				// INSERT
+				values.put(ClassementEntry.COLUMN_CATEGORIE, key);
+				values.put(ClassementEntry.COLUMN_NOM, line.getNom());
+				hofcDatabase.insert(ClassementEntry.CLASSEMENT_TABLE_NAME, null, values);
+			}
+			cursor.close();
+		}
+	}
 }

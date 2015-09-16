@@ -133,7 +133,7 @@ public class CalendrierBDD extends CommonBDD<CalendrierLineVO> {
 		openWritable();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 		// On supprime avant d'insérer pour mettre a jour les données si il y a eu des suppressions
-		hofcDatabase.delete(CalendrierEntry.CALENDRIER_TABLE_NAME, null, null);
+		hofcDatabase.delete(CalendrierEntry.CALENDRIER_TABLE_NAME, CalendrierEntry.COLUMN_CATEGORIE + "=?", new String[]{key});
 		for(CalendrierLineVO line : list) {
 			Cursor cursor = hofcDatabase.query(CalendrierEntry.CALENDRIER_TABLE_NAME, null, CalendrierEntry.COLUMN_EQUIPE_1 + " ='"+ line.getEquipe1() +"' and " + CalendrierEntry.COLUMN_EQUIPE_2 + " ='"+line.getEquipe2() +"' and " + CalendrierEntry.COLUMN_CATEGORIE + " ='"+key+"'", null, null, null, null);
 			ContentValues values = new ContentValues();

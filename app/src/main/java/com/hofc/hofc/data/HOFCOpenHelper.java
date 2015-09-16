@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
-class HOFCOpenHelper extends SQLiteOpenHelper {
+public class HOFCOpenHelper extends SQLiteOpenHelper {
 	   // Version de la base de données
     private static final int DATABASE_VERSION = 5;
  
@@ -76,12 +76,14 @@ class HOFCOpenHelper extends SQLiteOpenHelper {
     // Requéte SQL pour la création da la base Calendrier
     private static final String REQUETE_CREATION_BDD_CLASSEMENT = "CREATE TABLE IF NOT EXISTS "
             + CLASSEMENT_TABLE_NAME + " (" + COLUMN_ID
-            + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_NOM
+            + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COLUMN_NOM
             + " TEXT NOT NULL, " + COLUMN_POINTS + " INTEGER, "
             + COLUMN_JOUE + " INTEGER, "
             + COLUMN_GAGNE + " INTEGER, " + COLUMN_NUL + " INTEGER, "
             + COLUMN_PERDU + " INTEGER, " + COLUMN_BP + " INTEGER, "
-            + COLUMN_BC + " INTEGER, " + COLUMN_DIFF + " INTEGER);";
+            + COLUMN_BC + " INTEGER, " + COLUMN_DIFF + " INTEGER, "
+            + COLUMN_CATEGORIE + " TEXT NOT NULL);";
     
 
     // Requéte SQL pour la création da la base CLASSEMENT
@@ -134,7 +136,15 @@ class HOFCOpenHelper extends SQLiteOpenHelper {
             + " TEXT PRIMARY KEY , " + COLUMN_VALEUR
             + " TEXT NOT NULL);";
 
-    public HOFCOpenHelper(Context context, CursorFactory factory) {
+    private static HOFCOpenHelper instance;
+    public static HOFCOpenHelper getInstance(Context context) {
+        if(instance == null) {
+            instance = new HOFCOpenHelper(context.getApplicationContext(), null);
+        }
+        return instance;
+    }
+
+    private HOFCOpenHelper(Context context, CursorFactory factory) {
 		super(context, HOFC_BASE_NAME, factory, DATABASE_VERSION);
 	}
 

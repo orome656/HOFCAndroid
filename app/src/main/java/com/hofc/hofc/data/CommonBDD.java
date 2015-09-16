@@ -26,14 +26,14 @@ public abstract class CommonBDD<T> {
 
 	public CommonBDD(Context c) {
 		if(hofcOpenHelper == null)
-			hofcOpenHelper = new HOFCOpenHelper(c, null);
+			hofcOpenHelper = HOFCOpenHelper.getInstance(c);
 
 		this.context = c;
 	}
 
 	protected void openReadable() {
 		if(hofcOpenHelper == null)
-			hofcOpenHelper = new HOFCOpenHelper(context, null);
+			hofcOpenHelper = HOFCOpenHelper.getInstance(context);
 
 		if(hofcDatabase == null)
 			hofcDatabase = hofcOpenHelper.getReadableDatabase();
@@ -41,7 +41,7 @@ public abstract class CommonBDD<T> {
 
 	protected void openWritable() throws SQLException {
 		if(hofcOpenHelper == null)
-			hofcOpenHelper = new HOFCOpenHelper(context, null);
+			hofcOpenHelper = HOFCOpenHelper.getInstance(context);
 
 		if ((hofcDatabase == null)|| hofcDatabase.isReadOnly()) {
 			openWritable(true);
