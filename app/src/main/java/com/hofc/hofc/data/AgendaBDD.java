@@ -96,14 +96,12 @@ public class AgendaBDD extends CommonBDD<AgendaLineVO> {
             if(line.getDate() != null) {
                 values.put(AgendaEntry.COLUMN_DATE, sdf.format(line.getDate()));
             }
-            if(cursor.getCount() > 0) {
-                // UPDATE
-                hofcDatabase.update(AgendaEntry.AGENDA_TABLE_NAME, values, AgendaEntry.COLUMN_EQUIPE_1 + " ='"+ line.getEquipe1() +"' and " + AgendaEntry.COLUMN_EQUIPE_2 + " ='"+line.getEquipe2()+"' and " + AgendaEntry.COLUMN_IDENTIFIANT_DATE + " ='" + date + "'", null);
-            } else {
-                // INSERT
-                values.put(AgendaEntry.COLUMN_EQUIPE_1, line.getEquipe1());
-                values.put(AgendaEntry.COLUMN_EQUIPE_2, line.getEquipe2());
-                hofcDatabase.insert(AgendaEntry.AGENDA_TABLE_NAME, null, values);
+            values.put(AgendaEntry.COLUMN_EQUIPE_1, line.getEquipe1());
+            values.put(AgendaEntry.COLUMN_EQUIPE_2, line.getEquipe2());
+            // INSERT
+            long result = hofcDatabase.insert(AgendaEntry.AGENDA_TABLE_NAME, null, values);
+            if(result == -1) {
+                Log.e(AgendaBDD.class.getName(), "Error inserting value");
             }
             cursor.close();
         }

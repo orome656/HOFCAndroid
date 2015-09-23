@@ -36,8 +36,8 @@ public class CalendrierAdapter extends BaseAdapter {
 	}	
 	@Override
 	public int getCount() {
-		if(DataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).get() != null) {
-			return DataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).get().size();
+		if(HashMapDataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).get(equipeName) != null) {
+			return HashMapDataSingleton.getInstance(CalendrierLineVO.class, CalendrierBDD.class).get(equipeName).size();
 		} else {
 			return 0;
 		}

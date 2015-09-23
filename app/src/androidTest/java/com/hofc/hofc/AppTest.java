@@ -1,4 +1,4 @@
-package com.hofc.test;
+package com.hofc.hofc;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;

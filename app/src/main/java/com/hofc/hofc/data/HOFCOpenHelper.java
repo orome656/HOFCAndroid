@@ -117,8 +117,8 @@ public class HOFCOpenHelper extends SQLiteOpenHelper {
             + " TEXT NOT NULL, " + COLUMN_SCORE_1 + " INTEGER, "
             + COLUMN_SCORE_2 + " INTEGER, "
             + COLUMN_EQUIPE_2 + " TEXT NOT NULL, "
-            + COLUMN_DATE + " DATE, "+ COLUMN_ID_INFORMATION + " TEXT, "
-            + COLUMN_ID_DATE + " TEXT);";
+            + COLUMN_DATE + " DATE, "
+            + COLUMN_ID_DATE + " TEXT, " + COLUMN_ID_INFORMATION + " TEXT);";
 
     private static final String REQUETE_CREATION_BDD_JOURNEE = "CREATE TABLE IF NOT EXISTS "
             + JOURNEE_TABLE_NAME + " (" + COLUMN_ID
