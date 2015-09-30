@@ -1,14 +1,13 @@
 package com.hofc.hofc.ui;
 
+import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.ListView;
 
-import com.hofc.hofc.Accueil;
+import com.hofc.hofc.ActusDiaporama;
+import com.hofc.hofc.ActusImageGrid;
 import com.hofc.hofc.R;
 import com.hofc.hofc.constant.ServerConstant;
 import com.squareup.okhttp.mockwebserver.Dispatcher;
@@ -26,17 +25,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.contrib.DrawerActions.openDrawer;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.Espresso.registerIdlingResources;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 /**
- * Created by Anthony on 23/09/2015.
+ * Created by Anthony on 24/09/2015.
  */
 @RunWith(AndroidJUnit4.class)
-public class AgendaUnitTest extends ActivityInstrumentationTestCase2<Accueil> {
+public class ImageGridTest extends ActivityInstrumentationTestCase2<ActusImageGrid> {
     private static MockWebServer server;
 
     private String readFile(int id) throws java.io.IOException{
@@ -54,13 +51,17 @@ public class AgendaUnitTest extends ActivityInstrumentationTestCase2<Accueil> {
         return total.toString();
     }
 
-    public AgendaUnitTest() throws Exception {
-        super(Accueil.class);
+    public ImageGridTest() throws Exception {
+        super(ActusImageGrid.class);
     }
 
     @Before
     public void setUp() throws Exception {
         super.setUp();
+        Intent i = new Intent();
+        i.putExtra("URL", "http://www.hofc.fr/2015/09/hofc-ii-haut-adour-iii-en-images-2/");
+        i.putExtra("position", 1);
+        setActivityIntent(i);
         if(server == null) {
             server = new MockWebServer();
             final Dispatcher dispatcher = new Dispatcher() {
@@ -79,6 +80,8 @@ public class AgendaUnitTest extends ActivityInstrumentationTestCase2<Accueil> {
                             return new MockResponse().setResponseCode(200).setBody(readFile(R.raw.journeedata));
                         } else if (request.getPath().contains("/params")) {
                             return new MockResponse().setResponseCode(200).setBody(readFile(R.raw.paramsdata));
+                        } else if (request.getPath().contains("/parsePage")) {
+                            return new MockResponse().setResponseCode(200).setBody(readFile(R.raw.diaporamadata));
                         }
                         return new MockResponse().setResponseCode(404);
                     } catch(Exception e) {
@@ -94,47 +97,23 @@ public class AgendaUnitTest extends ActivityInstrumentationTestCase2<Accueil> {
         ServerConstant.SERVER_URL = server.getUrl("").getHost();
         ServerConstant.SERVER_PORT = 3000;
         injectInstrumentation(InstrumentationRegistry.getInstrumentation());
-
+        getActivity();
     }
 
     @Test
-    public void testInitAccueil() {
-        Accueil activity = getActivity();
+    public void testInit() {
+        ActusImageGrid activity = getActivity();
         assertNotNull(activity);
     }
+/*
 
     @Test
-    public void changeToAgenda() {
-        Accueil activity = getActivity();
-        openDrawer(R.id.drawer_layout);
-        onView(withText("Agenda")).perform(click());
+    public void testInitDiapo() {
+        ActusImageGrid activity = getActivity();
+        RecyclerView recyclerView = (RecyclerView)activity.findViewById(R.id.recycler_view);
+        assertEquals(12, recyclerView.getAdapter().getItemCount());
     }
-
-
-    @Test
-    public void testAgendaNumber() throws Exception {
-        Accueil activity = getActivity();
-        openDrawer(R.id.drawer_layout);
-        onView(withText("Agenda")).perform(click());
-        FragmentManager fragmentManager = activity.getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentById(R.id.container);
-        ListView list = (ListView)fragment.getView().findViewById(R.id.agenda_listView);
-        assertEquals(6, list.getAdapter().getCount());
-    }
-
-    @Test
-    public void testAgendaSwipe() throws Exception {
-        Accueil activity = getActivity();
-        openDrawer(R.id.drawer_layout);
-        onView(withText("Agenda")).perform(click());
-        FragmentManager fragmentManager = activity.getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentById(R.id.container);
-        onView(withId(R.id.agenda_pager)).perform(swipeLeft());
-        ListView list = (ListView)fragment.getView().findViewById(R.id.agenda_listView);
-
-        assertEquals(6, list.getAdapter().getCount());
-    }
-
+*/
     @AfterClass
     public static void end() throws Exception {
         server.shutdown();
