@@ -2,6 +2,7 @@ package com.hofc.hofc.vo;
 
 import android.graphics.Bitmap;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
@@ -64,6 +65,7 @@ public class ActuVO {
 	public Bitmap getBitmapImage() {
 		return bitmapImage;
 	}
+	@JsonIgnore
 	public void setBitmapImage(Bitmap bmp) {
 		this.bitmapImage = bmp;
 	}
