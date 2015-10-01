@@ -74,7 +74,7 @@ public class ClassementAdapter extends BaseAdapter {
 		
 		ClassementLineVO line = HashMapDataSingleton.getInstance(ClassementLineVO.class, ClassementBDD.class).get(equipeName).get(position);
 		
-		if(AppConstant.hofcName.equalsIgnoreCase(line.getNom())) {
+		if(line.getNom() != null && line.getNom().contains(AppConstant.hofcName)) {
 			this.setLineColor(holder, context.getResources().getColor(R.color.hofc_blue));
 		} else {
 			this.setLineColor(holder, Color.BLACK);
