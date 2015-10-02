@@ -11,8 +11,8 @@ public class ServerConstant {
 	public static final String ACTUS_CONTEXT = "actus";
     public static final String NOTIF_CONTEXT = "registerPush";
     public static final String PARSE_PAGE_CONTEXT = "parsePage";
-    public static final String AGENDA_CONTEXT = "agendadistrict";
-	public static final String MATCH_CONTEXT = "matchinfosdistrict";
+    public static final String AGENDA_CONTEXT = "agenda";
+	public static final String MATCH_CONTEXT = "matchinfos";
 	public static final String JOURNEE_CONTEXT = "journee";
 	public static final int NOMBRE_JOUR_SYNCHRO = 7;
 	public static final String PARAMS_CONTEXT = "params";
