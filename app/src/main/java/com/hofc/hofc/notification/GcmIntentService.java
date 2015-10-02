@@ -11,6 +11,7 @@ import android.support.v4.app.NotificationCompat;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.hofc.hofc.Accueil;
 import com.hofc.hofc.ActusDetail;
+import com.hofc.hofc.ActusImageGrid;
 import com.hofc.hofc.R;
 
 /**
@@ -58,13 +59,18 @@ public class GcmIntentService extends IntentService {
             String message = extras.getString(MESSAGE_CONTENT);
             NotificationManager mNotificationManager = (NotificationManager)
                     this.getSystemService(Context.NOTIFICATION_SERVICE);
-            PendingIntent contentIntent = null;
-            Intent intent = null;
+            PendingIntent contentIntent;
+            Intent intent;
             if("Calendrier".equalsIgnoreCase(extras.getString("TYPE"))) {
                 intent = new Intent(this, Accueil.class);
                 intent.setAction("OPEN_CALENDRIER");
             } else if("Actu".equalsIgnoreCase(extras.getString("TYPE"))) {
-                intent = new Intent(this, ActusDetail.class);
+                String url = extras.getString("URL");
+                if(url != null && url.contains("en-images")) {
+                    intent = new Intent(this, ActusImageGrid.class);
+                } else {
+                    intent = new Intent(this, ActusDetail.class);
+                }
                 intent.putExtra("URL", extras.getString("URL"));
             } else {
                 intent = new Intent(this, Accueil.class);
@@ -76,7 +82,8 @@ public class GcmIntentService extends IntentService {
                             .setContentTitle(title)
                             .setStyle(new NotificationCompat.BigTextStyle()
                             .bigText(message))
-                            .setContentText(message);
+                            .setContentText(message)
+                            .setAutoCancel(true);
 
             mBuilder.setContentIntent(contentIntent);
             mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
