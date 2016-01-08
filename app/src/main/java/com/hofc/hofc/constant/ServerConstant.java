@@ -10,7 +10,7 @@ public class ServerConstant {
 	public static final String[] CLASSEMENT_CONTEXT = {"Classement/equipe1", "Classement/equipe2", "Classement/equipe3"};
 	public static final String ACTUS_CONTEXT = "Actu";
     public static final String NOTIF_CONTEXT = "Notification";
-    public static final String PARSE_PAGE_CONTEXT = "parsePage";
+    public static final String PARSE_PAGE_CONTEXT = "ParsePage";
     public static final String AGENDA_CONTEXT = "Agenda";
 	public static final String MATCH_CONTEXT = "MatchInfos";
 	public static final String JOURNEE_CONTEXT = "Journee";
