@@ -124,13 +124,6 @@ public class ActusImageGrid extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 return params;
             }
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> pars = new HashMap<>();
-                pars.put("Content-Type", "application/x-www-form-urlencoded");
-                return pars;
-            }
         };
         jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(
                 20000,
